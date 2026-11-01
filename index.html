@@ -36,14 +36,14 @@
 </head>
 <body class="bg-sweet-cream text-sweet-dark font-body antialiased selection:bg-sweet-pink selection:text-white">
 
-  <!-- Banner de Prospecção Comercial -->
+  <!-- Banner Superior -->
   <div class="bg-gradient-to-r from-sweet-darkPink via-sweet-pink to-sweet-teal text-white py-2 px-4 text-center text-xs sm:text-sm font-medium shadow-md sticky top-0 z-50 flex items-center justify-between">
     <div class="max-w-7xl mx-auto flex items-center justify-between w-full">
       <span class="flex items-center gap-2">
         <i class="fa-solid fa-cake-candles"></i>
-        <span>Proposta de Site & Cardápio Digital para <strong>Gostosuras e Travessuras</strong></span>
+        <span>Cardápio Digital & Encomendas • <strong>Gostosuras e Travessuras</strong></span>
       </span>
-      <button onclick="toggleAdminModal()" class="ml-4 bg-black/20 hover:bg-black/40 text-white text-xs px-2.5 py-1 rounded-full border border-white/20 transition flex items-center gap-1">
+      <button onclick="window.toggleAdminModal()" class="ml-4 bg-black/20 hover:bg-black/40 text-white text-xs px-2.5 py-1 rounded-full border border-white/20 transition flex items-center gap-1">
         <i class="fa-solid fa-lock text-[10px]"></i> Painel Admin
       </button>
     </div>
@@ -73,13 +73,13 @@
 
         <!-- Botões de Ação e Redes Sociais -->
         <div class="flex items-center gap-2 sm:gap-3">
-          <a id="nav-btn-fb" href="https://www.facebook.com/doces.gostosuras.e.travessuras?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" class="w-9 h-9 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-600 flex items-center justify-center text-base transition" title="Facebook">
+          <a id="nav-btn-fb" href="#" target="_blank" class="w-9 h-9 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-600 flex items-center justify-center text-base transition" title="Facebook">
             <i class="fa-brands fa-facebook-f"></i>
           </a>
-          <a id="nav-btn-ig" href="https://www.instagram.com/gostosuras.e.travessuras/" target="_blank" class="w-9 h-9 rounded-full bg-pink-50 hover:bg-pink-100 text-sweet-darkPink flex items-center justify-center text-base transition" title="Instagram">
+          <a id="nav-btn-ig" href="#" target="_blank" class="w-9 h-9 rounded-full bg-pink-50 hover:bg-pink-100 text-sweet-darkPink flex items-center justify-center text-base transition" title="Instagram">
             <i class="fa-brands fa-instagram"></i>
           </a>
-          <a id="nav-btn-whatsapp" href="https://wa.me/5511985063638?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20uma%20encomenda!" target="_blank" class="bg-sweet-darkPink hover:bg-sweet-pink text-white px-4 py-2 rounded-full font-bold text-xs sm:text-sm transition shadow-md hover:shadow-lg flex items-center gap-2">
+          <a id="nav-btn-whatsapp" href="#" target="_blank" class="bg-sweet-darkPink hover:bg-sweet-pink text-white px-4 py-2 rounded-full font-bold text-xs sm:text-sm transition shadow-md hover:shadow-lg flex items-center gap-2">
             <i class="fa-brands fa-whatsapp text-lg"></i>
             <span class="hidden sm:inline">Fazer Encomenda</span>
           </a>
@@ -88,7 +88,7 @@
     </div>
   </nav>
 
-  <!-- Hero / Apresentação Inicial com Carrossel Dinâmico -->
+  <!-- Hero / Apresentação com Carrossel Automático -->
   <section class="relative bg-gradient-to-b from-sweet-softPink via-white to-sweet-cream py-16 sm:py-20 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -104,7 +104,7 @@
           </p>
 
           <div class="flex flex-wrap gap-4 items-center">
-            <a id="hero-btn-pedir" href="https://wa.me/5511985063638?text=Olá!%20Quero%20fazer%20um%20pedido%20de%20doces!" target="_blank" class="bg-sweet-darkPink hover:bg-sweet-pink text-white font-bold px-7 py-3.5 rounded-full shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-3 text-sm">
+            <a id="hero-btn-pedir" href="#" target="_blank" class="bg-sweet-darkPink hover:bg-sweet-pink text-white font-bold px-7 py-3.5 rounded-full shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-3 text-sm">
               <i class="fa-brands fa-whatsapp text-lg"></i> Fazer Pedido no WhatsApp
             </a>
             <a href="#cardapio" class="bg-white hover:bg-sweet-softPink text-sweet-dark font-bold px-6 py-3.5 rounded-full border border-pink-200 transition text-sm">
@@ -120,15 +120,15 @@
 
         <div class="relative flex justify-center">
           <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-sweet-softPink border-4 border-white shadow-2xl overflow-hidden relative">
-            <img id="hero-carousel-img" src="" alt="Destaque de Doces" class="w-full h-full object-cover transition-all duration-700">
+            <img id="hero-carousel-img" src="" alt="Destaque de Doces" class="w-full h-full object-cover transition-opacity duration-500">
           </div>
           <div class="absolute -bottom-4 right-4 sm:right-12 bg-white p-4 rounded-2xl shadow-xl border border-pink-100 flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-sweet-darkPink">
               <i class="fa-solid fa-star"></i>
             </div>
             <div>
-              <div id="hero-carousel-title" class="text-xs font-bold text-sweet-dark">Carregando Destaques...</div>
-              <div id="hero-carousel-cat" class="text-[10px] text-gray-500">Toque no cardápio abaixo</div>
+              <div id="hero-carousel-title" class="text-xs font-bold text-sweet-dark">Docinhos Artesanais</div>
+              <div id="hero-carousel-cat" class="text-[10px] text-gray-500">Confira nosso cardápio</div>
             </div>
           </div>
         </div>
@@ -136,7 +136,7 @@
     </div>
   </section>
 
-  <!-- Cardápio / Tabela de Preços -->
+  <!-- Cardápio / Vitrine de Produtos -->
   <section id="cardapio" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-10">
       <h2 class="text-3xl sm:text-4xl font-title font-bold text-sweet-dark mb-3">Cardápio de Docinhos</h2>
@@ -146,18 +146,14 @@
       </p>
 
       <!-- Abas de Filtro de Categoria -->
-      <div id="category-tabs" class="flex flex-wrap justify-center gap-2 mt-6">
-        <!-- Renderizado dinamicamente -->
-      </div>
+      <div id="category-tabs" class="flex flex-wrap justify-center gap-2 mt-6"></div>
     </div>
 
     <!-- Grid de Doces -->
-    <div id="sweets-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Renderizado dinamicamente -->
-    </div>
+    <div id="sweets-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
   </section>
 
-  <!-- Sobre Ana Dilza & Redes Sociais -->
+  <!-- Sobre & Redes Sociais -->
   <section id="sobre" class="bg-white py-16 border-y border-pink-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -169,11 +165,11 @@
           </p>
 
           <div class="space-y-3">
-            <a id="about-link-ig" href="https://www.instagram.com/gostosuras.e.travessuras/" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-pink-50 hover:bg-pink-100 transition text-sweet-darkPink font-semibold text-sm">
+            <a id="about-link-ig" href="#" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-pink-50 hover:bg-pink-100 transition text-sweet-darkPink font-semibold text-sm">
               <i class="fa-brands fa-instagram text-xl"></i>
-              <span>Siga no Instagram (@gostosuras.e.travessuras) • 2.2k seguidores</span>
+              <span>Siga no Instagram (@gostosuras.e.travessuras)</span>
             </a>
-            <a id="about-link-fb" href="https://www.facebook.com/doces.gostosuras.e.travessuras?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-blue-50 hover:bg-blue-100 transition text-blue-700 font-semibold text-sm">
+            <a id="about-link-fb" href="#" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-blue-50 hover:bg-blue-100 transition text-blue-700 font-semibold text-sm">
               <i class="fa-brands fa-facebook text-xl"></i>
               <span>Acompanhe nossa Página no Facebook</span>
             </a>
@@ -208,17 +204,17 @@
         © <span id="year"></span> Gostosuras e Travessuras - Doces Artesanais By Ana Dilza Gusmão.
       </div>
       <div class="flex items-center gap-4">
-        <a id="footer-fb" href="https://www.facebook.com/doces.gostosuras.e.travessuras?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" class="hover:text-sweet-pink transition"><i class="fa-brands fa-facebook"></i> Facebook</a>
-        <a id="footer-ig" href="https://www.instagram.com/gostosuras.e.travessuras/" target="_blank" class="hover:text-sweet-pink transition"><i class="fa-brands fa-instagram"></i> Instagram</a>
-        <button onclick="toggleAdminModal()" class="hover:text-sweet-pink transition flex items-center gap-1 ml-4">
+        <a id="footer-fb" href="#" target="_blank" class="hover:text-sweet-pink transition"><i class="fa-brands fa-facebook"></i> Facebook</a>
+        <a id="footer-ig" href="#" target="_blank" class="hover:text-sweet-pink transition"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        <button onclick="window.toggleAdminModal()" class="hover:text-sweet-pink transition flex items-center gap-1 ml-4">
           <i class="fa-solid fa-lock text-[10px]"></i> Painel Admin
         </button>
       </div>
     </div>
   </footer>
 
-  <!-- Botão Flutuante do WhatsApp -->
-  <a id="btn-whatsapp-float" href="https://wa.me/5511985063638?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20pedido!" target="_blank" class="fixed bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-40 transition transform hover:scale-110">
+  <!-- Botão Flutuante WhatsApp -->
+  <a id="btn-whatsapp-float" href="#" target="_blank" class="fixed bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-40 transition transform hover:scale-110">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
@@ -233,47 +229,43 @@
           </div>
           <div>
             <h3 class="font-bold text-lg leading-tight">Painel Administrativo</h3>
-            <p class="text-xs text-gray-400">Edite preços, logótipo PNG, imagens e links</p>
+            <p class="text-xs text-gray-400">Edite dados da loja, preços e múltiplas imagens</p>
           </div>
         </div>
-        <button onclick="toggleAdminModal()" class="text-gray-400 hover:text-white text-xl">
+        <button onclick="window.toggleAdminModal()" class="text-gray-400 hover:text-white text-xl">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <!-- Login Screen -->
+      <!-- Login PIN -->
       <div id="admin-login-view" class="p-8 text-center max-w-sm mx-auto my-auto">
         <i class="fa-solid fa-lock text-4xl text-sweet-darkPink mb-4"></i>
         <h4 class="font-bold text-sweet-dark text-lg mb-2">Digite o PIN de Acesso</h4>
-        <p class="text-xs text-gray-500 mb-4">PIN Padrão de Demonstração: <strong class="text-sweet-darkPink">1234</strong></p>
+        <p class="text-xs text-gray-500 mb-4">PIN Padrão: <strong class="text-sweet-darkPink">1234</strong></p>
         <input type="password" id="admin-pin" placeholder="****" maxlength="4" class="w-full text-center text-2xl font-bold tracking-widest border border-gray-300 rounded-lg p-3 mb-4 focus:ring-2 focus:ring-sweet-darkPink outline-none">
-        <button onclick="checkAdminPin()" class="w-full bg-sweet-darkPink hover:bg-sweet-pink text-white font-bold py-3 rounded-lg transition">
+        <button onclick="window.checkAdminPin()" class="w-full bg-sweet-darkPink hover:bg-sweet-pink text-white font-bold py-3 rounded-lg transition">
           Entrar no Painel
         </button>
       </div>
 
-      <!-- Content Management Screen -->
+      <!-- Área de Edição -->
       <div id="admin-content-view" class="hidden flex-1 overflow-y-auto p-6 space-y-8">
-        
-        <!-- Tab Navigation -->
         <div class="flex border-b border-gray-200 gap-4 font-semibold text-sm">
-          <button onclick="switchAdminTab('general')" id="tab-btn-general" class="pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink">Geral & Logótipo PNG</button>
-          <button onclick="switchAdminTab('menu')" id="tab-btn-menu" class="pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">Gerenciar Doces & Fotos</button>
+          <button onclick="window.switchAdminTab('general')" id="tab-btn-general" class="pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink">Geral & Logótipo</button>
+          <button onclick="window.switchAdminTab('menu')" id="tab-btn-menu" class="pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">Gerenciar Doces & Fotos</button>
         </div>
 
-        <!-- SECTION 1: GENERAL INFO -->
+        <!-- Aba Geral -->
         <div id="admin-sec-general" class="space-y-4">
           <div>
-            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Logótipo da Loja (Enviar ficheiro PNG / JPG ou URL)</label>
-            <div class="flex items-center gap-3">
-              <input type="file" id="logo-file-input" accept="image/png, image/jpeg, image/webp" onchange="handleLogoUpload(event)" class="text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-50 file:text-sweet-darkPink hover:file:bg-pink-100">
-            </div>
-            <input type="text" id="edit-logo-url" placeholder="Ou cole a URL da imagem aqui..." class="w-full mt-2 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
+            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Logótipo da Loja (Carregar PNG / JPG)</label>
+            <input type="file" id="logo-file-input" accept="image/*" onchange="window.handleLogoUpload(event)" class="text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-50 file:text-sweet-darkPink hover:file:bg-pink-100">
+            <input type="text" id="edit-logo-url" placeholder="Ou cole a URL..." class="w-full mt-2 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
           </div>
 
           <div class="grid md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Telefone WhatsApp (apenas números)</label>
+              <label class="block text-xs font-bold uppercase text-gray-600 mb-1">WhatsApp (com DDD)</label>
               <input type="text" id="edit-whatsapp" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
             </div>
             <div>
@@ -283,16 +275,16 @@
           </div>
 
           <div>
-            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Link da Página do Facebook</label>
+            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Link do Facebook</label>
             <input type="text" id="edit-fb" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
           </div>
         </div>
 
-        <!-- SECTION 2: MENU MANAGER -->
+        <!-- Aba Doces -->
         <div id="admin-sec-menu" class="hidden space-y-6">
           <div class="flex justify-between items-center">
-            <h4 class="font-bold text-gray-800">Itens do Cardápio & Fotos (PNG / URL)</h4>
-            <button onclick="openAddSweetModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1">
+            <h4 class="font-bold text-gray-800">Itens do Cardápio & Galeria de Múltiplas Fotos</h4>
+            <button onclick="window.openAddSweetModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1">
               <i class="fa-solid fa-plus"></i> Adicionar Doce
             </button>
           </div>
@@ -301,64 +293,58 @@
             <table class="w-full text-left text-sm">
               <thead class="bg-gray-50 border-b text-gray-600 text-xs uppercase">
                 <tr>
-                  <th class="p-3">Foto</th>
+                  <th class="p-3">Fotos / URLs</th>
                   <th class="p-3">Sabor</th>
                   <th class="p-3">Preço (R$)</th>
                   <th class="p-3 text-right">Ações</th>
                 </tr>
               </thead>
-              <tbody id="admin-sweets-table-body" class="divide-y">
-                <!-- Renderizado dinamicamente -->
-              </tbody>
+              <tbody id="admin-sweets-table-body" class="divide-y"></tbody>
             </table>
           </div>
         </div>
-
       </div>
 
-      <!-- Admin Footer Actions -->
+      <!-- Rodapé Modal -->
       <div id="admin-footer-actions" class="hidden bg-gray-50 p-4 border-t flex justify-between items-center">
-        <button onclick="resetDefaultData()" class="text-xs text-red-600 hover:underline">
-          <i class="fa-solid fa-rotate-left"></i> Restaurar Dados Originais
+        <button onclick="window.resetDefaultData()" class="text-xs text-red-600 hover:underline">
+          <i class="fa-solid fa-rotate-left"></i> Restaurar Originais
         </button>
         <div class="flex gap-2">
-          <button onclick="toggleAdminModal()" class="px-4 py-2 border rounded-lg text-sm text-gray-600 hover:bg-gray-100">Cancelar</button>
-          <button onclick="saveAdminChanges()" class="px-4 py-2 bg-sweet-darkPink hover:bg-sweet-pink text-white font-bold rounded-lg text-sm">Salvar Alterações</button>
+          <button onclick="window.toggleAdminModal()" class="px-4 py-2 border rounded-lg text-sm text-gray-600 hover:bg-gray-100">Cancelar</button>
+          <button onclick="window.saveAdminChanges()" class="px-4 py-2 bg-sweet-darkPink hover:bg-sweet-pink text-white font-bold rounded-lg text-sm">Salvar Alterações</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Lógica JavaScript & Dados -->
   <script>
     const defaultData = {
       logoUrl: "https://lh3.googleusercontent.com/d/1g_98L_Z9V7M2p4D6_X5-X1vX2y3Z4w5v=w800",
       whatsapp: "5511985063638",
       igLink: "https://www.instagram.com/gostosuras.e.travessuras/",
-      fbLink: "https://www.facebook.com/doces.gostosuras.e.travessuras?utm_source=ig&utm_medium=social&utm_content=link_in_bio",
+      fbLink: "https://www.facebook.com/doces.gostosuras.e.travessuras",
       sweets: [
-        { id: 1, name: "Brigadeiro Tradicional", category: "Tradicionais (cento)", price: "145,00", desc: "Clássico brigadeiro artesanal com granulado nobre.", img: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80" },
-        { id: 2, name: "Beijinho de Coco", category: "Tradicionais (cento)", price: "145,00", desc: "Doce de coco macio envolvido no açúcar e cravo.", img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80" },
-        { id: 3, name: "Leite em Pó", category: "Tradicionais (cento)", price: "155,00", desc: "Delicioso docinho de Leite Ninho modelado a mão.", img: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=400&q=80" },
-        { id: 4, name: "Maracujá", category: "Tradicionais (cento)", price: "155,00", desc: "Docinho cremoso com sabor natural de maracujá.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&q=80" },
-        { id: 5, name: "Bicho de Pé", category: "Tradicionais (cento)", price: "165,00", desc: "Famoso docinho cor-de-rosa sabor morango.", img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80" },
-        { id: 6, name: "Amendoim", category: "Tradicionais (cento)", price: "145,00", desc: "Docinho tradicional de amendoim torrado e moído.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&q=80" },
-        { id: 7, name: "Limão", category: "Tradicionais (cento)", price: "155,00", desc: "Docinho de limão com toque cítrico refrescante.", img: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=400&q=80" },
-        { id: 8, name: "Abacaxi", category: "Tradicionais (cento)", price: "155,00", desc: "Docinho suave sabor abacaxi.", img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80" },
-
-        { id: 9, name: "Pistache", category: "Especiais (cento)", price: "420,00", desc: "Gourmet feito com pasta pura e pedaços de pistache.", img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80" },
-        { id: 10, name: "Caramelo", category: "Especiais (cento)", price: "420,00", desc: "Docinho gourmet com caramelo flor de sal.", img: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80" },
-        { id: 11, name: "Churros", category: "Especiais (cento)", price: "225,00", desc: "Massa de doce de leite com canela e açúcar.", img: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=400&q=80" },
-        { id: 12, name: "Surpresa de Uva", category: "Especiais (cento)", price: "235,00", desc: "Uva verde fresca coberta com massa de beijinho.", img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80" },
-        { id: 13, name: "Morango Especial", category: "Especiais (cento)", price: "420,00", desc: "Morango fresco envolto em brigadeiro de alta confeitaria.", img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80" },
-        { id: 14, name: "Capuccino", category: "Especiais (cento)", price: "215,00", desc: "Docinho suave sabor café com toque de cacau e canela.", img: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80" },
-        { id: 15, name: "Doces de Leite", category: "Especiais (cento)", price: "185,00", desc: "Docinho feito com doce de leite artesanal cozido.", img: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=400&q=80" },
-        { id: 16, name: "Choc. ao Leite", category: "Especiais (cento)", price: "395,00", desc: "Brigadeiro gourmet de chocolate ao leite nobre.", img: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80" },
-        { id: 17, name: "Choc. Branco", category: "Especiais (cento)", price: "415,00", desc: "Brigadeiro gourmet de chocolate branco de alta qualidade.", img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80" },
-        { id: 18, name: "Choc. 1/2 Amargo", category: "Especiais (cento)", price: "395,00", desc: "Brigadeiro gourmet intenso com cacau 50%.", img: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80" },
-        { id: 19, name: "Frutas Vermelhas", category: "Especiais (cento)", price: "220,00", desc: "Docinho gourmet com geleia natural de frutas vermelhas.", img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80" },
-
-        { id: 20, name: "Bombons Decorados Temáticos", category: "Bombons Decorados", price: "3,50 / un", desc: "Bombons artísticos recheados e personalizados para o tema da sua festa.", img: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=400&q=80" }
+        { id: 1, name: "Brigadeiro Tradicional", category: "Tradicionais (cento)", price: "145,00", desc: "Clássico brigadeiro artesanal.", imgs: ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=400&q=80"] },
+        { id: 2, name: "Beijinho de Coco", category: "Tradicionais (cento)", price: "145,00", desc: "Doce de coco macio.", imgs: ["https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"] },
+        { id: 3, name: "Leite em Pó", category: "Tradicionais (cento)", price: "155,00", desc: "Docinho de Leite Ninho.", imgs: ["https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=400&q=80"] },
+        { id: 4, name: "Maracujá", category: "Tradicionais (cento)", price: "155,00", desc: "Docinho cremoso de maracujá.", imgs: ["https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&q=80"] },
+        { id: 5, name: "Bicho de Pé", category: "Tradicionais (cento)", price: "165,00", desc: "Docinho de morango.", imgs: ["https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80"] },
+        { id: 6, name: "Amendoim", category: "Tradicionais (cento)", price: "145,00", desc: "Amendoim torrado.", imgs: ["https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&q=80"] },
+        { id: 7, name: "Limão", category: "Tradicionais (cento)", price: "155,00", desc: "Toque cítrico refrescante.", imgs: ["https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=400&q=80"] },
+        { id: 8, name: "Abacaxi", category: "Tradicionais (cento)", price: "155,00", desc: "Docinho suave de abacaxi.", imgs: ["https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"] },
+        { id: 9, name: "Pistache", category: "Especiais (cento)", price: "420,00", desc: "Pasta pura e pedaços de pistache.", imgs: ["https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80"] },
+        { id: 10, name: "Caramelo", category: "Especiais (cento)", price: "420,00", desc: "Caramelo flor de sal.", imgs: ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"] },
+        { id: 11, name: "Churros", category: "Especiais (cento)", price: "225,00", desc: "Doce de leite com canela.", imgs: ["https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=400&q=80"] },
+        { id: 12, name: "Surpresa de Uva", category: "Especiais (cento)", price: "235,00", desc: "Uva verde fresca coberta com massa.", imgs: ["https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"] },
+        { id: 13, name: "Morango Especial", category: "Especiais (cento)", price: "420,00", desc: "Morango fresco envolto em brigadeiro.", imgs: ["https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80"] },
+        { id: 14, name: "Capuccino", category: "Especiais (cento)", price: "215,00", desc: "Café com cacau e canela.", imgs: ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"] },
+        { id: 15, name: "Doces de Leite", category: "Especiais (cento)", price: "185,00", desc: "Doce de leite artesanal.", imgs: ["https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=400&q=80"] },
+        { id: 16, name: "Choc. ao Leite", category: "Especiais (cento)", price: "395,00", desc: "Chocolate ao leite nobre.", imgs: ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"] },
+        { id: 17, name: "Choc. Branco", category: "Especiais (cento)", price: "415,00", desc: "Chocolate branco gourmet.", imgs: ["https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"] },
+        { id: 18, name: "Choc. 1/2 Amargo", category: "Especiais (cento)", price: "395,00", desc: "Brigadeiro cacau 50%.", imgs: ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"] },
+        { id: 19, name: "Frutas Vermelhas", category: "Especiais (cento)", price: "220,00", desc: "Geleia de frutas vermelhas.", imgs: ["https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80"] },
+        { id: 20, name: "Bombons Decorados", category: "Bombons Decorados", price: "3,50 / un", desc: "Bombons artísticos sob encomenda.", imgs: ["https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=400&q=80"] }
       ]
     };
 
@@ -366,25 +352,22 @@
     let activeCategory = "Todas";
     let carouselIndex = 0;
     let carouselTimer = null;
+    let cardImageIndexes = {};
 
-    function saveData() {
+    window.saveData = function() {
       localStorage.setItem('gostosuras_clean_data', JSON.stringify(appData));
-      renderPage();
+      window.renderPage();
     }
 
-    function renderPage() {
+    window.renderPage = function() {
       document.getElementById('year').innerText = new Date().getFullYear();
-
-      // Bind Logo Img
       document.getElementById('main-logo-img').src = appData.logoUrl || defaultData.logoUrl;
 
-      // Bind WhatsApp
-      const waUrl = `https://wa.me/${appData.whatsapp}?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20pedido.`;
+      const waUrl = `https://wa.me/${appData.whatsapp}?text=Olá!%20Gostaria%20de%20fazer%20uma%20encomenda!`;
       document.getElementById('nav-btn-whatsapp').href = waUrl;
       document.getElementById('hero-btn-pedir').href = waUrl;
       document.getElementById('btn-whatsapp-float').href = waUrl;
 
-      // Bind Social Links
       document.getElementById('nav-btn-ig').href = appData.igLink;
       document.getElementById('about-link-ig').href = appData.igLink;
       document.getElementById('footer-ig').href = appData.igLink;
@@ -393,86 +376,109 @@
       document.getElementById('about-link-fb').href = appData.fbLink;
       document.getElementById('footer-fb').href = appData.fbLink;
 
-      // Abas de Categoria
       const categories = ["Todas", ...new Set(appData.sweets.map(item => item.category))];
-      const tabsContainer = document.getElementById('category-tabs');
-      tabsContainer.innerHTML = categories.map(cat => `
-        <button onclick="setCategory('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold transition ${cat === activeCategory ? 'bg-sweet-darkPink text-white shadow-md' : 'bg-white text-gray-600 hover:bg-pink-50 border border-pink-100'}">
+      document.getElementById('category-tabs').innerHTML = categories.map(cat => `
+        <button onclick="window.setCategory('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold transition ${cat === activeCategory ? 'bg-sweet-darkPink text-white shadow-md' : 'bg-white text-gray-600 hover:bg-pink-50 border border-pink-100'}">
           ${cat}
         </button>
       `).join('');
 
-      // Grid de Doces
       const filteredSweets = activeCategory === "Todas" ? appData.sweets : appData.sweets.filter(s => s.category === activeCategory);
-      const grid = document.getElementById('sweets-grid');
-      grid.innerHTML = filteredSweets.map(sweet => `
-        <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-pink-100 flex flex-col">
-          <img src="${sweet.img}" alt="${sweet.name}" class="h-40 w-full object-cover">
-          <div class="p-5 flex-1 flex flex-col justify-between">
-            <div>
-              <div class="flex justify-between items-start mb-2">
-                <h3 class="font-title font-bold text-lg text-sweet-dark">${sweet.name}</h3>
-                <span class="text-xs bg-pink-100 text-sweet-darkPink font-bold px-2 py-1 rounded-md">R$ ${sweet.price}</span>
-              </div>
-              <p class="text-xs text-gray-500 mb-4">${sweet.desc}</p>
-            </div>
-            <a href="https://wa.me/${appData.whatsapp}?text=Olá!%20Gostaria%20de%20encomendar:%20${encodeURIComponent(sweet.name)}" target="_blank" class="w-full bg-sweet-softPink hover:bg-sweet-darkPink hover:text-white text-sweet-darkPink font-bold py-2 rounded-xl text-xs transition flex items-center justify-center gap-2">
-              <i class="fa-brands fa-whatsapp"></i> Pedir no WhatsApp
-            </a>
-          </div>
-        </div>
-      `).join('');
+      
+      document.getElementById('sweets-grid').innerHTML = filteredSweets.map(sweet => {
+        const imgs = sweet.imgs && sweet.imgs.length > 0 ? sweet.imgs : [sweet.img || defaultData.sweets[0].imgs[0]];
+        const currentIdx = cardImageIndexes[sweet.id] || 0;
 
-      startHeroCarousel();
+        return `
+          <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-pink-100 flex flex-col group">
+            <div class="relative h-48 w-full overflow-hidden bg-gray-100 group">
+              <img src="${imgs[currentIdx]}" alt="${sweet.name}" class="h-full w-full object-cover transition-opacity duration-300">
+              
+              ${imgs.length > 1 ? `
+                <button onclick="window.prevCardImage(${sweet.id}, ${imgs.length})" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-sweet-dark w-8 h-8 rounded-full flex items-center justify-center shadow transition opacity-70 group-hover:opacity-100 z-10">
+                  <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+                <button onclick="window.nextCardImage(${sweet.id}, ${imgs.length})" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-sweet-dark w-8 h-8 rounded-full flex items-center justify-center shadow transition opacity-70 group-hover:opacity-100 z-10">
+                  <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+                <div class="absolute bottom-2 inset-x-0 flex justify-center gap-1 z-10">
+                  ${imgs.map((_, idx) => `
+                    <span class="w-1.5 h-1.5 rounded-full ${idx === currentIdx ? 'bg-white scale-125 shadow' : 'bg-white/50'}"></span>
+                  `).join('')}
+                </div>
+              ` : ''}
+            </div>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-title font-bold text-lg text-sweet-dark">${sweet.name}</h3>
+                  <span class="text-xs bg-pink-100 text-sweet-darkPink font-bold px-2 py-1 rounded-md">R$ ${sweet.price}</span>
+                </div>
+                <p class="text-xs text-gray-500 mb-4">${sweet.desc}</p>
+              </div>
+              <a href="https://wa.me/${appData.whatsapp}?text=Olá!%20Gostaria%20de%20encomendar:%20${encodeURIComponent(sweet.name)}" target="_blank" class="w-full bg-sweet-softPink hover:bg-sweet-darkPink hover:text-white text-sweet-darkPink font-bold py-2.5 rounded-xl text-xs transition flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp"></i> Pedir no WhatsApp
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      window.startHeroCarousel();
     }
 
-    function startHeroCarousel() {
+    window.prevCardImage = function(sweetId, length) {
+      if (!cardImageIndexes[sweetId]) cardImageIndexes[sweetId] = 0;
+      cardImageIndexes[sweetId] = (cardImageIndexes[sweetId] - 1 + length) % length;
+      window.renderPage();
+    }
+
+    window.nextCardImage = function(sweetId, length) {
+      if (!cardImageIndexes[sweetId]) cardImageIndexes[sweetId] = 0;
+      cardImageIndexes[sweetId] = (cardImageIndexes[sweetId] + 1) % length;
+      window.renderPage();
+    }
+
+    window.startHeroCarousel = function() {
       if (carouselTimer) clearInterval(carouselTimer);
       if (!appData.sweets || appData.sweets.length === 0) return;
 
-      const updateCarouselImage = () => {
+      const updateHero = () => {
         if (carouselIndex >= appData.sweets.length) carouselIndex = 0;
         const currentSweet = appData.sweets[carouselIndex];
+        const imgs = currentSweet.imgs && currentSweet.imgs.length > 0 ? currentSweet.imgs : [currentSweet.img];
         
         const imgEl = document.getElementById('hero-carousel-img');
         const titleEl = document.getElementById('hero-carousel-title');
         const catEl = document.getElementById('hero-carousel-cat');
 
         if (imgEl && titleEl && catEl) {
-          imgEl.src = currentSweet.img;
+          imgEl.src = imgs[0];
           titleEl.innerText = currentSweet.name;
           catEl.innerText = `${currentSweet.category} • R$ ${currentSweet.price}`;
         }
         carouselIndex++;
       };
 
-      updateCarouselImage();
-      carouselTimer = setInterval(updateCarouselImage, 3500);
+      updateHero();
+      carouselTimer = setInterval(updateHero, 3500);
     }
 
-    function setCategory(cat) {
+    window.setCategory = function(cat) {
       activeCategory = cat;
-      renderPage();
+      window.renderPage();
     }
 
-    // ==================== PAINEL ADMIN ====================
+    // Painel Admin
     let isAdminLoggedIn = false;
 
     window.toggleAdminModal = function() {
       const modal = document.getElementById('admin-modal');
       modal.classList.toggle('hidden');
-
       if (!modal.classList.contains('hidden') && isAdminLoggedIn) {
-        populateAdminFields();
+        window.populateAdminFields();
       }
     };
-
-    document.addEventListener('keydown', (e) => {
-      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
-        e.preventDefault();
-        toggleAdminModal();
-      }
-    });
 
     window.checkAdminPin = function() {
       const pin = document.getElementById('admin-pin').value;
@@ -481,9 +487,9 @@
         document.getElementById('admin-login-view').classList.add('hidden');
         document.getElementById('admin-content-view').classList.remove('hidden');
         document.getElementById('admin-footer-actions').classList.remove('hidden');
-        populateAdminFields();
+        window.populateAdminFields();
       } else {
-        alert("PIN Incorreto! (PIN Padrão: 1234)");
+        alert("PIN Incorreto!");
       }
     };
 
@@ -495,35 +501,41 @@
       document.getElementById('admin-sec-menu').classList.toggle('hidden', tab !== 'menu');
     };
 
-    function populateAdminFields() {
+    window.populateAdminFields = function() {
       document.getElementById('edit-logo-url').value = appData.logoUrl || defaultData.logoUrl;
       document.getElementById('edit-whatsapp').value = appData.whatsapp;
       document.getElementById('edit-ig').value = appData.igLink;
       document.getElementById('edit-fb').value = appData.fbLink;
 
-      renderAdminSweetsTable();
-    }
+      window.renderAdminSweetsTable();
+    };
 
-    function renderAdminSweetsTable() {
+    window.renderAdminSweetsTable = function() {
       const tbody = document.getElementById('admin-sweets-table-body');
-      tbody.innerHTML = appData.sweets.map(item => `
-        <tr>
-          <td class="p-3">
-            <div class="flex items-center gap-2">
-              <img src="${item.img}" class="w-10 h-10 object-cover rounded-lg border">
-              <input type="file" accept="image/png, image/jpeg, image/webp" onchange="handleProductImageUpload(event, ${item.id})" class="text-[10px] text-gray-500 w-28">
-            </div>
-          </td>
-          <td class="p-3 font-medium">${item.name}<br><span class="text-[10px] text-gray-400">${item.category}</span></td>
-          <td class="p-3 font-semibold text-sweet-darkPink">R$ ${item.price}</td>
-          <td class="p-3 text-right">
-            <button onclick="deleteSweet(${item.id})" class="text-red-500 hover:text-red-700 text-xs font-bold">
-              <i class="fa-solid fa-trash"></i> Excluir
-            </button>
-          </td>
-        </tr>
-      `).join('');
-    }
+      tbody.innerHTML = appData.sweets.map(item => {
+        const imgs = item.imgs && item.imgs.length > 0 ? item.imgs : [item.img];
+        return `
+          <tr>
+            <td class="p-3">
+              <div class="flex items-center gap-2">
+                <img src="${imgs[0]}" class="w-10 h-10 object-cover rounded-lg border">
+                <div class="flex flex-col gap-1">
+                  <input type="file" multiple accept="image/*" onchange="window.handleMultipleImageUpload(event, ${item.id})" class="text-[10px] text-gray-500 w-36">
+                  <input type="text" value="${imgs.join(', ')}" onchange="window.updateSweetImagesUrl(event, ${item.id})" placeholder="URLs separadas por vírgula" class="text-[10px] border rounded p-1 w-36">
+                </div>
+              </div>
+            </td>
+            <td class="p-3 font-medium">${item.name}<br><span class="text-[10px] text-gray-400">${item.category}</span></td>
+            <td class="p-3 font-semibold text-sweet-darkPink">R$ ${item.price}</td>
+            <td class="p-3 text-right">
+              <button onclick="window.deleteSweet(${item.id})" class="text-red-500 hover:text-red-700 text-xs font-bold">
+                <i class="fa-solid fa-trash"></i> Excluir
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    };
 
     window.handleLogoUpload = function(event) {
       const file = event.target.files[0];
@@ -535,27 +547,45 @@
       reader.readAsDataURL(file);
     };
 
-    window.handleProductImageUpload = function(event, id) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const sweet = appData.sweets.find(s => s.id === id);
-        if (sweet) {
-          sweet.img = e.target.result;
-          renderAdminSweetsTable();
-        }
-      };
-      reader.readAsDataURL(file);
+    window.handleMultipleImageUpload = function(event, sweetId) {
+      const files = Array.from(event.target.files);
+      if (files.length === 0) return;
+
+      const newImgs = [];
+      let loaded = 0;
+
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          newImgs.push(e.target.result);
+          loaded++;
+          if (loaded === files.length) {
+            const sweet = appData.sweets.find(s => s.id === sweetId);
+            if (sweet) {
+              sweet.imgs = newImgs;
+              window.renderAdminSweetsTable();
+            }
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    };
+
+    window.updateSweetImagesUrl = function(event, sweetId) {
+      const val = event.target.value;
+      const sweet = appData.sweets.find(s => s.id === sweetId);
+      if (sweet) {
+        sweet.imgs = val.split(',').map(s => s.trim()).filter(Boolean);
+        if (sweet.imgs.length === 0) sweet.imgs = ["https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"];
+      }
     };
 
     window.openAddSweetModal = function() {
       const name = prompt("Nome do Doce:");
       if (!name) return;
-      const category = prompt("Categoria (Tradicionais (cento), Especiais (cento) ou Bombons Decorados):", "Tradicionais (cento)");
-      const price = prompt("Preço (ex: 145,00):", "145,00");
-      const desc = prompt("Descrição:", "Doce artesanal feito com ingredientes nobres.");
-      const img = prompt("URL da Imagem do Doce (ou PNG):", "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80");
+      const category = prompt("Categoria:", "Tradicionais (cento)");
+      const price = prompt("Preço:", "145,00");
+      const desc = prompt("Descrição:", "Doce artesanal feito com carinho.");
 
       appData.sweets.push({
         id: Date.now(),
@@ -563,16 +593,16 @@
         category: category || "Gerais",
         price: price || "0,00",
         desc: desc || "",
-        img: img || "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"
+        imgs: ["https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"]
       });
 
-      renderAdminSweetsTable();
+      window.renderAdminSweetsTable();
     };
 
     window.deleteSweet = function(id) {
-      if (confirm("Remover este doce do cardápio?")) {
+      if (confirm("Remover este doce?")) {
         appData.sweets = appData.sweets.filter(s => s.id !== id);
-        renderAdminSweetsTable();
+        window.renderAdminSweetsTable();
       }
     };
 
@@ -582,22 +612,22 @@
       appData.igLink = document.getElementById('edit-ig').value;
       appData.fbLink = document.getElementById('edit-fb').value;
 
-      saveData();
-      toggleAdminModal();
+      window.saveData();
+      window.toggleAdminModal();
       alert("Alterações salvas com sucesso!");
     };
 
     window.resetDefaultData = function() {
-      if (confirm("Deseja restaurar as informações originais da Gostosuras e Travessuras?")) {
+      if (confirm("Restaurar os dados originais?")) {
         appData = JSON.parse(JSON.stringify(defaultData));
-        saveData();
-        populateAdminFields();
+        window.saveData();
+        window.populateAdminFields();
         alert("Dados restaurados!");
       }
     };
 
     document.addEventListener("DOMContentLoaded", () => {
-      renderPage();
+      window.renderPage();
     });
   </script>
 </body>
