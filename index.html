@@ -1,4 +1,4 @@
-<!DOCTYPE index.html>
+<!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -55,8 +55,8 @@
       <div class="flex justify-between h-20 items-center">
         <!-- Logo & Marca -->
         <a href="#" class="flex items-center gap-3 group">
-          <div class="w-14 h-14 bg-white border-2 border-sweet-pink rounded-full p-1 flex items-center justify-center shadow-sm group-hover:scale-105 transition overflow-hidden">
-            <img id="main-brand-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none'><path d='M100 12C140 12 175 28 185 62C195 95 188 135 172 165C155 195 118 188 100 188C82 188 45 195 28 165C12 135 5 95 15 62C25 28 60 12 100 12Z' stroke='%23A8948B' stroke-width='4' fill='%23FFFDF9'/><path d='M85 70C80 58 70 54 64 62C60 74 66 88 80 108C70 128 58 155 82 180C94 192 106 172 96 158C86 144 94 128 104 110C100 100 98 90 95 82C102 88 108 90 114 88C116 76 110 68 102 72C95 76 89 74 85 70Z' fill='none' stroke='%23685550' stroke-width='4' stroke-linecap='round'/><path d='M58 130C36 138 30 168 54 185C72 196 90 178 75 160C62 148 66 138 58 130Z' fill='none' stroke='%23685550' stroke-width='4'/><path d='M50 108C50 98 58 92 65 100C65 110 58 116 50 108Z' fill='%23E91E63'/><path d='M52 94L62 94L57 105Z' fill='%23FFC107'/><path d='M55 88C55 85 58 83 60 85C62 88 58 91 55 88Z' fill='%2300BCD4'/></svg>" alt="Gostosuras e Travessuras Logo" class="w-full h-full object-contain">
+          <div class="w-14 h-14 rounded-full border-2 border-sweet-pink p-0.5 bg-white shadow-sm flex items-center justify-center overflow-hidden group-hover:scale-105 transition">
+            <img id="main-logo-img" src="" alt="Gostosuras e Travessuras Logo" class="w-full h-full object-contain rounded-full">
           </div>
           <div>
             <span class="text-xl font-bold font-title text-sweet-dark tracking-tight block leading-tight">Gostosuras e Travessuras</span>
@@ -88,7 +88,7 @@
     </div>
   </nav>
 
-  <!-- Hero / Apresentação Inicial -->
+  <!-- Hero / Apresentação Inicial com Carrossel Dinâmico -->
   <section class="relative bg-gradient-to-b from-sweet-softPink via-white to-sweet-cream py-16 sm:py-20 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -120,15 +120,15 @@
 
         <div class="relative flex justify-center">
           <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-sweet-softPink border-4 border-white shadow-2xl overflow-hidden relative">
-            <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=800&q=80" alt="Doces Artesanais" class="w-full h-full object-cover">
+            <img id="hero-carousel-img" src="" alt="Destaque de Doces" class="w-full h-full object-cover transition-all duration-700">
           </div>
           <div class="absolute -bottom-4 right-4 sm:right-12 bg-white p-4 rounded-2xl shadow-xl border border-pink-100 flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-sweet-darkPink">
               <i class="fa-solid fa-star"></i>
             </div>
             <div>
-              <div class="text-xs font-bold text-sweet-dark">Docinhos & Bombons</div>
-              <div class="text-[10px] text-gray-500">A partir de R$ 3,50 a unidade</div>
+              <div id="hero-carousel-title" class="text-xs font-bold text-sweet-dark">Carregando Destaques...</div>
+              <div id="hero-carousel-cat" class="text-[10px] text-gray-500">Toque no cardápio abaixo</div>
             </div>
           </div>
         </div>
@@ -233,7 +233,7 @@
           </div>
           <div>
             <h3 class="font-bold text-lg leading-tight">Painel Administrativo</h3>
-            <p class="text-xs text-gray-400">Edite preços, telefone e links em tempo real</p>
+            <p class="text-xs text-gray-400">Edite preços, logótipo PNG, imagens e links</p>
           </div>
         </div>
         <button onclick="toggleAdminModal()" class="text-gray-400 hover:text-white text-xl">
@@ -257,24 +257,18 @@
         
         <!-- Tab Navigation -->
         <div class="flex border-b border-gray-200 gap-4 font-semibold text-sm">
-          <button onclick="switchAdminTab('general')" id="tab-btn-general" class="pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink">Geral & Redes Sociais</button>
-          <button onclick="switchAdminTab('menu')" id="tab-btn-menu" class="pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">Gerenciar Doces</button>
+          <button onclick="switchAdminTab('general')" id="tab-btn-general" class="pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink">Geral & Logótipo PNG</button>
+          <button onclick="switchAdminTab('menu')" id="tab-btn-menu" class="pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">Gerenciar Doces & Fotos</button>
         </div>
 
         <!-- SECTION 1: GENERAL INFO -->
         <div id="admin-sec-general" class="space-y-4">
-          <div class="bg-pink-50 p-4 rounded-xl border border-pink-200">
-            <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Logo da Loja (Topo)</label>
-            <div class="flex flex-col sm:flex-row gap-3 items-center">
-              <img id="admin-logo-preview" src="" class="w-12 h-12 rounded-full object-contain border bg-white shrink-0">
-              <div class="flex-1 w-full space-y-2">
-                <input type="text" id="edit-logo-url" placeholder="Cole a URL da Imagem" class="w-full border rounded-lg p-2 text-xs focus:ring-2 focus:ring-sweet-darkPink outline-none">
-                <div class="flex items-center gap-2">
-                  <span class="text-[10px] text-gray-500 font-bold uppercase">Ou selecione um arquivo do computador/celular:</span>
-                  <input type="file" id="upload-logo-file" accept="image/*" class="text-xs text-gray-600 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-sweet-darkPink file:text-white hover:file:bg-sweet-pink cursor-pointer">
-                </div>
-              </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Logótipo da Loja (Enviar ficheiro PNG / JPG ou URL)</label>
+            <div class="flex items-center gap-3">
+              <input type="file" id="logo-file-input" accept="image/png, image/jpeg, image/webp" onchange="handleLogoUpload(event)" class="text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-50 file:text-sweet-darkPink hover:file:bg-pink-100">
             </div>
+            <input type="text" id="edit-logo-url" placeholder="Ou cole a URL da imagem aqui..." class="w-full mt-2 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
           </div>
 
           <div class="grid md:grid-cols-2 gap-4">
@@ -297,7 +291,7 @@
         <!-- SECTION 2: MENU MANAGER -->
         <div id="admin-sec-menu" class="hidden space-y-6">
           <div class="flex justify-between items-center">
-            <h4 class="font-bold text-gray-800">Itens do Cardápio</h4>
+            <h4 class="font-bold text-gray-800">Itens do Cardápio & Fotos (PNG / URL)</h4>
             <button onclick="openAddSweetModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1">
               <i class="fa-solid fa-plus"></i> Adicionar Doce
             </button>
@@ -309,7 +303,6 @@
                 <tr>
                   <th class="p-3">Foto</th>
                   <th class="p-3">Sabor</th>
-                  <th class="p-3">Categoria</th>
                   <th class="p-3">Preço (R$)</th>
                   <th class="p-3 text-right">Ações</th>
                 </tr>
@@ -371,108 +364,118 @@
 
     let appData = JSON.parse(localStorage.getItem('gostosuras_clean_data')) || defaultData;
     let activeCategory = "Todas";
+    let carouselIndex = 0;
+    let carouselTimer = null;
 
-    // Definições Globais das Funções Principais
-    window.renderPage = function() {
-      const yearEl = document.getElementById('year');
-      if (yearEl) yearEl.innerText = new Date().getFullYear();
+    function saveData() {
+      localStorage.setItem('gostosuras_clean_data', JSON.stringify(appData));
+      renderPage();
+    }
+
+    function renderPage() {
+      document.getElementById('year').innerText = new Date().getFullYear();
 
       // Bind Logo Img
-      const logoEl = document.getElementById('main-brand-logo');
-      if (logoEl) logoEl.src = appData.logoUrl || defaultData.logoUrl;
+      document.getElementById('main-logo-img').src = appData.logoUrl || defaultData.logoUrl;
 
       // Bind WhatsApp
       const waUrl = `https://wa.me/${appData.whatsapp}?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20pedido.`;
-      const navWa = document.getElementById('nav-btn-whatsapp');
-      const heroWa = document.getElementById('hero-btn-pedir');
-      const floatWa = document.getElementById('btn-whatsapp-float');
-      if (navWa) navWa.href = waUrl;
-      if (heroWa) heroWa.href = waUrl;
-      if (floatWa) floatWa.href = waUrl;
+      document.getElementById('nav-btn-whatsapp').href = waUrl;
+      document.getElementById('hero-btn-pedir').href = waUrl;
+      document.getElementById('btn-whatsapp-float').href = waUrl;
 
       // Bind Social Links
-      const navIg = document.getElementById('nav-btn-ig');
-      const aboutIg = document.getElementById('about-link-ig');
-      const footerIg = document.getElementById('footer-ig');
-      if (navIg) navIg.href = appData.igLink;
-      if (aboutIg) aboutIg.href = appData.igLink;
-      if (footerIg) footerIg.href = appData.igLink;
+      document.getElementById('nav-btn-ig').href = appData.igLink;
+      document.getElementById('about-link-ig').href = appData.igLink;
+      document.getElementById('footer-ig').href = appData.igLink;
 
-      const navFb = document.getElementById('nav-btn-fb');
-      const aboutFb = document.getElementById('about-link-fb');
-      const footerFb = document.getElementById('footer-fb');
-      if (navFb) navFb.href = appData.fbLink;
-      if (aboutFb) aboutFb.href = appData.fbLink;
-      if (footerFb) footerFb.href = appData.fbLink;
+      document.getElementById('nav-btn-fb').href = appData.fbLink;
+      document.getElementById('about-link-fb').href = appData.fbLink;
+      document.getElementById('footer-fb').href = appData.fbLink;
 
       // Abas de Categoria
       const categories = ["Todas", ...new Set(appData.sweets.map(item => item.category))];
       const tabsContainer = document.getElementById('category-tabs');
-      if (tabsContainer) {
-        tabsContainer.innerHTML = categories.map(cat => `
-          <button onclick="setCategory('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold transition ${cat === activeCategory ? 'bg-sweet-darkPink text-white shadow-md' : 'bg-white text-gray-600 hover:bg-pink-50 border border-pink-100'}">
-            ${cat}
-          </button>
-        `).join('');
-      }
+      tabsContainer.innerHTML = categories.map(cat => `
+        <button onclick="setCategory('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold transition ${cat === activeCategory ? 'bg-sweet-darkPink text-white shadow-md' : 'bg-white text-gray-600 hover:bg-pink-50 border border-pink-100'}">
+          ${cat}
+        </button>
+      `).join('');
 
       // Grid de Doces
       const filteredSweets = activeCategory === "Todas" ? appData.sweets : appData.sweets.filter(s => s.category === activeCategory);
       const grid = document.getElementById('sweets-grid');
-      if (grid) {
-        grid.innerHTML = filteredSweets.map(sweet => `
-          <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-pink-100 flex flex-col">
-            <img src="${sweet.img}" alt="${sweet.name}" class="h-40 w-full object-cover">
-            <div class="p-5 flex-1 flex flex-col justify-between">
-              <div>
-                <div class="flex justify-between items-start mb-2">
-                  <h3 class="font-title font-bold text-lg text-sweet-dark">${sweet.name}</h3>
-                  <span class="text-xs bg-pink-100 text-sweet-darkPink font-bold px-2 py-1 rounded-md">R$ ${sweet.price}</span>
-                </div>
-                <p class="text-xs text-gray-500 mb-4">${sweet.desc}</p>
+      grid.innerHTML = filteredSweets.map(sweet => `
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-pink-100 flex flex-col">
+          <img src="${sweet.img}" alt="${sweet.name}" class="h-40 w-full object-cover">
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-title font-bold text-lg text-sweet-dark">${sweet.name}</h3>
+                <span class="text-xs bg-pink-100 text-sweet-darkPink font-bold px-2 py-1 rounded-md">R$ ${sweet.price}</span>
               </div>
-              <a href="https://wa.me/${appData.whatsapp}?text=Olá!%20Gostaria%20de%20encomendar:%20${encodeURIComponent(sweet.name)}" target="_blank" class="w-full bg-sweet-softPink hover:bg-sweet-darkPink hover:text-white text-sweet-darkPink font-bold py-2 rounded-xl text-xs transition flex items-center justify-center gap-2">
-                <i class="fa-brands fa-whatsapp"></i> Pedir no WhatsApp
-              </a>
+              <p class="text-xs text-gray-500 mb-4">${sweet.desc}</p>
             </div>
+            <a href="https://wa.me/${appData.whatsapp}?text=Olá!%20Gostaria%20de%20encomendar:%20${encodeURIComponent(sweet.name)}" target="_blank" class="w-full bg-sweet-softPink hover:bg-sweet-darkPink hover:text-white text-sweet-darkPink font-bold py-2 rounded-xl text-xs transition flex items-center justify-center gap-2">
+              <i class="fa-brands fa-whatsapp"></i> Pedir no WhatsApp
+            </a>
           </div>
-        `).join('');
-      }
-    };
+        </div>
+      `).join('');
 
-    window.saveData = function() {
-      localStorage.setItem('gostosuras_clean_data', JSON.stringify(appData));
-      window.renderPage();
-    };
+      startHeroCarousel();
+    }
 
-    window.setCategory = function(cat) {
+    function startHeroCarousel() {
+      if (carouselTimer) clearInterval(carouselTimer);
+      if (!appData.sweets || appData.sweets.length === 0) return;
+
+      const updateCarouselImage = () => {
+        if (carouselIndex >= appData.sweets.length) carouselIndex = 0;
+        const currentSweet = appData.sweets[carouselIndex];
+        
+        const imgEl = document.getElementById('hero-carousel-img');
+        const titleEl = document.getElementById('hero-carousel-title');
+        const catEl = document.getElementById('hero-carousel-cat');
+
+        if (imgEl && titleEl && catEl) {
+          imgEl.src = currentSweet.img;
+          titleEl.innerText = currentSweet.name;
+          catEl.innerText = `${currentSweet.category} • R$ ${currentSweet.price}`;
+        }
+        carouselIndex++;
+      };
+
+      updateCarouselImage();
+      carouselTimer = setInterval(updateCarouselImage, 3500);
+    }
+
+    function setCategory(cat) {
       activeCategory = cat;
-      window.renderPage();
-    };
+      renderPage();
+    }
 
     // ==================== PAINEL ADMIN ====================
     let isAdminLoggedIn = false;
 
     window.toggleAdminModal = function() {
       const modal = document.getElementById('admin-modal');
-      if (modal) {
-        modal.classList.toggle('hidden');
-        if (!modal.classList.contains('hidden') && isAdminLoggedIn) {
-          populateAdminFields();
-        }
+      modal.classList.toggle('hidden');
+
+      if (!modal.classList.contains('hidden') && isAdminLoggedIn) {
+        populateAdminFields();
       }
     };
 
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
         e.preventDefault();
-        window.toggleAdminModal();
+        toggleAdminModal();
       }
     });
 
     window.checkAdminPin = function() {
-      const pinInput = document.getElementById('admin-pin');
-      const pin = pinInput ? pinInput.value : '';
+      const pin = document.getElementById('admin-pin').value;
       if (pin === "1234") {
         isAdminLoggedIn = true;
         document.getElementById('admin-login-view').classList.add('hidden');
@@ -493,56 +496,57 @@
     };
 
     function populateAdminFields() {
-      const logoUrl = appData.logoUrl || defaultData.logoUrl;
-      const logoInput = document.getElementById('edit-logo-url');
-      const logoPrev = document.getElementById('admin-logo-preview');
-      if (logoInput) logoInput.value = logoUrl;
-      if (logoPrev) logoPrev.src = logoUrl;
-
-      const waInput = document.getElementById('edit-whatsapp');
-      const igInput = document.getElementById('edit-ig');
-      const fbInput = document.getElementById('edit-fb');
-      if (waInput) waInput.value = appData.whatsapp;
-      if (igInput) igInput.value = appData.igLink;
-      if (fbInput) fbInput.value = appData.fbLink;
+      document.getElementById('edit-logo-url').value = appData.logoUrl || defaultData.logoUrl;
+      document.getElementById('edit-whatsapp').value = appData.whatsapp;
+      document.getElementById('edit-ig').value = appData.igLink;
+      document.getElementById('edit-fb').value = appData.fbLink;
 
       renderAdminSweetsTable();
     }
 
     function renderAdminSweetsTable() {
       const tbody = document.getElementById('admin-sweets-table-body');
-      if (tbody) {
-        tbody.innerHTML = appData.sweets.map(item => `
-          <tr>
-            <td class="p-3">
-              <img src="${item.img}" alt="${item.name}" class="w-10 h-10 rounded-lg object-cover border">
-            </td>
-            <td class="p-3 font-medium">${item.name}</td>
-            <td class="p-3 text-gray-500">${item.category}</td>
-            <td class="p-3 font-bold text-sweet-darkPink">R$ ${item.price}</td>
-            <td class="p-3 text-right">
-              <button onclick="editSweetImage(${item.id})" class="bg-pink-100 hover:bg-sweet-darkPink hover:text-white text-sweet-darkPink text-xs font-bold px-2.5 py-1.5 rounded-lg transition mr-1">
-                <i class="fa-solid fa-camera"></i> Foto
-              </button>
-              <button onclick="deleteSweet(${item.id})" class="text-red-500 hover:text-red-700 text-xs font-bold px-2 py-1">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-        `).join('');
-      }
+      tbody.innerHTML = appData.sweets.map(item => `
+        <tr>
+          <td class="p-3">
+            <div class="flex items-center gap-2">
+              <img src="${item.img}" class="w-10 h-10 object-cover rounded-lg border">
+              <input type="file" accept="image/png, image/jpeg, image/webp" onchange="handleProductImageUpload(event, ${item.id})" class="text-[10px] text-gray-500 w-28">
+            </div>
+          </td>
+          <td class="p-3 font-medium">${item.name}<br><span class="text-[10px] text-gray-400">${item.category}</span></td>
+          <td class="p-3 font-semibold text-sweet-darkPink">R$ ${item.price}</td>
+          <td class="p-3 text-right">
+            <button onclick="deleteSweet(${item.id})" class="text-red-500 hover:text-red-700 text-xs font-bold">
+              <i class="fa-solid fa-trash"></i> Excluir
+            </button>
+          </td>
+        </tr>
+      `).join('');
     }
 
-    window.editSweetImage = function(id) {
-      const sweet = appData.sweets.find(s => s.id === id);
-      if (!sweet) return;
+    window.handleLogoUpload = function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('edit-logo-url').value = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
 
-      const newUrl = prompt(`Editar imagem para "${sweet.name}":\nInsira a URL da imagem ou link da foto:`, sweet.img);
-      if (newUrl !== null && newUrl.trim() !== '') {
-        sweet.img = newUrl.trim();
-        window.saveData();
-        renderAdminSweetsTable();
-      }
+    window.handleProductImageUpload = function(event, id) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const sweet = appData.sweets.find(s => s.id === id);
+        if (sweet) {
+          sweet.img = e.target.result;
+          renderAdminSweetsTable();
+        }
+      };
+      reader.readAsDataURL(file);
     };
 
     window.openAddSweetModal = function() {
@@ -550,8 +554,8 @@
       if (!name) return;
       const category = prompt("Categoria (Tradicionais (cento), Especiais (cento) ou Bombons Decorados):", "Tradicionais (cento)");
       const price = prompt("Preço (ex: 145,00):", "145,00");
-      const img = prompt("URL da Foto do Produto:", "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80");
       const desc = prompt("Descrição:", "Doce artesanal feito com ingredientes nobres.");
+      const img = prompt("URL da Imagem do Doce (ou PNG):", "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80");
 
       appData.sweets.push({
         id: Date.now(),
@@ -562,7 +566,6 @@
         img: img || "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"
       });
 
-      window.saveData();
       renderAdminSweetsTable();
     };
 
@@ -574,43 +577,27 @@
     };
 
     window.saveAdminChanges = function() {
-      appData.logoUrl = document.getElementById('edit-logo-url').value;
+      appData.logoUrl = document.getElementById('edit-logo-url').value || appData.logoUrl;
       appData.whatsapp = document.getElementById('edit-whatsapp').value;
       appData.igLink = document.getElementById('edit-ig').value;
       appData.fbLink = document.getElementById('edit-fb').value;
 
-      window.saveData();
-      window.toggleAdminModal();
+      saveData();
+      toggleAdminModal();
       alert("Alterações salvas com sucesso!");
     };
 
     window.resetDefaultData = function() {
       if (confirm("Deseja restaurar as informações originais da Gostosuras e Travessuras?")) {
         appData = JSON.parse(JSON.stringify(defaultData));
-        window.saveData();
+        saveData();
         populateAdminFields();
         alert("Dados restaurados!");
       }
     };
 
-    // Inicialização segura ao carregar o DOM
-    document.addEventListener('DOMContentLoaded', () => {
-      const fileInput = document.getElementById('upload-logo-file');
-      if (fileInput) {
-        fileInput.addEventListener('change', (e) => {
-          const file = e.target.files[0];
-          if (file) {
-            const reader = new FileReader();
-            reader.onload = function(evt) {
-              const base64Str = evt.target.result;
-              document.getElementById('edit-logo-url').value = base64Str;
-              document.getElementById('admin-logo-preview').src = base64Str;
-            };
-            reader.readAsDataURL(file);
-          }
-        });
-      }
-      window.renderPage();
+    document.addEventListener("DOMContentLoaded", () => {
+      renderPage();
     });
   </script>
 </body>
