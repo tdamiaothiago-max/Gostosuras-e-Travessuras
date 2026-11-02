@@ -229,7 +229,7 @@
           </div>
           <div>
             <h3 class="font-bold text-lg leading-tight">Painel Administrativo</h3>
-            <p class="text-xs text-gray-400">Edite dados da loja, preços e múltiplas imagens</p>
+            <p class="text-xs text-gray-400">Edite dados da loja, preços, fotos e senha de acesso</p>
           </div>
         </div>
         <button onclick="window.toggleAdminModal()" class="text-gray-400 hover:text-white text-xl">
@@ -251,12 +251,12 @@
       <!-- Área de Edição -->
       <div id="admin-content-view" class="hidden flex-1 overflow-y-auto p-6 space-y-8">
         <div class="flex border-b border-gray-200 gap-4 font-semibold text-sm">
-          <button onclick="window.switchAdminTab('general')" id="tab-btn-general" class="pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink">Geral & Logótipo</button>
+          <button onclick="window.switchAdminTab('general')" id="tab-btn-general" class="pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink">Geral, Contatos & Segurança</button>
           <button onclick="window.switchAdminTab('menu')" id="tab-btn-menu" class="pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">Gerenciar Doces & Fotos</button>
         </div>
 
-        <!-- Aba Geral -->
-        <div id="admin-sec-general" class="space-y-4">
+        <!-- Aba Geral & Segurança -->
+        <div id="admin-sec-general" class="space-y-6">
           <div>
             <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Logótipo da Loja (Carregar PNG / JPG)</label>
             <input type="file" id="logo-file-input" accept="image/*" onchange="window.handleLogoUpload(event)" class="text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-50 file:text-sweet-darkPink hover:file:bg-pink-100">
@@ -277,6 +277,26 @@
           <div>
             <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Link do Facebook</label>
             <input type="text" id="edit-fb" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
+          </div>
+
+          <!-- Seção Troca de Senha / PIN -->
+          <div class="border-t pt-6 mt-6">
+            <h4 class="font-bold text-gray-800 mb-1 text-xs uppercase"><i class="fa-solid fa-key text-sweet-darkPink mr-1"></i> Alterar PIN de Acesso Admin</h4>
+            <p class="text-[11px] text-gray-500 mb-3">Preencha apenas caso deseje alterar a senha atual de acesso ao painel (4 dígitos).</p>
+            <div class="grid md:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">PIN Atual</label>
+                <input type="password" id="edit-current-pin" maxlength="4" placeholder="****" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Novo PIN (4 dígitos)</label>
+                <input type="password" id="edit-new-pin" maxlength="4" placeholder="****" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Confirmar Novo PIN</label>
+                <input type="password" id="edit-confirm-pin" maxlength="4" placeholder="****" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
+              </div>
+            </div>
           </div>
         </div>
 
@@ -320,6 +340,7 @@
 
   <script>
     const defaultData = {
+      adminPin: "1234",
       logoUrl: "https://lh3.googleusercontent.com/d/1g_98L_Z9V7M2p4D6_X5-X1vX2y3Z4w5v=w800",
       whatsapp: "5511985063638",
       igLink: "https://www.instagram.com/gostosuras.e.travessuras/",
@@ -475,14 +496,22 @@
     window.toggleAdminModal = function() {
       const modal = document.getElementById('admin-modal');
       modal.classList.toggle('hidden');
-      if (!modal.classList.contains('hidden') && isAdminLoggedIn) {
-        window.populateAdminFields();
+      if (!modal.classList.contains('hidden')) {
+        if (isAdminLoggedIn) {
+          window.populateAdminFields();
+        } else {
+          document.getElementById('admin-pin').value = '';
+          document.getElementById('admin-login-view').classList.remove('hidden');
+          document.getElementById('admin-content-view').classList.add('hidden');
+          document.getElementById('admin-footer-actions').classList.add('hidden');
+        }
       }
     };
 
     window.checkAdminPin = function() {
       const pin = document.getElementById('admin-pin').value;
-      if (pin === "1234") {
+      const validPin = appData.adminPin || "1234";
+      if (pin === validPin) {
         isAdminLoggedIn = true;
         document.getElementById('admin-login-view').classList.add('hidden');
         document.getElementById('admin-content-view').classList.remove('hidden');
@@ -506,6 +535,11 @@
       document.getElementById('edit-whatsapp').value = appData.whatsapp;
       document.getElementById('edit-ig').value = appData.igLink;
       document.getElementById('edit-fb').value = appData.fbLink;
+
+      // Limpar campos de senha
+      document.getElementById('edit-current-pin').value = '';
+      document.getElementById('edit-new-pin').value = '';
+      document.getElementById('edit-confirm-pin').value = '';
 
       window.renderAdminSweetsTable();
     };
@@ -607,6 +641,28 @@
     };
 
     window.saveAdminChanges = function() {
+      const currentPinInput = document.getElementById('edit-current-pin').value;
+      const newPinInput = document.getElementById('edit-new-pin').value;
+      const confirmPinInput = document.getElementById('edit-confirm-pin').value;
+      const activePin = appData.adminPin || "1234";
+
+      // Validação de alteração de PIN (caso algum campo tenha sido preenchido)
+      if (currentPinInput || newPinInput || confirmPinInput) {
+        if (currentPinInput !== activePin) {
+          alert("O PIN atual informado está incorreto!");
+          return;
+        }
+        if (!newPinInput || newPinInput.length !== 4) {
+          alert("O novo PIN deve conter exatamente 4 dígitos!");
+          return;
+        }
+        if (newPinInput !== confirmPinInput) {
+          alert("A confirmação do novo PIN não confere!");
+          return;
+        }
+        appData.adminPin = newPinInput;
+      }
+
       appData.logoUrl = document.getElementById('edit-logo-url').value || appData.logoUrl;
       appData.whatsapp = document.getElementById('edit-whatsapp').value;
       appData.igLink = document.getElementById('edit-ig').value;
@@ -618,7 +674,7 @@
     };
 
     window.resetDefaultData = function() {
-      if (confirm("Restaurar os dados originais?")) {
+      if (confirm("Restaurar os dados originais? (Isso redefinirá o PIN para 1234)")) {
         appData = JSON.parse(JSON.stringify(defaultData));
         window.saveData();
         window.populateAdminFields();
