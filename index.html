@@ -22,7 +22,8 @@
               teal: '#4A9E9B',
               softTeal: '#EBF7F7',
               cream: '#FFFDF9',
-              dark: '#3A2E39'
+              dark: '#3A2E39',
+              pix: '#32BCAD'
             }
           },
           fontFamily: {
@@ -33,8 +34,19 @@
       }
     }
   </script>
+  <style>
+    /* Estilo customizado para o ícone do PIX via SVG */
+    .pix-icon {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      stroke-width: 0;
+      stroke: currentColor;
+      fill: currentColor;
+    }
+  </style>
 </head>
-<body class="bg-sweet-cream text-sweet-dark font-body antialiased selection:bg-sweet-pink selection:text-white">
+<body class="bg-sweet-cream text-sweet-dark font-body antialiased selection:bg-sweet-pink selection:text-white pb-24">
 
   <!-- Banner Superior -->
   <div class="bg-gradient-to-r from-sweet-darkPink via-sweet-pink to-sweet-teal text-white py-2 px-4 text-center text-xs sm:text-sm font-medium shadow-md sticky top-0 z-50 flex items-center justify-between">
@@ -67,8 +79,10 @@
         <!-- Links de Navegação (Desktop) -->
         <div class="hidden md:flex space-x-8 text-sm font-semibold text-gray-600">
           <a href="#cardapio" class="hover:text-sweet-darkPink transition">Cardápio de Docinhos</a>
+          <a href="#calculadora-ancora" class="hover:text-sweet-darkPink transition flex items-center gap-1">
+            <i class="fa-solid fa-calculator text-sweet-darkPink"></i> Calculadora de Encomenda
+          </a>
           <a href="#sobre" class="hover:text-sweet-darkPink transition">Sobre Nós</a>
-          <a href="#encomendas" class="hover:text-sweet-darkPink transition">Como Encomendar</a>
         </div>
 
         <!-- Botões de Ação e Redes Sociais -->
@@ -88,7 +102,7 @@
     </div>
   </nav>
 
-  <!-- Hero / Apresentação com Carrossel Automático -->
+  <!-- Hero / Apresentação -->
   <section class="relative bg-gradient-to-b from-sweet-softPink via-white to-sweet-cream py-16 sm:py-20 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -99,9 +113,20 @@
           <h1 class="text-4xl sm:text-5xl font-title font-bold text-sweet-dark leading-tight mb-4">
             Doces Artesanais feitos com amor para celebrar seus melhores momentos.
           </h1>
-          <p class="text-base sm:text-lg text-gray-600 mb-8 leading-relaxed">
+          <p class="text-base sm:text-lg text-gray-600 mb-6 leading-relaxed">
             Docinhos tradicionais, especiais gourmet e bombons decorados preparados sob encomenda. O sabor artesanal único de Ana Dilza Gusmão no seu evento.
           </p>
+
+          <!-- Banner de Pagamento Aceito PIX -->
+          <div class="inline-flex items-center gap-3 bg-teal-50 border border-teal-200 text-teal-800 px-4 py-2.5 rounded-2xl mb-8 shadow-sm">
+            <svg class="pix-icon text-sweet-pix text-2xl" viewBox="0 0 512 512">
+              <path fill="currentColor" d="M363.5 391.5L276 304c-11-11-28.9-11-39.9 0l-87.5 87.5c-7.8 7.8-20.5 7.8-28.3 0l-45.3-45.3c-7.8-7.8-7.8-20.5 0-28.3L162.5 230.4c11-11 11-28.9 0-39.9L75 103c-7.8-7.8-7.8-20.5 0-28.3l45.3-45.3c7.8-7.8 20.5-7.8 28.3 0l87.5 87.5c11 11 28.9 11 39.9 0l87.5-87.5c7.8-7.8 20.5-7.8 28.3 0l45.3 45.3c7.8 7.8 7.8 20.5 0 28.3l-87.5 87.5c-11 11-11 28.9 0 39.9l87.5 87.5c7.8 7.8 7.8 20.5 0 28.3l-45.3 45.3c-7.8 7.8-20.5 7.8-28.3 0z"/>
+            </svg>
+            <div class="text-left text-xs sm:text-sm">
+              <span class="font-bold block text-teal-900">Aceitamos Pagamento via PIX!</span>
+              <span class="text-teal-700">Rápido, prático e seguro para confirmar sua encomenda.</span>
+            </div>
+          </div>
 
           <div class="flex flex-wrap gap-4 items-center">
             <a id="hero-btn-pedir" href="#" target="_blank" class="bg-sweet-darkPink hover:bg-sweet-pink text-white font-bold px-7 py-3.5 rounded-full shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-3 text-sm">
@@ -141,8 +166,8 @@
     <div class="text-center mb-10">
       <h2 class="text-3xl sm:text-4xl font-title font-bold text-sweet-dark mb-3">Cardápio de Docinhos</h2>
       <p class="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
-        Valores de <strong>cento</strong> para tradicionais e especiais, e bombons decorados por unidade. <br>
-        <span class="text-sweet-darkPink font-bold">⚠️ Pedido mínimo: 25 unidades.</span>
+        Valores de <strong>cento</strong> para tradicionais e especiais (o sistema calcula proporcionalmente qualquer quantidade). <br>
+        <span class="text-sweet-darkPink font-bold">⚠️ Pedido mínimo total: 25 unidades.</span>
       </p>
 
       <!-- Abas de Filtro de Categoria -->
@@ -151,6 +176,52 @@
 
     <!-- Grid de Doces -->
     <div id="sweets-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- SEÇÃO CALCULADORA DE ENCOMENDA -->
+  <span id="calculadora-ancora"></span>
+  <section id="calculadora" class="py-12 bg-gradient-to-r from-pink-50 via-purple-50 to-pink-50 border-y border-pink-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-pink-100">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-pink-100 pb-4">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-title font-bold text-sweet-dark flex items-center gap-2">
+              <i class="fa-solid fa-calculator text-sweet-darkPink"></i> Calculadora de Encomenda
+            </h2>
+            <p class="text-xs sm:text-sm text-gray-500">Selecione os doces e defina as quantidades para simular o valor total.</p>
+          </div>
+          <div class="flex items-center gap-2 bg-sweet-softTeal text-sweet-teal px-3 py-1.5 rounded-full text-xs font-bold border border-sweet-teal/20">
+            <svg class="pix-icon text-sweet-pix text-base" viewBox="0 0 512 512">
+              <path fill="currentColor" d="M363.5 391.5L276 304c-11-11-28.9-11-39.9 0l-87.5 87.5c-7.8 7.8-20.5 7.8-28.3 0l-45.3-45.3c-7.8-7.8-7.8-20.5 0-28.3L162.5 230.4c11-11 11-28.9 0-39.9L75 103c-7.8-7.8-7.8-20.5 0-28.3l45.3-45.3c7.8-7.8 20.5-7.8 28.3 0l87.5 87.5c11 11 28.9 11 39.9 0l87.5-87.5c7.8-7.8 20.5-7.8 28.3 0l45.3 45.3c7.8 7.8 7.8 20.5 0 28.3l-87.5 87.5c-11 11-11 28.9 0 39.9l87.5 87.5c7.8 7.8 7.8 20.5 0 28.3l-45.3 45.3c-7.8 7.8-20.5 7.8-28.3 0z"/>
+            </svg>
+            Pagamento via PIX Aceito
+          </div>
+        </div>
+
+        <!-- Lista de Itens Selecionados na Calculadora -->
+        <div id="calc-items-list" class="space-y-3 mb-6 min-h-[80px]">
+          <!-- Inserido dinamicamente via JS -->
+        </div>
+
+        <!-- Resumo da Calculadora -->
+        <div class="bg-sweet-cream p-5 rounded-2xl border border-pink-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div>
+            <div class="text-xs text-gray-500 font-semibold">Total da Encomenda</div>
+            <div class="text-3xl font-title font-bold text-sweet-darkPink" id="calc-total-price">R$ 0,00</div>
+            <div class="text-[11px] text-gray-500" id="calc-total-units">0 unidades no total (Mínimo: 25 un)</div>
+          </div>
+          
+          <div class="w-full sm:w-auto flex flex-col sm:flex-row gap-2">
+            <button onclick="window.clearCalculator()" class="px-4 py-2.5 text-xs text-gray-500 hover:text-red-500 font-bold border border-gray-200 rounded-xl hover:bg-white transition">
+              Limpar Tudo
+            </button>
+            <button onclick="window.sendCalcOrderToWhatsApp()" id="btn-calc-whatsapp" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2 text-sm">
+              <i class="fa-brands fa-whatsapp text-lg"></i> Enviar Encomenda no WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Sobre & Redes Sociais -->
@@ -181,15 +252,15 @@
           <ul class="space-y-4 text-xs sm:text-sm text-gray-700">
             <li class="flex items-start gap-3">
               <span class="w-6 h-6 rounded-full bg-sweet-darkPink text-white font-bold flex items-center justify-center shrink-0">1</span>
-              <span>Escolha seus sabores favoritos no cardápio acima (observando o mínimo de 25 unidades).</span>
+              <span>Escolha seus sabores favoritos no cardápio e use a calculadora para ajustar as quantidades.</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="w-6 h-6 rounded-full bg-sweet-darkPink text-white font-bold flex items-center justify-center shrink-0">2</span>
-              <span>Clique no botão do WhatsApp para nos enviar os itens escolhidos e a data do seu evento.</span>
+              <span>Clique no botão do WhatsApp para nos enviar o resumo dos doces escolhidos e a data do seu evento.</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="w-6 h-6 rounded-full bg-sweet-darkPink text-white font-bold flex items-center justify-center shrink-0">3</span>
-              <span>Confirmamos a disponibilidade da data e alinhamos a entrega ou retirada sob encomenda!</span>
+              <span>Efetuando o pagamento via PIX, confirmamos a disponibilidade da data e preparamos sua encomenda!</span>
             </li>
           </ul>
         </div>
@@ -197,8 +268,29 @@
     </div>
   </section>
 
+  <!-- Barra Flutuante de Resumo da Calculadora -->
+  <div id="sticky-calc-bar" class="fixed bottom-0 inset-x-0 bg-sweet-dark text-white p-3 sm:p-4 z-40 shadow-2xl border-t border-pink-500/30 flex justify-between items-center px-4 sm:px-8 transition-transform duration-300">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-sweet-darkPink flex items-center justify-center text-white">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </div>
+      <div>
+        <div class="text-xs text-gray-300 font-medium" id="bar-units-text">0 doces selecionados</div>
+        <div class="text-lg font-title font-bold text-sweet-pink" id="bar-total-text">Total: R$ 0,00</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="#calculadora-ancora" class="bg-white/10 hover:bg-white/20 text-white text-xs px-3 py-2 rounded-xl transition hidden sm:inline-block">
+        Ver Calculadora
+      </a>
+      <button onclick="window.sendCalcOrderToWhatsApp()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-4 py-2 rounded-xl text-xs sm:text-sm transition flex items-center gap-2">
+        <i class="fa-brands fa-whatsapp text-base"></i> Enviar Encomenda
+      </button>
+    </div>
+  </div>
+
   <!-- Rodapé -->
-  <footer class="bg-sweet-dark text-white text-xs py-8">
+  <footer class="bg-sweet-dark text-white text-xs py-8 mb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
       <div>
         © <span id="year"></span> Gostosuras e Travessuras - Doces Artesanais By Ana Dilza Gusmão.
@@ -214,7 +306,7 @@
   </footer>
 
   <!-- Botão Flutuante WhatsApp -->
-  <a id="btn-whatsapp-float" href="#" target="_blank" class="fixed bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-40 transition transform hover:scale-110">
+  <a id="btn-whatsapp-float" href="#" target="_blank" class="fixed bottom-20 right-6 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-40 transition transform hover:scale-110">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
@@ -365,7 +457,7 @@
         { id: 17, name: "Choc. Branco", category: "Especiais (cento)", price: "415,00", desc: "Chocolate branco gourmet.", imgs: ["https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"] },
         { id: 18, name: "Choc. 1/2 Amargo", category: "Especiais (cento)", price: "395,00", desc: "Brigadeiro cacau 50%.", imgs: ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"] },
         { id: 19, name: "Frutas Vermelhas", category: "Especiais (cento)", price: "220,00", desc: "Geleia de frutas vermelhas.", imgs: ["https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80"] },
-        { id: 20, name: "Bombons Decorados", category: "Bombons Decorados", price: "3,50 / un", desc: "Bombons artísticos sob encomenda.", imgs: ["https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=400&q=80"] }
+        { id: 20, name: "Bombons Decorados", category: "Bombons Decorados", price: "3,50", desc: "Bombons artísticos sob encomenda (Valor por unidade).", imgs: ["https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=400&q=80"] }
       ]
     };
 
@@ -374,6 +466,26 @@
     let carouselIndex = 0;
     let carouselTimer = null;
     let cardImageIndexes = {};
+    
+    // Estado da Calculadora: { sweetId: quantidade }
+    let calcCart = {};
+
+    // Função utilitária para converter preço em string (ex: "145,00" ou "3,50") para número float
+    function parsePrice(priceStr) {
+      if (!priceStr) return 0;
+      const clean = priceStr.toString().replace('R$', '').replace('un', '').replace('/', '').trim().replace('.', '').replace(',', '.');
+      return parseFloat(clean) || 0;
+    }
+
+    // Função utilitária para calcular o valor unitário de cada doce
+    function getUnitPrice(sweet) {
+      const priceNum = parsePrice(sweet.price);
+      if (sweet.category.includes("Bombons") || sweet.category.includes("unidade")) {
+        return priceNum;
+      }
+      // Se for cento, divide por 100
+      return priceNum / 100;
+    }
 
     window.saveData = function() {
       localStorage.setItem('gostosuras_clean_data', JSON.stringify(appData));
@@ -409,6 +521,8 @@
       document.getElementById('sweets-grid').innerHTML = filteredSweets.map(sweet => {
         const imgs = sweet.imgs && sweet.imgs.length > 0 ? sweet.imgs : [sweet.img || defaultData.sweets[0].imgs[0]];
         const currentIdx = cardImageIndexes[sweet.id] || 0;
+        const currentQty = calcCart[sweet.id] || 0;
+        const isCento = !sweet.category.includes("Bombons") && !sweet.category.includes("unidade");
 
         return `
           <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-pink-100 flex flex-col group">
@@ -433,19 +547,161 @@
               <div>
                 <div class="flex justify-between items-start mb-2">
                   <h3 class="font-title font-bold text-lg text-sweet-dark">${sweet.name}</h3>
-                  <span class="text-xs bg-pink-100 text-sweet-darkPink font-bold px-2 py-1 rounded-md">R$ ${sweet.price}</span>
+                  <span class="text-xs bg-pink-100 text-sweet-darkPink font-bold px-2 py-1 rounded-md">
+                    R$ ${sweet.price} ${isCento ? '/ cento' : '/ un'}
+                  </span>
                 </div>
                 <p class="text-xs text-gray-500 mb-4">${sweet.desc}</p>
               </div>
-              <a href="https://wa.me/${appData.whatsapp}?text=Olá!%20Gostaria%20de%20encomendar:%20${encodeURIComponent(sweet.name)}" target="_blank" class="w-full bg-sweet-softPink hover:bg-sweet-darkPink hover:text-white text-sweet-darkPink font-bold py-2.5 rounded-xl text-xs transition flex items-center justify-center gap-2">
-                <i class="fa-brands fa-whatsapp"></i> Pedir no WhatsApp
-              </a>
+
+              <!-- Seletor de Quantidade & Calculadora no Card -->
+              <div class="bg-sweet-softPink p-3 rounded-xl border border-pink-100 space-y-2">
+                <div class="flex justify-between items-center text-xs font-semibold text-sweet-dark">
+                  <span>Quantidade desejada:</span>
+                  <span class="text-sweet-darkPink font-bold">${currentQty} un</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <button onclick="window.updateCalcQty(${sweet.id}, -25)" class="w-8 h-8 rounded-lg bg-white text-sweet-dark font-bold hover:bg-pink-100 transition shadow-sm border border-pink-200 flex items-center justify-center text-xs">
+                    -25
+                  </button>
+                  <input type="number" min="0" value="${currentQty}" onchange="window.setCalcQtyDirect(${sweet.id}, this.value)" class="w-full text-center bg-white border border-pink-200 rounded-lg py-1 text-sm font-bold text-sweet-dark focus:ring-2 focus:ring-sweet-darkPink outline-none">
+                  <button onclick="window.updateCalcQty(${sweet.id}, 25)" class="w-8 h-8 rounded-lg bg-white text-sweet-dark font-bold hover:bg-pink-100 transition shadow-sm border border-pink-200 flex items-center justify-center text-xs">
+                    +25
+                  </button>
+                </div>
+
+                <div class="flex justify-between items-center pt-1 text-[11px] text-gray-600 border-t border-pink-200/50">
+                  <span>Subtotal:</span>
+                  <strong class="text-sweet-dark">R$ ${(currentQty * getUnitPrice(sweet)).toFixed(2).replace('.', ',')}</strong>
+                </div>
+              </div>
             </div>
           </div>
         `;
       }).join('');
 
+      window.updateCalculatorUI();
       window.startHeroCarousel();
+    }
+
+    // Funções da Calculadora
+    window.updateCalcQty = function(sweetId, delta) {
+      const current = calcCart[sweetId] || 0;
+      const next = Math.max(0, current + delta);
+      if (next === 0) {
+        delete calcCart[sweetId];
+      } else {
+        calcCart[sweetId] = next;
+      }
+      window.renderPage();
+    }
+
+    window.setCalcQtyDirect = function(sweetId, val) {
+      const qty = parseInt(val) || 0;
+      if (qty <= 0) {
+        delete calcCart[sweetId];
+      } else {
+        calcCart[sweetId] = qty;
+      }
+      window.renderPage();
+    }
+
+    window.clearCalculator = function() {
+      calcCart = {};
+      window.renderPage();
+    }
+
+    window.updateCalculatorUI = function() {
+      const calcListContainer = document.getElementById('calc-items-list');
+      let totalUnits = 0;
+      let totalPrice = 0;
+
+      const keys = Object.keys(calcCart);
+
+      if (keys.length === 0) {
+        calcListContainer.innerHTML = `
+          <div class="text-center py-6 text-gray-400 text-sm">
+            <i class="fa-solid fa-basket-shopping text-3xl mb-2 opacity-50 block"></i>
+            Nenhum doce selecionado ainda. Use o botão "+25" nos doces acima para calcular!
+          </div>
+        `;
+      } else {
+        calcListContainer.innerHTML = keys.map(idStr => {
+          const id = parseInt(idStr);
+          const sweet = appData.sweets.find(s => s.id === id);
+          if (!sweet) return '';
+          
+          const qty = calcCart[id];
+          const unitPrice = getUnitPrice(sweet);
+          const subtotal = qty * unitPrice;
+
+          totalUnits += qty;
+          totalPrice += subtotal;
+
+          return `
+            <div class="flex items-center justify-between bg-pink-50/50 p-3 rounded-xl border border-pink-100 text-xs sm:text-sm">
+              <div class="flex items-center gap-3">
+                <span class="font-bold text-sweet-dark">${sweet.name}</span>
+                <span class="text-xs text-gray-500 bg-white px-2 py-0.5 rounded-md border">${sweet.category}</span>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                  <button onclick="window.updateCalcQty(${sweet.id}, -10)" class="w-6 h-6 rounded bg-white text-gray-600 font-bold hover:bg-gray-100 flex items-center justify-center text-xs border">-</button>
+                  <span class="font-bold min-w-[30px] text-center">${qty} un</span>
+                  <button onclick="window.updateCalcQty(${sweet.id}, 10)" class="w-6 h-6 rounded bg-white text-gray-600 font-bold hover:bg-gray-100 flex items-center justify-center text-xs border">+</button>
+                </div>
+                <div class="font-bold text-sweet-darkPink w-20 text-right">R$ ${subtotal.toFixed(2).replace('.', ',')}</div>
+                <button onclick="window.updateCalcQty(${sweet.id}, -${qty})" class="text-red-400 hover:text-red-600 ml-1">
+                  <i class="fa-solid fa-trash-can text-xs"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Atualizar Totais
+      const formattedTotal = `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
+      document.getElementById('calc-total-price').innerText = formattedTotal;
+      document.getElementById('calc-total-units').innerText = `${totalUnits} unidades no total ${totalUnits < 25 ? '(Mínimo: 25 un)' : ''}`;
+
+      document.getElementById('bar-units-text').innerText = `${totalUnits} doces selecionados`;
+      document.getElementById('bar-total-text').innerText = `Total: ${formattedTotal}`;
+    }
+
+    window.sendCalcOrderToWhatsApp = function() {
+      const keys = Object.keys(calcCart);
+      if (keys.length === 0) {
+        alert("Sua calculadora está vazia! Selecione ao menos um doce.");
+        return;
+      }
+
+      let totalUnits = 0;
+      let totalPrice = 0;
+      let itemsText = "";
+
+      keys.forEach(idStr => {
+        const id = parseInt(idStr);
+        const sweet = appData.sweets.find(s => s.id === id);
+        if (sweet) {
+          const qty = calcCart[id];
+          const subtotal = qty * getUnitPrice(sweet);
+          totalUnits += qty;
+          totalPrice += subtotal;
+          itemsText += `• ${sweet.name}: ${qty} un (R$ ${subtotal.toFixed(2).replace('.', ',')})\n`;
+        }
+      });
+
+      let msg = `Olá! Montei meu pedido no site da Gostosuras e Travessuras:\n\n`;
+      msg += `*ITENS ENCOMENDADOS:*\n${itemsText}\n`;
+      msg += `*TOTAL DE UNIDADES:* ${totalUnits} un\n`;
+      msg += `*VALOR TOTAL ESTIMADO:* R$ ${totalPrice.toFixed(2).replace('.', ',')}\n\n`;
+      msg += `💳 *FORMA DE PAGAMENTO:* PIX\n`;
+      msg += `Gostaria de verificar a disponibilidade para a data do meu evento!`;
+
+      const encodedMsg = encodeURIComponent(msg);
+      window.open(`https://wa.me/${appData.whatsapp}?text=${encodedMsg}`, '_blank');
     }
 
     window.prevCardImage = function(sweetId, length) {
@@ -536,7 +792,6 @@
       document.getElementById('edit-ig').value = appData.igLink;
       document.getElementById('edit-fb').value = appData.fbLink;
 
-      // Limpar campos de senha
       document.getElementById('edit-current-pin').value = '';
       document.getElementById('edit-new-pin').value = '';
       document.getElementById('edit-confirm-pin').value = '';
@@ -618,7 +873,7 @@
       const name = prompt("Nome do Doce:");
       if (!name) return;
       const category = prompt("Categoria:", "Tradicionais (cento)");
-      const price = prompt("Preço:", "145,00");
+      const price = prompt("Preço (Valor do cento ou por unidade):", "145,00");
       const desc = prompt("Descrição:", "Doce artesanal feito com carinho.");
 
       appData.sweets.push({
@@ -646,7 +901,6 @@
       const confirmPinInput = document.getElementById('edit-confirm-pin').value;
       const activePin = appData.adminPin || "1234";
 
-      // Validação de alteração de PIN (caso algum campo tenha sido preenchido)
       if (currentPinInput || newPinInput || confirmPinInput) {
         if (currentPinInput !== activePin) {
           alert("O PIN atual informado está incorreto!");
