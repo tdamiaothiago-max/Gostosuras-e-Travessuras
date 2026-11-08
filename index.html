@@ -68,7 +68,7 @@
       <div class="flex justify-between h-20 items-center">
         <a href="#" class="flex items-center gap-3 group">
           <div class="w-14 h-14 rounded-full border-2 border-sweet-darkPink p-0.5 bg-white shadow-sm flex items-center justify-center overflow-hidden group-hover:scale-105 transition">
-            <img id="main-logo-img" src="" alt="Gostosuras e Travessuras Logo" class="w-full h-full object-contain rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';">
+            <img id="main-logo-img" src="" alt="Gostosuras e Travessuras Logo" class="w-full h-full object-contain rounded-full" onerror="window.handleImageError(this)">
           </div>
           <div>
             <span class="text-xl font-bold font-title text-sweet-darkMoka tracking-tight block leading-tight">Gostosuras e Travessuras</span>
@@ -146,7 +146,7 @@
 
         <div class="relative flex justify-center">
           <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden relative">
-            <img id="hero-carousel-img" src="" alt="Destaque de Doces" class="w-full h-full object-cover transition-opacity duration-500 rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80';">
+            <img id="hero-carousel-img" src="" alt="Destaque de Doces" class="w-full h-full object-cover transition-opacity duration-500 rounded-full" onerror="window.handleImageError(this)">
           </div>
           <div class="absolute -bottom-4 right-4 sm:right-12 bg-white p-4 rounded-2xl shadow-xl border border-pink-100 flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-sweet-darkPink">
@@ -361,14 +361,14 @@
         <div>
           <label class="block text-xs font-bold uppercase text-gray-600 mb-1">FOTOS DO PRODUTO (MÁX. 2 IMAGENS)</label>
           <div class="space-y-2">
-            <input type="file" id="form-item-file" multiple accept="image/*,.pdf" onchange="window.handleFormImageUpload(event)" class="w-full text-xs text-gray-500 border rounded-lg p-2 bg-gray-50 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-sweet-darkPink file:text-white hover:file:bg-pink-600">
-            <input type="text" id="form-item-imgs" placeholder="Ou cole até 2 URLs separadas por vírgula (https://...)" class="w-full border rounded-lg p-2 text-xs focus:ring-2 focus:ring-sweet-darkPink outline-none">
+            <input type="file" id="form-item-file" multiple accept="image/*" onchange="window.handleFormImageUpload(event)" class="w-full text-xs text-gray-500 border rounded-lg p-2 bg-gray-50 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-sweet-darkPink file:text-white hover:file:bg-pink-600">
+            <input type="text" id="form-item-imgs" placeholder="Ou cole até 2 URLs separadas por vírgula (https://...)" onchange="window.handleUrlInputChange()" class="w-full border rounded-lg p-2 text-xs focus:ring-2 focus:ring-sweet-darkPink outline-none">
           </div>
 
           <!-- Pré-visualização de imagens -->
           <div id="form-item-preview-container" class="mt-3 hidden">
             <div class="text-[11px] font-bold text-gray-500 w-full">
-              <span>Pré-visualização:</span>
+              <span>Pré-visualização das Imagens (Otimizadas):</span>
               <div id="form-item-preview-list" class="flex gap-2 mt-1"></div>
             </div>
           </div>
@@ -377,7 +377,7 @@
 
       <div class="bg-gray-50 p-4 border-t flex justify-end gap-2">
         <button onclick="window.closeItemFormModal()" class="px-5 py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-100 transition">Cancelar</button>
-        <button onclick="window.saveItemForm()" class="px-6 py-2.5 bg-sweet-darkPink hover:bg-pink-600 text-white font-bold rounded-xl text-xs shadow-md transition">Salvar Item</button>
+        <button id="btn-save-item-form" onclick="window.saveItemForm()" class="px-6 py-2.5 bg-sweet-darkPink hover:bg-pink-600 text-white font-bold rounded-xl text-xs shadow-md transition">Salvar Item</button>
       </div>
     </div>
   </div>
@@ -460,11 +460,19 @@
         </div>
 
         <div id="admin-sec-menu" class="hidden space-y-6">
-          <div class="flex justify-between items-center">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <h4 class="font-bold text-gray-800">Itens do Cardápio por Categoria</h4>
-            <button onclick="window.openAddSweetModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1">
-              <i class="fa-solid fa-plus"></i> Adicionar Item
-            </button>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="window.exportHtmlWithData()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1 shadow-sm">
+                <i class="fa-solid fa-file-code"></i> Baixar HTML com Dados
+              </button>
+              <button onclick="window.exportMenuBackup()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1 border">
+                <i class="fa-solid fa-download"></i> Backup JSON
+              </button>
+              <button onclick="window.openAddSweetModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1 shadow-sm">
+                <i class="fa-solid fa-plus"></i> Adicionar Item
+              </button>
+            </div>
           </div>
 
           <div class="overflow-x-auto border rounded-xl">
@@ -497,6 +505,15 @@
   </div>
 
   <script>
+    // Fallback de imagem embutida via Data URL
+    const fallbackImageSvg = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400"><rect width="400" height="400" fill="%23FDF2F5"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="24" fill="%23D85B88" font-weight="bold">Doces Artesanais</text><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Quicksand, sans-serif" font-size="16" fill="%237D5D55">Gostosuras e Travessuras</text></svg>';
+
+    window.handleImageError = function(imgEl) {
+      if (!imgEl) return;
+      imgEl.onerror = null;
+      imgEl.src = fallbackImageSvg;
+    };
+
     const defaultData = {
       adminPin: "1234",
       logoUrl: "https://lh3.googleusercontent.com/d/1g_98L_Z9V7M2p4D6_X5-X1vX2y3Z4w5v=w800",
@@ -515,13 +532,25 @@
       ]
     };
 
-    let appData = JSON.parse(localStorage.getItem('gostosuras_clean_data')) || defaultData;
+    // Inicializador seguro de estado
+    let appData = defaultData;
+    try {
+      const stored = localStorage.getItem('gostosuras_clean_data');
+      if (stored) {
+        appData = JSON.parse(stored);
+      }
+    } catch (e) {
+      console.warn("Erro ao carregar dados do LocalStorage", e);
+      appData = defaultData;
+    }
+
     let activeCategory = "Todas";
     let carouselIndex = 0;
     let carouselTimer = null;
     let cardImageIndexes = {};
     let calcCart = {};
     let selectedPaymentMethod = "PIX";
+    window.pendingUploadedImgs = [];
 
     function parsePrice(priceStr) {
       if (!priceStr || priceStr.toLowerCase().includes("consulta")) return 0;
@@ -538,9 +567,13 @@
     }
 
     window.saveData = function() {
-      localStorage.setItem('gostosuras_clean_data', JSON.stringify(appData));
+      try {
+        localStorage.setItem('gostosuras_clean_data', JSON.stringify(appData));
+      } catch (err) {
+        alert("O limite de armazenamento do seu navegador foi atingido! As imagens foram salvas na sessão atual. Recomendamos clicar em 'Baixar HTML com Dados' no Admin para atualizar o site permanentemente.");
+      }
       window.renderPage();
-    }
+    };
 
     window.updatePaymentMethod = function(method) {
       selectedPaymentMethod = method;
@@ -552,7 +585,7 @@
           noteEl.innerText = "Cartão de Crédito via Link (parcelamento em até 11x com pequena taxa)";
         }
       }
-    }
+    };
 
     window.updateCalculatorUI = function() {
       const calcListContainer = document.getElementById('calc-items-list');
@@ -625,7 +658,7 @@
       if (totalUnitsEl) totalUnitsEl.innerText = `${totalUnits} itens selecionados no total`;
       if (barUnitsText) barUnitsText.innerText = `${totalUnits} itens selecionados`;
       if (barTotalText) barTotalText.innerText = `Total: ${formattedTotal}`;
-    }
+    };
 
     window.updateCalcQty = function(sweetId, delta) {
       const current = calcCart[sweetId] || 0;
@@ -636,7 +669,7 @@
         calcCart[sweetId] = next;
       }
       window.renderPage();
-    }
+    };
 
     window.setCalcQtyDirect = function(sweetId, val) {
       const qty = parseInt(val) || 0;
@@ -646,12 +679,12 @@
         calcCart[sweetId] = qty;
       }
       window.renderPage();
-    }
+    };
 
     window.clearCalculator = function() {
       calcCart = {};
       window.renderPage();
-    }
+    };
 
     window.renderPage = function() {
       const yearEl = document.getElementById('year');
@@ -691,7 +724,7 @@
       const sweetsGrid = document.getElementById('sweets-grid');
       if (sweetsGrid) {
         sweetsGrid.innerHTML = filteredSweets.map(sweet => {
-          let imgs = sweet.imgs && sweet.imgs.length > 0 ? sweet.imgs.slice(0, 2) : [sweet.img || defaultData.sweets[0].imgs[0]];
+          let imgs = sweet.imgs && sweet.imgs.length > 0 ? sweet.imgs.slice(0, 2) : [sweet.img || fallbackImageSvg];
           const currentIdx = cardImageIndexes[sweet.id] || 0;
           const currentQty = calcCart[sweet.id] || 0;
 
@@ -712,7 +745,7 @@
           return `
             <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-pink-100 flex flex-col group">
               <div class="relative h-48 w-full overflow-hidden bg-gray-100 group">
-                <img src="${imgs[currentIdx]}" alt="${sweet.name}" class="h-full w-full object-cover transition-opacity duration-300" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';">
+                <img src="${imgs[currentIdx] || fallbackImageSvg}" alt="${sweet.name}" class="h-full w-full object-cover transition-opacity duration-300" onerror="window.handleImageError(this)">
                 
                 ${imgs.length > 1 ? `
                   <button onclick="window.prevCardImage(${sweet.id}, ${imgs.length})" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-sweet-dark w-8 h-8 rounded-full flex items-center justify-center shadow transition opacity-80 group-hover:opacity-100 z-10">
@@ -738,7 +771,7 @@
                       ${priceBadge}
                     </span>
                   </div>
-                  <p class="text-xs text-gray-500 mb-4">${sweet.desc}</p>
+                  <p class="text-xs text-gray-500 mb-4">${sweet.desc || ''}</p>
                 </div>
 
                 <div class="bg-sweet-softPink p-3 rounded-xl border border-pink-200 space-y-2">
@@ -770,7 +803,7 @@
 
       window.updateCalculatorUI();
       window.startHeroCarousel();
-    }
+    };
 
     window.sendCalcOrderToWhatsApp = function() {
       const keys = Object.keys(calcCart);
@@ -811,19 +844,19 @@
       msg += `Gostaria de verificar a disponibilidade e orçamento para a data do meu evento!`;
 
       window.open(`https://wa.me/${appData.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank');
-    }
+    };
 
     window.prevCardImage = function(sweetId, length) {
       if (!cardImageIndexes[sweetId]) cardImageIndexes[sweetId] = 0;
       cardImageIndexes[sweetId] = (cardImageIndexes[sweetId] - 1 + length) % length;
       window.renderPage();
-    }
+    };
 
     window.nextCardImage = function(sweetId, length) {
       if (!cardImageIndexes[sweetId]) cardImageIndexes[sweetId] = 0;
       cardImageIndexes[sweetId] = (cardImageIndexes[sweetId] + 1) % length;
       window.renderPage();
-    }
+    };
 
     window.startHeroCarousel = function() {
       if (carouselTimer) clearInterval(carouselTimer);
@@ -832,14 +865,14 @@
       const updateHero = () => {
         if (carouselIndex >= appData.sweets.length) carouselIndex = 0;
         const currentSweet = appData.sweets[carouselIndex];
-        const imgs = currentSweet.imgs && currentSweet.imgs.length > 0 ? currentSweet.imgs : [currentSweet.img];
+        const imgs = currentSweet.imgs && currentSweet.imgs.length > 0 ? currentSweet.imgs : [currentSweet.img || fallbackImageSvg];
         
         const imgEl = document.getElementById('hero-carousel-img');
         const titleEl = document.getElementById('hero-carousel-title');
         const catEl = document.getElementById('hero-carousel-cat');
 
         if (imgEl && titleEl && catEl) {
-          imgEl.src = imgs[0];
+          imgEl.src = imgs[0] || fallbackImageSvg;
           titleEl.innerText = currentSweet.name;
           catEl.innerText = `${currentSweet.category} • ${currentSweet.category === 'Bolo' ? 'Sob Consulta' : 'R$ ' + currentSweet.price}`;
         }
@@ -848,12 +881,12 @@
 
       updateHero();
       carouselTimer = setInterval(updateHero, 3500);
-    }
+    };
 
     window.setCategory = function(cat) {
       activeCategory = cat;
       window.renderPage();
-    }
+    };
 
     window.handleCategoryFormChange = function() {
       const cat = document.getElementById('form-item-category').value;
@@ -882,11 +915,11 @@
       const list = document.getElementById('form-item-preview-list');
       if (!container || !list) return;
 
-      const validImgs = imgs.slice(0, 2).filter(Boolean);
+      const validImgs = (imgs || []).slice(0, 2).filter(Boolean);
       if (validImgs.length > 0) {
         list.innerHTML = validImgs.map((src, i) => `
           <div class="relative w-12 h-12 rounded-lg border border-pink-200 overflow-hidden shadow-sm bg-gray-50">
-            <img src="${src}" class="w-full h-full object-cover">
+            <img src="${src}" class="w-full h-full object-cover" onerror="window.handleImageError(this)">
             <span class="absolute bottom-0 inset-x-0 bg-sweet-darkMoka/80 text-white text-[9px] text-center font-bold">${i + 1}</span>
           </div>
         `).join('');
@@ -894,7 +927,7 @@
       } else {
         container.classList.add('hidden');
       }
-    }
+    };
 
     window.openAddSweetModal = function() {
       document.getElementById('item-form-title').innerHTML = '<i class="fa-solid fa-plus text-sweet-darkPink"></i> Adicionar Novo Item';
@@ -906,6 +939,7 @@
       document.getElementById('form-item-file').value = "";
       document.getElementById('form-item-category').value = "Doce de Festa";
 
+      window.pendingUploadedImgs = [];
       window.updatePreviewList([]);
       window.handleCategoryFormChange();
       document.getElementById('item-form-modal').classList.remove('hidden');
@@ -924,7 +958,8 @@
       document.getElementById('form-item-file').value = "";
 
       const imgs = (sweet.imgs || []).slice(0, 2);
-      document.getElementById('form-item-imgs').value = JSON.stringify(imgs);
+      window.pendingUploadedImgs = [...imgs];
+      document.getElementById('form-item-imgs').value = imgs.join(', ');
 
       window.updatePreviewList(imgs);
       window.handleCategoryFormChange();
@@ -935,39 +970,69 @@
       document.getElementById('item-form-modal').classList.add('hidden');
     };
 
-    window.handleFormImageUpload = function(event) {
+    window.handleUrlInputChange = function() {
+      const val = document.getElementById('form-item-imgs').value;
+      if (val) {
+        const urls = val.split(',').map(s => s.trim()).filter(Boolean).slice(0, 2);
+        window.pendingUploadedImgs = urls;
+        window.updatePreviewList(urls);
+      }
+    };
+
+    // Função de Redimensionamento Automático e Compressão para evitar estouro de LocalStorage
+    function compressImageFile(file, maxWidth = 600, quality = 0.7) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // Converter para JPEG ultraleve em Base64
+            const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+            resolve(compressedDataUrl);
+          };
+          img.onerror = () => resolve(e.target.result);
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    window.handleFormImageUpload = async function(event) {
       const files = Array.from(event.target.files);
       if (files.length === 0) return;
 
       if (files.length > 2) {
-        alert("Poderá selecionar no máximo 2 imagens por item. Apenas os 2 primeiros ficheiros foram considerados.");
+        alert("Você pode selecionar no máximo 2 imagens por item. Apenas as 2 primeiras imagens foram carregadas.");
       }
 
       const selectedFiles = files.slice(0, 2);
-      const loadedImgs = [];
-      let loadedCount = 0;
+      const filePromises = selectedFiles.map(file => compressImageFile(file, 600, 0.7));
 
-      selectedFiles.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          loadedImgs.push(e.target.result);
-          loadedCount++;
-          if (loadedCount === selectedFiles.length) {
-            document.getElementById('form-item-imgs').value = JSON.stringify(loadedImgs);
-            window.updatePreviewList(loadedImgs);
-          }
-        };
-        reader.readAsDataURL(file);
-      });
+      const loadedImgs = await Promise.all(filePromises);
+      window.pendingUploadedImgs = loadedImgs;
+      window.updatePreviewList(loadedImgs);
     };
 
     window.saveItemForm = function() {
-      const rawId = document.getElementById('form-item-id').value;
-      const name = document.getElementById('form-item-name').value;
+      const rawId = document.getElementById('form-item-id').value.trim();
+      const name = document.getElementById('form-item-name').value.trim();
       const category = document.getElementById('form-item-category').value;
-      let price = document.getElementById('form-item-price').value;
-      const desc = document.getElementById('form-item-desc').value;
-      const imgsRaw = document.getElementById('form-item-imgs').value;
+      let price = document.getElementById('form-item-price').value.trim();
+      const desc = document.getElementById('form-item-desc').value.trim();
 
       if (!name) {
         alert("Preencha o nome do produto!");
@@ -978,23 +1043,19 @@
         price = "Sob Consulta";
       }
 
-      let imgs = [];
-      try {
-        if (imgsRaw.startsWith('[')) {
-          imgs = JSON.parse(imgsRaw);
-        } else {
-          imgs = imgsRaw.split(',').map(s => s.trim()).filter(Boolean);
-        }
-      } catch (e) {
-        imgs = imgsRaw.split(',').map(s => s.trim()).filter(Boolean);
-      }
-
-      imgs = imgs.slice(0, 2);
+      let imgs = [...window.pendingUploadedImgs];
       if (imgs.length === 0) {
-        imgs.push("https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80");
+        const textVal = document.getElementById('form-item-imgs').value.trim();
+        if (textVal) {
+          imgs = textVal.split(',').map(s => s.trim()).filter(Boolean).slice(0, 2);
+        }
       }
 
-      if (rawId && rawId !== "") {
+      if (imgs.length === 0) {
+        imgs = [fallbackImageSvg];
+      }
+
+      if (rawId !== "") {
         const parsedId = parseInt(rawId);
         const sweet = appData.sweets.find(s => s.id === parsedId);
         if (sweet) {
@@ -1027,34 +1088,64 @@
       window.saveData();
       window.closeItemFormModal();
       window.renderAdminSweetsTable();
-      alert("Item e fotos salvos com sucesso!");
+      alert("Item salvo permanentemente com sucesso!");
+    };
+
+    // Exportação em massa (HTML compilado com os dados atuais salvos)
+    window.exportHtmlWithData = function() {
+      let currentDoc = document.documentElement.outerHTML;
+      const dataScriptPattern = /const defaultData = \{[\s\S]*?\};/;
+      const updatedDataCode = `const defaultData = ${JSON.stringify(appData, null, 2)};`;
+
+      const newHtml = currentDoc.replace(dataScriptPattern, updatedDataCode);
+
+      const blob = new Blob([newHtml], { type: 'text/html' });
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.href = URL.createObjectURL(blob);
+      downloadAnchor.download = 'index.html';
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    };
+
+    window.exportMenuBackup = function() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `gostosuras_backup_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
     };
 
     let isAdminLoggedIn = false;
 
     window.toggleAdminModal = function() {
       const modal = document.getElementById('admin-modal');
+      if (!modal) return;
+      
       modal.classList.toggle('hidden');
       if (!modal.classList.contains('hidden')) {
         if (isAdminLoggedIn) {
           window.populateAdminFields();
         } else {
-          document.getElementById('admin-pin').value = '';
-          document.getElementById('admin-login-view').classList.remove('hidden');
-          document.getElementById('admin-content-view').classList.add('hidden');
-          document.getElementById('admin-footer-actions').classList.add('hidden');
+          const pinEl = document.getElementById('admin-pin');
+          if (pinEl) pinEl.value = '';
+          document.getElementById('admin-login-view')?.classList.remove('hidden');
+          document.getElementById('admin-content-view')?.classList.add('hidden');
+          document.getElementById('admin-footer-actions')?.classList.add('hidden');
         }
       }
     };
 
     window.checkAdminPin = function() {
-      const pin = document.getElementById('admin-pin').value;
+      const pin = document.getElementById('admin-pin')?.value;
       const validPin = appData.adminPin || "1234";
       if (pin === validPin) {
         isAdminLoggedIn = true;
-        document.getElementById('admin-login-view').classList.add('hidden');
-        document.getElementById('admin-content-view').classList.remove('hidden');
-        document.getElementById('admin-footer-actions').classList.remove('hidden');
+        document.getElementById('admin-login-view')?.classList.add('hidden');
+        document.getElementById('admin-content-view')?.classList.remove('hidden');
+        document.getElementById('admin-footer-actions')?.classList.remove('hidden');
         window.populateAdminFields();
       } else {
         alert("PIN Incorreto!");
@@ -1062,22 +1153,29 @@
     };
 
     window.switchAdminTab = function(tab) {
-      document.getElementById('tab-btn-general').className = tab === 'general' ? 'pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink' : 'pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700';
-      document.getElementById('tab-btn-menu').className = tab === 'menu' ? 'pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink' : 'pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700';
+      const btnGeneral = document.getElementById('tab-btn-general');
+      const btnMenu = document.getElementById('tab-btn-menu');
+      if (btnGeneral) btnGeneral.className = tab === 'general' ? 'pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink' : 'pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700';
+      if (btnMenu) btnMenu.className = tab === 'menu' ? 'pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink' : 'pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700';
 
-      document.getElementById('admin-sec-general').classList.toggle('hidden', tab !== 'general');
-      document.getElementById('admin-sec-menu').classList.toggle('hidden', tab !== 'menu');
+      document.getElementById('admin-sec-general')?.classList.toggle('hidden', tab !== 'general');
+      document.getElementById('admin-sec-menu')?.classList.toggle('hidden', tab !== 'menu');
     };
 
     window.populateAdminFields = function() {
-      document.getElementById('edit-logo-url').value = appData.logoUrl || defaultData.logoUrl;
-      document.getElementById('edit-whatsapp').value = appData.whatsapp;
-      document.getElementById('edit-ig').value = appData.igLink;
-      document.getElementById('edit-fb').value = appData.fbLink;
+      const logoEl = document.getElementById('edit-logo-url');
+      const waEl = document.getElementById('edit-whatsapp');
+      const igEl = document.getElementById('edit-ig');
+      const fbEl = document.getElementById('edit-fb');
 
-      document.getElementById('edit-current-pin').value = '';
-      document.getElementById('edit-new-pin').value = '';
-      document.getElementById('edit-confirm-pin').value = '';
+      if (logoEl) logoEl.value = appData.logoUrl || defaultData.logoUrl;
+      if (waEl) waEl.value = appData.whatsapp || "";
+      if (igEl) igEl.value = appData.igLink || "";
+      if (fbEl) fbEl.value = appData.fbLink || "";
+
+      if (document.getElementById('edit-current-pin')) document.getElementById('edit-current-pin').value = '';
+      if (document.getElementById('edit-new-pin')) document.getElementById('edit-new-pin').value = '';
+      if (document.getElementById('edit-confirm-pin')) document.getElementById('edit-confirm-pin').value = '';
 
       window.renderAdminSweetsTable();
     };
@@ -1087,11 +1185,11 @@
       if (!tbody) return;
 
       tbody.innerHTML = appData.sweets.map(item => {
-        const imgs = item.imgs && item.imgs.length > 0 ? item.imgs : [item.img];
+        const imgs = item.imgs && item.imgs.length > 0 ? item.imgs : [item.img || fallbackImageSvg];
         return `
           <tr>
             <td class="p-3">
-              <img src="${imgs[0]}" class="w-10 h-10 object-cover rounded-lg border" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=100&q=80';">
+              <img src="${imgs[0] || fallbackImageSvg}" class="w-10 h-10 object-cover rounded-lg border" onerror="window.handleImageError(this)">
             </td>
             <td class="p-3 font-medium">${item.name}</td>
             <td class="p-3"><span class="text-xs bg-pink-50 text-sweet-darkPink font-bold px-2 py-1 rounded-md">${item.category}</span></td>
@@ -1112,11 +1210,9 @@
     window.handleLogoUpload = function(event) {
       const file = event.target.files[0];
       if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        document.getElementById('edit-logo-url').value = e.target.result;
-      };
-      reader.readAsDataURL(file);
+      compressImageFile(file, 300, 0.8).then(dataUrl => {
+        document.getElementById('edit-logo-url').value = dataUrl;
+      });
     };
 
     window.deleteSweet = function(id) {
@@ -1160,11 +1256,12 @@
     };
 
     window.resetDefaultData = function() {
-      if (confirm("Restaurar os dados originais? (Isso redefinirá o PIN para 1234)")) {
+      if (confirm("Restaurar os dados originais? (Isso redefinirá o PIN para 1234 e limpará alterações locais)")) {
+        localStorage.removeItem('gostosuras_clean_data');
         appData = JSON.parse(JSON.stringify(defaultData));
         window.saveData();
         window.populateAdminFields();
-        alert("Dados restaurados!");
+        alert("Dados restaurados com sucesso!");
       }
     };
 
