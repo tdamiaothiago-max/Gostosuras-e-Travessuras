@@ -8,7 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Fredoka & Quicksand -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
@@ -49,6 +49,16 @@
 </head>
 <body class="bg-sweet-softPink text-sweet-dark font-body antialiased selection:bg-sweet-darkPink selection:text-white pb-24">
 
+  <!-- Fallback SVG Placeholder in case of image load errors -->
+  <script>
+    const fallbackImageSvg = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" fill="%23FDF2F5"><rect width="400" height="400" fill="%23FDF2F5"/><circle cx="200" cy="180" r="70" fill="%23F7A8C4"/><path d="M150 260 C 150 220, 250 220, 250 260 Z" fill="%23D85B88"/><text x="50%" y="85%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="bold" fill="%234A342E">Gostosuras e Travessuras</text></svg>';
+
+    window.handleImageError = function(imgElement) {
+      imgElement.onerror = null;
+      imgElement.src = fallbackImageSvg;
+    };
+  </script>
+
   <!-- Banner Superior -->
   <div class="bg-gradient-to-r from-sweet-darkPink via-sweet-pink to-sweet-teal text-white py-2 px-4 text-center text-xs sm:text-sm font-medium shadow-md sticky top-0 z-50 flex items-center justify-between">
     <div class="max-w-7xl mx-auto flex items-center justify-between w-full">
@@ -66,9 +76,10 @@
   <nav class="bg-white/90 backdrop-blur-md sticky top-[36px] z-40 shadow-sm border-b border-pink-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20 items-center">
+        <!-- Logo & Marca -->
         <a href="#" class="flex items-center gap-3 group">
           <div class="w-14 h-14 rounded-full border-2 border-sweet-darkPink p-0.5 bg-white shadow-sm flex items-center justify-center overflow-hidden group-hover:scale-105 transition">
-            <img id="main-logo-img" src="" alt="Gostosuras e Travessuras Logo" class="w-full h-full object-contain rounded-full">
+            <img id="main-logo-img" src="" alt="Gostosuras e Travessuras Logo" class="w-full h-full object-contain rounded-full" onerror="window.handleImageError(this)">
           </div>
           <div>
             <span class="text-xl font-bold font-title text-sweet-darkMoka tracking-tight block leading-tight">Gostosuras e Travessuras</span>
@@ -76,6 +87,7 @@
           </div>
         </a>
 
+        <!-- Links de Navegação -->
         <div class="hidden md:flex space-x-8 text-sm font-semibold text-gray-700">
           <a href="#cardapio" class="hover:text-sweet-darkPink transition">Cardápio de Docinhos</a>
           <a href="#calculadora-ancora" class="hover:text-sweet-darkPink transition flex items-center gap-1">
@@ -84,6 +96,7 @@
           <a href="#sobre" class="hover:text-sweet-darkPink transition">Sobre Nós</a>
         </div>
 
+        <!-- Botões de Ação -->
         <div class="flex items-center gap-2 sm:gap-3">
           <a id="nav-btn-fb" href="#" target="_blank" class="w-9 h-9 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-600 flex items-center justify-center text-base transition" title="Facebook">
             <i class="fa-brands fa-facebook-f"></i>
@@ -112,9 +125,10 @@
             Doces Artesanais feitos com amor para celebrar seus melhores momentos.
           </h1>
           <p class="text-base sm:text-lg text-gray-700 mb-6 leading-relaxed">
-            Docinhos tradicionais e gourmet, pipocas gourmet crocantes e bolos decorados sob encomenda. O sabor artesanal único de <strong>Ana Gusmão</strong> no seu evento.
+            Docinhos de festa tradicionais e gourmet, pipocas gourmet crocantes e bolos decorados sob encomenda. O sabor artesanal único de <strong>Ana Gusmão</strong> no seu evento.
           </p>
 
+          <!-- Formas de Pagamento Aceitas -->
           <div class="inline-flex flex-wrap items-center gap-3 bg-white border border-pink-200 text-sweet-dark px-4 py-3 rounded-2xl mb-8 shadow-sm">
             <div class="flex items-center gap-1.5 text-xs font-bold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-200">
               <svg class="pix-icon text-sweet-pix text-base" viewBox="0 0 512 512">
@@ -129,6 +143,7 @@
             </div>
           </div>
 
+          <!-- Botões de Ação -->
           <div class="flex flex-wrap gap-4 items-center">
             <a id="hero-btn-pedir" href="#" target="_blank" class="bg-sweet-darkPink hover:bg-pink-600 text-white font-bold px-8 py-4 rounded-full shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-3 text-sm">
               <i class="fa-brands fa-whatsapp text-xl"></i> Fazer Pedido no WhatsApp
@@ -144,9 +159,10 @@
           </div>
         </div>
 
+        <!-- Destaque Redondo Perfeito -->
         <div class="relative flex justify-center">
           <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden relative">
-            <img id="hero-carousel-img" src="" alt="Destaque de Doces" class="w-full h-full object-cover transition-opacity duration-500 rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80';">
+            <img id="hero-carousel-img" src="" alt="Destaque de Doces" class="w-full h-full object-cover transition-opacity duration-500 rounded-full" onerror="window.handleImageError(this)">
           </div>
           <div class="absolute -bottom-4 right-4 sm:right-12 bg-white p-4 rounded-2xl shadow-xl border border-pink-100 flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-sweet-darkPink">
@@ -171,9 +187,11 @@
         <span class="text-sweet-darkPink font-bold">⚠️ Doces de Festa: pedido mínimo de 25 unidades.</span>
       </p>
 
+      <!-- Abas de Filtro de Categoria -->
       <div id="category-tabs" class="flex flex-wrap justify-center gap-2 mt-6"></div>
     </div>
 
+    <!-- Grid de Doces -->
     <div id="sweets-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
   </section>
 
@@ -190,6 +208,7 @@
             <p class="text-xs sm:text-sm text-gray-500">Adicione itens diversos para ver o total e enviar a sua solicitação.</p>
           </div>
           
+          <!-- Seletor de Forma de Pagamento -->
           <div class="w-full sm:w-auto bg-pink-50 p-2 rounded-2xl border border-pink-200">
             <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1 px-1">Forma de Pagamento:</label>
             <div class="flex gap-1 text-xs font-bold">
@@ -212,8 +231,10 @@
           </div>
         </div>
 
+        <!-- Lista de Itens Selecionados na Calculadora -->
         <div id="calc-items-list" class="space-y-3 mb-6 min-h-[80px]"></div>
 
+        <!-- Resumo da Calculadora -->
         <div class="bg-sweet-softPink p-5 rounded-2xl border border-pink-200 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div>
             <div class="text-xs text-gray-500 font-semibold">Total Estimado</div>
@@ -341,9 +362,9 @@
         <div>
           <label class="block text-xs font-bold uppercase text-gray-600 mb-1">CATEGORIA</label>
           <select id="form-item-category" onchange="window.handleCategoryFormChange()" class="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-sweet-darkPink outline-none font-medium">
-            <option value="Doce de Festa">Doces de Festa (Preço por Cento)</option>
-            <option value="Pipoca Gourmet">Pipoca Gourmet (Preço por Unidade)</option>
-            <option value="Bolo">Bolo (Sob Consulta)</option>
+            <option value="Doce de Festa">Doce de Festa</option>
+            <option value="Pipoca Gourmet">Pipoca Gourmet</option>
+            <option value="Bolo">Bolo</option>
           </select>
         </div>
 
@@ -362,11 +383,11 @@
           <label class="block text-xs font-bold uppercase text-gray-600 mb-1">FOTOS DO PRODUTO (MÁX. 2 IMAGENS)</label>
           <div class="space-y-2">
             <input type="file" id="form-item-file" multiple accept="image/*" onchange="window.handleFormImageUpload(event)" class="w-full text-xs text-gray-500 border rounded-lg p-2 bg-gray-50 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-sweet-darkPink file:text-white hover:file:bg-pink-600">
-            <input type="text" id="form-item-imgs" placeholder="Ou cole até 2 URLs separadas por vírgula (https://...)" class="w-full border rounded-lg p-2 text-xs focus:ring-2 focus:ring-sweet-darkPink outline-none">
+            <input type="text" id="form-item-imgs" placeholder="Ou cole até 2 URLs separadas por vírgula (https://...)" onchange="window.handleUrlInputChange()" class="w-full border rounded-lg p-2 text-xs focus:ring-2 focus:ring-sweet-darkPink outline-none">
           </div>
 
           <!-- Pré-visualização de imagens -->
-          <div id="form-item-preview-container" class="mt-3 flex gap-3 hidden">
+          <div id="form-item-preview-container" class="mt-3 hidden">
             <div class="text-[11px] font-bold text-gray-500 w-full">
               <span>Pré-visualização:</span>
               <div id="form-item-preview-list" class="flex gap-2 mt-1"></div>
@@ -377,7 +398,7 @@
 
       <div class="bg-gray-50 p-4 border-t flex justify-end gap-2">
         <button onclick="window.closeItemFormModal()" class="px-5 py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-100 transition">Cancelar</button>
-        <button onclick="window.saveItemForm()" class="px-6 py-2.5 bg-sweet-darkPink hover:bg-pink-600 text-white font-bold rounded-xl text-xs shadow-md transition">Salvar Item</button>
+        <button id="btn-save-item-form" onclick="window.saveItemForm()" class="px-6 py-2.5 bg-sweet-darkPink hover:bg-pink-600 text-white font-bold rounded-xl text-xs shadow-md transition">Salvar Item</button>
       </div>
     </div>
   </div>
@@ -504,14 +525,91 @@
       igLink: "https://www.instagram.com/gostosuras.e.travessuras/",
       fbLink: "https://www.facebook.com/doces.gostosuras.e.travessuras",
       sweets: [
-        { id: 1, name: "Brigadeiro Tradicional", category: "Doce de Festa", price: "145,00", desc: "Clássico brigadeiro artesanal enrolado no granulado.", imgs: ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=400&q=80"] },
-        { id: 2, name: "Beijinho de Coco", category: "Doce de Festa", price: "145,00", desc: "Doce de coco macio envolvido no açúcar e cravo.", imgs: ["https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"] },
-        { id: 3, name: "Bicho de Pé", category: "Doce de Festa", price: "165,00", desc: "Docinho tradicional de morango.", imgs: ["https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80"] },
-        { id: 4, name: "Docinho de Pistache", category: "Doce de Festa", price: "420,00", desc: "Pasta pura e pedaços de pistache nobre.", imgs: ["https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80"] },
-        { id: 5, name: "Pipoca Gourmet Leite Ninho", category: "Pipoca Gourmet", price: "12,00", desc: "Pipoca artesanal banhada no chocolate branco e Leite Ninho (Pacote indiv. 100g).", imgs: ["https://images.unsplash.com/photo-1578849278619-e73505e9610f?auto=format&fit=crop&w=400&q=80"] },
-        { id: 6, name: "Pipoca Gourmet Ovaltine", category: "Pipoca Gourmet", price: "12,00", desc: "Crocante com cobertura de chocolate e Ovaltine.", imgs: ["https://images.unsplash.com/photo-1578849278619-e73505e9610f?auto=format&fit=crop&w=400&q=80"] },
-        { id: 7, name: "Bolo Decorado de Aniversário", category: "Bolo", price: "Sob Consulta", desc: "Bolo personalizado com massa fofinha e recheio gourmet a sua escolha.", imgs: ["https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=400&q=80"] },
-        { id: 8, name: "Bolo Vulpino de Casamento", category: "Bolo", price: "Sob Consulta", desc: "Bolo de andares decorado artesanalmente para grandes comemorações.", imgs: ["https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=400&q=80"] }
+        { 
+          id: 1, 
+          name: "Brigadeiro Tradicional", 
+          category: "Doce de Festa", 
+          price: "145,00", 
+          desc: "Clássico brigadeiro artesanal enrolado no granulado nobre.", 
+          imgs: [
+            "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=500&q=80",
+            "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=500&q=80"
+          ] 
+        },
+        { 
+          id: 2, 
+          name: "Beijinho de Coco", 
+          category: "Doce de Festa", 
+          price: "145,00", 
+          desc: "Doce de coco macio envolvido no açúcar e cravinho.", 
+          imgs: [
+            "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=500&q=80",
+            "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=500&q=80"
+          ] 
+        },
+        { 
+          id: 3, 
+          name: "Bicho de Pé", 
+          category: "Doce de Festa", 
+          price: "165,00", 
+          desc: "Docinho tradicional e cremoso de morango.", 
+          imgs: [
+            "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=500&q=80",
+            "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=500&q=80"
+          ] 
+        },
+        { 
+          id: 4, 
+          name: "Docinho de Pistache", 
+          category: "Doce de Festa", 
+          price: "420,00", 
+          desc: "Massa gourmet com pasta pura e pedaços de pistache nobre.", 
+          imgs: [
+            "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=500&q=80"
+          ] 
+        },
+        { 
+          id: 5, 
+          name: "Pipoca Gourmet Leite Ninho", 
+          category: "Pipoca Gourmet", 
+          price: "12,00", 
+          desc: "Pipoca artesanal banhada no chocolate branco e Leite Ninho (Pacote 100g).", 
+          imgs: [
+            "https://images.unsplash.com/photo-1578849278619-e73505e9610f?auto=format&fit=crop&w=500&q=80",
+            "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=500&q=80"
+          ] 
+        },
+        { 
+          id: 6, 
+          name: "Pipoca Gourmet Ovomaltine", 
+          category: "Pipoca Gourmet", 
+          price: "12,00", 
+          desc: "Crocante com cobertura de chocolate e Ovomaltine.", 
+          imgs: [
+            "https://images.unsplash.com/photo-1578849278619-e73505e9610f?auto=format&fit=crop&w=500&q=80"
+          ] 
+        },
+        { 
+          id: 7, 
+          name: "Bolo Decorado de Aniversário", 
+          category: "Bolo", 
+          price: "Sob Consulta", 
+          desc: "Bolo personalizado com massa fofinha e recheio gourmet.", 
+          imgs: [
+            "https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=500&q=80",
+            "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=500&q=80"
+          ] 
+        },
+        { 
+          id: 8, 
+          name: "Bolo Red Velvet de Casamento", 
+          category: "Bolo", 
+          price: "Sob Consulta", 
+          desc: "Bolo artesanal aveludado para grandes comemorações.", 
+          imgs: [
+            "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=500&q=80"
+          ] 
+        }
       ]
     };
 
@@ -522,6 +620,7 @@
     let cardImageIndexes = {};
     let calcCart = {};
     let selectedPaymentMethod = "PIX";
+    window.pendingUploadedImgs = [];
 
     function parsePrice(priceStr) {
       if (!priceStr || priceStr.toLowerCase().includes("consulta")) return 0;
@@ -545,10 +644,12 @@
     window.updatePaymentMethod = function(method) {
       selectedPaymentMethod = method;
       const noteEl = document.getElementById('payment-note');
-      if (method === 'PIX') {
-        noteEl.innerText = "Pagamento instantâneo via chave PIX";
-      } else {
-        noteEl.innerText = "Cartão de Crédito via Link (parcelamento em até 11x com pequena taxa)";
+      if (noteEl) {
+        if (method === 'PIX') {
+          noteEl.innerText = "Pagamento instantâneo via chave PIX";
+        } else {
+          noteEl.innerText = "Cartão de Crédito via Link (parcelamento em até 11x com pequena taxa)";
+        }
       }
     }
 
@@ -614,11 +715,16 @@
       }
 
       const formattedTotal = `R$ ${totalPrice.toFixed(2).replace('.', ',')}${hasConsulta ? ' + Sob Consulta' : ''}`;
-      document.getElementById('calc-total-price').innerText = formattedTotal;
-      document.getElementById('calc-total-units').innerText = `${totalUnits} itens selecionados no total`;
+      
+      const totalPriceEl = document.getElementById('calc-total-price');
+      const totalUnitsEl = document.getElementById('calc-total-units');
+      const barUnitsTextEl = document.getElementById('bar-units-text');
+      const barTotalTextEl = document.getElementById('bar-total-text');
 
-      document.getElementById('bar-units-text').innerText = `${totalUnits} itens selecionados`;
-      document.getElementById('bar-total-text').innerText = `Total: ${formattedTotal}`;
+      if (totalPriceEl) totalPriceEl.innerText = formattedTotal;
+      if (totalUnitsEl) totalUnitsEl.innerText = `${totalUnits} itens selecionados no total`;
+      if (barUnitsTextEl) barUnitsTextEl.innerText = `${totalUnits} itens selecionados`;
+      if (barTotalTextEl) barTotalTextEl.innerText = `Total: ${formattedTotal}`;
     }
 
     window.updateCalcQty = function(sweetId, delta) {
@@ -648,107 +754,119 @@
     }
 
     window.renderPage = function() {
-      document.getElementById('year').innerText = new Date().getFullYear();
-      document.getElementById('main-logo-img').src = appData.logoUrl || defaultData.logoUrl;
+      const yearEl = document.getElementById('year');
+      if (yearEl) yearEl.innerText = new Date().getFullYear();
+
+      const mainLogo = document.getElementById('main-logo-img');
+      if (mainLogo) mainLogo.src = appData.logoUrl || defaultData.logoUrl;
 
       const waUrl = `https://wa.me/${appData.whatsapp}?text=Olá!%20Gostaria%20de%20fazer%20uma%20encomenda!`;
-      document.getElementById('nav-btn-whatsapp').href = waUrl;
-      document.getElementById('hero-btn-pedir').href = waUrl;
-      document.getElementById('btn-whatsapp-float').href = waUrl;
+      ['nav-btn-whatsapp', 'hero-btn-pedir', 'btn-whatsapp-float'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.href = waUrl;
+      });
 
-      document.getElementById('nav-btn-ig').href = appData.igLink;
-      document.getElementById('about-link-ig').href = appData.igLink;
-      document.getElementById('footer-ig').href = appData.igLink;
+      ['nav-btn-ig', 'about-link-ig', 'footer-ig'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.href = appData.igLink;
+      });
 
-      document.getElementById('nav-btn-fb').href = appData.fbLink;
-      document.getElementById('about-link-fb').href = appData.fbLink;
-      document.getElementById('footer-fb').href = appData.fbLink;
+      ['nav-btn-fb', 'about-link-fb', 'footer-fb'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.href = appData.fbLink;
+      });
 
       const categories = ["Todas", "Doce de Festa", "Pipoca Gourmet", "Bolo"];
-      document.getElementById('category-tabs').innerHTML = categories.map(cat => `
-        <button onclick="window.setCategory('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold transition ${cat === activeCategory ? 'bg-sweet-darkPink text-white shadow-md' : 'bg-white text-gray-700 hover:bg-pink-100 border border-pink-200'}">
-          ${cat}
-        </button>
-      `).join('');
+      const catTabs = document.getElementById('category-tabs');
+      if (catTabs) {
+        catTabs.innerHTML = categories.map(cat => `
+          <button onclick="window.setCategory('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold transition ${cat === activeCategory ? 'bg-sweet-darkPink text-white shadow-md' : 'bg-white text-gray-700 hover:bg-pink-100 border border-pink-200'}">
+            ${cat}
+          </button>
+        `).join('');
+      }
 
       const filteredSweets = activeCategory === "Todas" ? appData.sweets : appData.sweets.filter(s => s.category === activeCategory);
       
-      document.getElementById('sweets-grid').innerHTML = filteredSweets.map(sweet => {
-        let imgs = sweet.imgs && sweet.imgs.length > 0 ? sweet.imgs.slice(0, 2) : [sweet.img || defaultData.sweets[0].imgs[0]];
-        const currentIdx = cardImageIndexes[sweet.id] || 0;
-        const currentQty = calcCart[sweet.id] || 0;
+      const sweetsGrid = document.getElementById('sweets-grid');
+      if (sweetsGrid) {
+        sweetsGrid.innerHTML = filteredSweets.map(sweet => {
+          let imgs = sweet.imgs && sweet.imgs.length > 0 ? sweet.imgs.slice(0, 2) : [fallbackImageSvg];
+          const currentIdx = cardImageIndexes[sweet.id] || 0;
+          const currentQty = calcCart[sweet.id] || 0;
 
-        let priceBadge = "";
-        let stepQty = 1;
+          let priceBadge = "";
+          let stepQty = 1;
 
-        if (sweet.category === "Doce de Festa") {
-          priceBadge = `R$ ${sweet.price} / cento`;
-          stepQty = 25;
-        } else if (sweet.category === "Pipoca Gourmet") {
-          priceBadge = `R$ ${sweet.price} / un`;
-          stepQty = 1;
-        } else {
-          priceBadge = `Sob Consulta`;
-          stepQty = 1;
-        }
+          if (sweet.category === "Doce de Festa") {
+            priceBadge = `R$ ${sweet.price} / cento`;
+            stepQty = 25;
+          } else if (sweet.category === "Pipoca Gourmet") {
+            priceBadge = `R$ ${sweet.price} / un`;
+            stepQty = 1;
+          } else {
+            priceBadge = `Sob Consulta`;
+            stepQty = 1;
+          }
 
-        return `
-          <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-pink-100 flex flex-col group">
-            <div class="relative h-48 w-full overflow-hidden bg-gray-100 group">
-              <img src="${imgs[currentIdx]}" alt="${sweet.name}" class="h-full w-full object-cover transition-opacity duration-300" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';">
-              
-              ${imgs.length > 1 ? `
-                <button onclick="window.prevCardImage(${sweet.id}, ${imgs.length})" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-sweet-dark w-8 h-8 rounded-full flex items-center justify-center shadow transition opacity-80 group-hover:opacity-100 z-10">
-                  <i class="fa-solid fa-chevron-left text-xs"></i>
-                </button>
-                <button onclick="window.nextCardImage(${sweet.id}, ${imgs.length})" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-sweet-dark w-8 h-8 rounded-full flex items-center justify-center shadow transition opacity-80 group-hover:opacity-100 z-10">
-                  <i class="fa-solid fa-chevron-right text-xs"></i>
-                </button>
-                <div class="absolute bottom-2 inset-x-0 flex justify-center gap-1 z-10">
-                  ${imgs.map((_, idx) => `
-                    <span class="w-1.5 h-1.5 rounded-full ${idx === currentIdx ? 'bg-sweet-darkPink scale-125 shadow' : 'bg-white/70'}"></span>
-                  `).join('')}
-                </div>
-              ` : ''}
-              <span class="absolute top-2 left-2 text-[10px] bg-white/90 backdrop-blur font-bold px-2.5 py-1 rounded-full text-sweet-darkMoka shadow-sm border border-pink-100">${sweet.category}</span>
-            </div>
-
-            <div class="p-5 flex-1 flex flex-col justify-between">
-              <div>
-                <div class="flex justify-between items-start mb-2 gap-2">
-                  <h3 class="font-title font-bold text-lg text-sweet-darkMoka leading-tight">${sweet.name}</h3>
-                  <span class="text-xs bg-sweet-softPink text-sweet-darkPink font-bold px-2 py-1 rounded-md shrink-0 border border-pink-200">
-                    ${priceBadge}
-                  </span>
-                </div>
-                <p class="text-xs text-gray-500 mb-4">${sweet.desc}</p>
+          return `
+            <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-pink-100 flex flex-col group">
+              <div class="relative h-48 w-full overflow-hidden bg-gray-100 group">
+                <img src="${imgs[currentIdx]}" alt="${sweet.name}" class="h-full w-full object-cover transition-opacity duration-300" onerror="window.handleImageError(this)">
+                
+                ${imgs.length > 1 ? `
+                  <button onclick="window.prevCardImage(${sweet.id}, ${imgs.length})" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-sweet-dark w-8 h-8 rounded-full flex items-center justify-center shadow transition opacity-80 group-hover:opacity-100 z-10">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                  </button>
+                  <button onclick="window.nextCardImage(${sweet.id}, ${imgs.length})" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-sweet-dark w-8 h-8 rounded-full flex items-center justify-center shadow transition opacity-80 group-hover:opacity-100 z-10">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                  </button>
+                  <div class="absolute bottom-2 inset-x-0 flex justify-center gap-1 z-10">
+                    ${imgs.map((_, idx) => `
+                      <span class="w-1.5 h-1.5 rounded-full ${idx === currentIdx ? 'bg-sweet-darkPink scale-125 shadow' : 'bg-white/70'}"></span>
+                    `).join('')}
+                  </div>
+                ` : ''}
+                <span class="absolute top-2 left-2 text-[10px] bg-white/90 backdrop-blur font-bold px-2.5 py-1 rounded-full text-sweet-darkMoka shadow-sm border border-pink-100">${sweet.category}</span>
               </div>
 
-              <div class="bg-sweet-softPink p-3 rounded-xl border border-pink-200 space-y-2">
-                <div class="flex justify-between items-center text-xs font-semibold text-sweet-darkMoka">
-                  <span>Quantidade desejada:</span>
-                  <span class="text-sweet-darkPink font-bold">${currentQty} un</span>
+              <div class="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <div class="flex justify-between items-start mb-2 gap-2">
+                    <h3 class="font-title font-bold text-lg text-sweet-darkMoka leading-tight">${sweet.name}</h3>
+                    <span class="text-xs bg-sweet-softPink text-sweet-darkPink font-bold px-2 py-1 rounded-md shrink-0 border border-pink-200">
+                      ${priceBadge}
+                    </span>
+                  </div>
+                  <p class="text-xs text-gray-500 mb-4">${sweet.desc}</p>
                 </div>
 
-                <div class="flex items-center gap-2">
-                  <button onclick="window.updateCalcQty(${sweet.id}, -${stepQty})" class="w-8 h-8 rounded-lg bg-white text-sweet-dark font-bold hover:bg-pink-100 transition shadow-sm border border-pink-200 flex items-center justify-center text-xs">
-                    -${stepQty}
-                  </button>
-                  <input type="number" min="0" value="${currentQty}" onchange="window.setCalcQtyDirect(${sweet.id}, this.value)" class="w-full text-center bg-white border border-pink-200 rounded-lg py-1 text-sm font-bold text-sweet-darkMoka focus:ring-2 focus:ring-sweet-darkPink outline-none">
-                  <button onclick="window.updateCalcQty(${sweet.id}, ${stepQty})" class="w-8 h-8 rounded-lg bg-white text-sweet-dark font-bold hover:bg-pink-100 transition shadow-sm border border-pink-200 flex items-center justify-center text-xs">
-                    +${stepQty}
-                  </button>
-                </div>
+                <div class="bg-sweet-softPink p-3 rounded-xl border border-pink-200 space-y-2">
+                  <div class="flex justify-between items-center text-xs font-semibold text-sweet-darkMoka">
+                    <span>Quantidade desejada:</span>
+                    <span class="text-sweet-darkPink font-bold">${currentQty} un</span>
+                  </div>
 
-                <div class="flex justify-between items-center pt-1 text-[11px] text-gray-600 border-t border-pink-200/50">
-                  <span>Subtotal:</span>
-                  <strong class="text-sweet-darkMoka font-bold">${sweet.category === 'Bolo' ? 'Sob Consulta' : 'R$ ' + (currentQty * getUnitPrice(sweet)).toFixed(2).replace('.', ',')}</strong>
+                  <div class="flex items-center gap-2">
+                    <button onclick="window.updateCalcQty(${sweet.id}, -${stepQty})" class="w-8 h-8 rounded-lg bg-white text-sweet-dark font-bold hover:bg-pink-100 transition shadow-sm border border-pink-200 flex items-center justify-center text-xs">
+                      -${stepQty}
+                    </button>
+                    <input type="number" min="0" value="${currentQty}" onchange="window.setCalcQtyDirect(${sweet.id}, this.value)" class="w-full text-center bg-white border border-pink-200 rounded-lg py-1 text-sm font-bold text-sweet-darkMoka focus:ring-2 focus:ring-sweet-darkPink outline-none">
+                    <button onclick="window.updateCalcQty(${sweet.id}, ${stepQty})" class="w-8 h-8 rounded-lg bg-white text-sweet-dark font-bold hover:bg-pink-100 transition shadow-sm border border-pink-200 flex items-center justify-center text-xs">
+                      +${stepQty}
+                    </button>
+                  </div>
+
+                  <div class="flex justify-between items-center pt-1 text-[11px] text-gray-600 border-t border-pink-200/50">
+                    <span>Subtotal:</span>
+                    <strong class="text-sweet-darkMoka font-bold">${sweet.category === 'Bolo' ? 'Sob Consulta' : 'R$ ' + (currentQty * getUnitPrice(sweet)).toFixed(2).replace('.', ',')}</strong>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        `;
-      }).join('');
+          `;
+        }).join('');
+      }
 
       window.updateCalculatorUI();
       window.startHeroCarousel();
@@ -814,7 +932,7 @@
       const updateHero = () => {
         if (carouselIndex >= appData.sweets.length) carouselIndex = 0;
         const currentSweet = appData.sweets[carouselIndex];
-        const imgs = currentSweet.imgs && currentSweet.imgs.length > 0 ? currentSweet.imgs : [currentSweet.img];
+        const imgs = currentSweet.imgs && currentSweet.imgs.length > 0 ? currentSweet.imgs : [fallbackImageSvg];
         
         const imgEl = document.getElementById('hero-carousel-img');
         const titleEl = document.getElementById('hero-carousel-title');
@@ -844,6 +962,8 @@
       const priceLabel = document.getElementById('form-price-label');
       const priceHelp = document.getElementById('form-price-help');
 
+      if (!priceContainer || !priceLabel || !priceHelp) return;
+
       if (cat === "Bolo") {
         priceContainer.classList.add('hidden');
         document.getElementById('form-item-price').value = "Sob Consulta";
@@ -866,8 +986,8 @@
       const validImgs = imgs.slice(0, 2).filter(Boolean);
       if (validImgs.length > 0) {
         list.innerHTML = validImgs.map((src, i) => `
-          <div class="relative w-12 h-12 rounded-lg border border-pink-200 overflow-hidden shadow-sm">
-            <img src="${src}" class="w-full h-full object-cover">
+          <div class="relative w-12 h-12 rounded-lg border border-pink-200 overflow-hidden shadow-sm bg-gray-50">
+            <img src="${src}" class="w-full h-full object-cover" onerror="window.handleImageError(this)">
             <span class="absolute bottom-0 inset-x-0 bg-sweet-darkMoka/80 text-white text-[9px] text-center font-bold">${i + 1}</span>
           </div>
         `).join('');
@@ -887,6 +1007,7 @@
       document.getElementById('form-item-file').value = "";
       document.getElementById('form-item-category').value = "Doce de Festa";
 
+      window.pendingUploadedImgs = [];
       window.updatePreviewList([]);
       window.handleCategoryFormChange();
       document.getElementById('item-form-modal').classList.remove('hidden');
@@ -905,7 +1026,8 @@
       document.getElementById('form-item-file').value = "";
 
       const imgs = (sweet.imgs || []).slice(0, 2);
-      document.getElementById('form-item-imgs').value = imgs.join(', ');
+      window.pendingUploadedImgs = [...imgs];
+      document.getElementById('form-item-imgs').value = imgs.filter(img => !img.startsWith('data:')).join(', ');
 
       window.updatePreviewList(imgs);
       window.handleCategoryFormChange();
@@ -916,7 +1038,18 @@
       document.getElementById('item-form-modal').classList.add('hidden');
     };
 
-    window.handleFormImageUpload = function(event) {
+    window.handleUrlInputChange = function() {
+      const val = document.getElementById('form-item-imgs').value;
+      if (val.trim()) {
+        const urls = val.split(',').map(s => s.trim()).filter(s => s && !s.startsWith('data:'));
+        if (urls.length > 0) {
+          window.pendingUploadedImgs = urls.slice(0, 2);
+          window.updatePreviewList(window.pendingUploadedImgs);
+        }
+      }
+    };
+
+    window.handleFormImageUpload = async function(event) {
       const files = Array.from(event.target.files);
       if (files.length === 0) return;
 
@@ -925,32 +1058,40 @@
       }
 
       const selectedFiles = files.slice(0, 2);
-      const loadedImgs = [];
-      let loadedCount = 0;
+      const btnSave = document.getElementById('btn-save-item-form');
+      if (btnSave) {
+        btnSave.disabled = true;
+        btnSave.innerText = "Carregando...";
+      }
 
-      selectedFiles.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          loadedImgs.push(e.target.result);
-          loadedCount++;
-          if (loadedCount === selectedFiles.length) {
-            document.getElementById('form-item-imgs').value = loadedImgs.join(', ');
-            window.updatePreviewList(loadedImgs);
-          }
-        };
-        reader.readAsDataURL(file);
+      const filePromises = selectedFiles.map(file => {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            resolve(e.target.result);
+          };
+          reader.readAsDataURL(file);
+        });
       });
+
+      const loadedImgs = await Promise.all(filePromises);
+      window.pendingUploadedImgs = loadedImgs;
+      window.updatePreviewList(window.pendingUploadedImgs);
+
+      if (btnSave) {
+        btnSave.disabled = false;
+        btnSave.innerText = "Salvar Item";
+      }
     };
 
     window.saveItemForm = function() {
-      const id = document.getElementById('form-item-id').value;
+      const rawId = document.getElementById('form-item-id').value;
       const name = document.getElementById('form-item-name').value;
       const category = document.getElementById('form-item-category').value;
       let price = document.getElementById('form-item-price').value;
       const desc = document.getElementById('form-item-desc').value;
-      const imgsStr = document.getElementById('form-item-imgs').value;
 
-      if (!name) {
+      if (!name || name.trim() === "") {
         alert("Preencha o nome do produto!");
         return;
       }
@@ -959,34 +1100,56 @@
         price = "Sob Consulta";
       }
 
-      let imgs = imgsStr.split(',').map(s => s.trim()).filter(Boolean).slice(0, 2);
-      if (imgs.length === 0) {
-        imgs.push("https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80");
+      let finalImgs = [...window.pendingUploadedImgs];
+
+      if (finalImgs.length === 0) {
+        const urlInput = document.getElementById('form-item-imgs').value;
+        if (urlInput.trim()) {
+          finalImgs = urlInput.split(',').map(s => s.trim()).filter(Boolean).slice(0, 2);
+        }
       }
 
-      if (id) {
-        const sweet = appData.sweets.find(s => s.id === parseInt(id));
-        if (sweet) {
-          sweet.name = name;
-          sweet.category = category;
-          sweet.price = price;
-          sweet.desc = desc;
-          sweet.imgs = imgs;
+      if (finalImgs.length === 0) {
+        finalImgs.push(fallbackImageSvg);
+      }
+
+      if (rawId && rawId.trim() !== "") {
+        const parsedId = parseInt(rawId);
+        const sweetIndex = appData.sweets.findIndex(s => s.id === parsedId);
+        if (sweetIndex !== -1) {
+          appData.sweets[sweetIndex] = {
+            ...appData.sweets[sweetIndex],
+            name: name.trim(),
+            category,
+            price,
+            desc: desc.trim(),
+            imgs: finalImgs
+          };
+        } else {
+          appData.sweets.push({
+            id: Date.now(),
+            name: name.trim(),
+            category,
+            price,
+            desc: desc.trim(),
+            imgs: finalImgs
+          });
         }
       } else {
         appData.sweets.push({
           id: Date.now(),
-          name,
+          name: name.trim(),
           category,
           price,
-          desc,
-          imgs
+          desc: desc.trim(),
+          imgs: finalImgs
         });
       }
 
       window.saveData();
       window.closeItemFormModal();
       window.renderAdminSweetsTable();
+      alert("Item salvo com sucesso!");
     };
 
     // Admin Main Modal Logic
@@ -994,27 +1157,33 @@
 
     window.toggleAdminModal = function() {
       const modal = document.getElementById('admin-modal');
+      if (!modal) return;
+      
       modal.classList.toggle('hidden');
       if (!modal.classList.contains('hidden')) {
         if (isAdminLoggedIn) {
           window.populateAdminFields();
         } else {
-          document.getElementById('admin-pin').value = '';
-          document.getElementById('admin-login-view').classList.remove('hidden');
-          document.getElementById('admin-content-view').classList.add('hidden');
-          document.getElementById('admin-footer-actions').classList.add('hidden');
+          const pinInput = document.getElementById('admin-pin');
+          if (pinInput) pinInput.value = '';
+          
+          document.getElementById('admin-login-view')?.classList.remove('hidden');
+          document.getElementById('admin-content-view')?.classList.add('hidden');
+          document.getElementById('admin-footer-actions')?.classList.add('hidden');
         }
       }
     };
 
     window.checkAdminPin = function() {
-      const pin = document.getElementById('admin-pin').value;
+      const pinInput = document.getElementById('admin-pin');
+      const pin = pinInput ? pinInput.value : '';
       const validPin = appData.adminPin || "1234";
+      
       if (pin === validPin) {
         isAdminLoggedIn = true;
-        document.getElementById('admin-login-view').classList.add('hidden');
-        document.getElementById('admin-content-view').classList.remove('hidden');
-        document.getElementById('admin-footer-actions').classList.remove('hidden');
+        document.getElementById('admin-login-view')?.classList.add('hidden');
+        document.getElementById('admin-content-view')?.classList.remove('hidden');
+        document.getElementById('admin-footer-actions')?.classList.remove('hidden');
         window.populateAdminFields();
       } else {
         alert("PIN Incorreto!");
@@ -1022,34 +1191,52 @@
     };
 
     window.switchAdminTab = function(tab) {
-      document.getElementById('tab-btn-general').className = tab === 'general' ? 'pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink' : 'pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700';
-      document.getElementById('tab-btn-menu').className = tab === 'menu' ? 'pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink' : 'pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700';
+      const tabGeneral = document.getElementById('tab-btn-general');
+      const tabMenu = document.getElementById('tab-btn-menu');
+      
+      if (tabGeneral) {
+        tabGeneral.className = tab === 'general' ? 'pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink' : 'pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700';
+      }
+      if (tabMenu) {
+        tabMenu.className = tab === 'menu' ? 'pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink' : 'pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700';
+      }
 
-      document.getElementById('admin-sec-general').classList.toggle('hidden', tab !== 'general');
-      document.getElementById('admin-sec-menu').classList.toggle('hidden', tab !== 'menu');
+      document.getElementById('admin-sec-general')?.classList.toggle('hidden', tab !== 'general');
+      document.getElementById('admin-sec-menu')?.classList.toggle('hidden', tab !== 'menu');
     };
 
     window.populateAdminFields = function() {
-      document.getElementById('edit-logo-url').value = appData.logoUrl || defaultData.logoUrl;
-      document.getElementById('edit-whatsapp').value = appData.whatsapp;
-      document.getElementById('edit-ig').value = appData.igLink;
-      document.getElementById('edit-fb').value = appData.fbLink;
+      const logoInput = document.getElementById('edit-logo-url');
+      const waInput = document.getElementById('edit-whatsapp');
+      const igInput = document.getElementById('edit-ig');
+      const fbInput = document.getElementById('edit-fb');
 
-      document.getElementById('edit-current-pin').value = '';
-      document.getElementById('edit-new-pin').value = '';
-      document.getElementById('edit-confirm-pin').value = '';
+      if (logoInput) logoInput.value = appData.logoUrl || defaultData.logoUrl;
+      if (waInput) waInput.value = appData.whatsapp || '';
+      if (igInput) igInput.value = appData.igLink || '';
+      if (fbInput) fbInput.value = appData.fbLink || '';
+
+      const curPin = document.getElementById('edit-current-pin');
+      const newPin = document.getElementById('edit-new-pin');
+      const confPin = document.getElementById('edit-confirm-pin');
+
+      if (curPin) curPin.value = '';
+      if (newPin) newPin.value = '';
+      if (confPin) confPin.value = '';
 
       window.renderAdminSweetsTable();
     };
 
     window.renderAdminSweetsTable = function() {
       const tbody = document.getElementById('admin-sweets-table-body');
+      if (!tbody) return;
+
       tbody.innerHTML = appData.sweets.map(item => {
-        const imgs = item.imgs && item.imgs.length > 0 ? item.imgs : [item.img];
+        const imgs = (item.imgs && item.imgs.length > 0) ? item.imgs : [fallbackImageSvg];
         return `
           <tr>
             <td class="p-3">
-              <img src="${imgs[0]}" class="w-10 h-10 object-cover rounded-lg border">
+              <img src="${imgs[0]}" onerror="window.handleImageError(this)" class="w-10 h-10 object-cover rounded-lg border">
             </td>
             <td class="p-3 font-medium">${item.name}</td>
             <td class="p-3"><span class="text-xs bg-pink-50 text-sweet-darkPink font-bold px-2 py-1 rounded-md">${item.category}</span></td>
