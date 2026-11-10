@@ -45,6 +45,13 @@
       stroke: currentColor;
       fill: currentColor;
     }
+    @keyframes bounce-slow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .floating-folder {
+      animation: bounce-slow 3s infinite ease-in-out;
+    }
   </style>
 </head>
 <body class="bg-sweet-softPink text-sweet-dark font-body antialiased selection:bg-sweet-darkPink selection:text-white pb-24">
@@ -68,7 +75,7 @@
       <div class="flex justify-between h-20 items-center">
         <a href="#" class="flex items-center gap-3 group">
           <div class="w-14 h-14 rounded-full border-2 border-sweet-darkPink p-0.5 bg-white shadow-sm flex items-center justify-center overflow-hidden group-hover:scale-105 transition">
-            <img id="main-logo-img" src="" alt="Gostosuras e Travessuras Logo" class="w-full h-full object-contain rounded-full" onerror="window.handleImageError(this)">
+            <img id="main-logo-img" src="" alt="Gostosuras e Travessuras Logo" class="w-full h-full object-contain rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';">
           </div>
           <div>
             <span class="text-xl font-bold font-title text-sweet-darkMoka tracking-tight block leading-tight">Gostosuras e Travessuras</span>
@@ -77,9 +84,9 @@
         </a>
 
         <div class="hidden md:flex space-x-8 text-sm font-semibold text-gray-700">
-          <a href="#cardapio" class="hover:text-sweet-darkPink transition">Cardápio de Docinhos</a>
+          <a href="#cardapio" class="hover:text-sweet-darkPink transition">Cardápio</a>
           <a href="#calculadora-ancora" class="hover:text-sweet-darkPink transition flex items-center gap-1">
-            <i class="fa-solid fa-calculator text-sweet-darkPink"></i> Calculadora de Encomenda
+            <i class="fa-solid fa-calculator text-sweet-darkPink"></i> Calculadora
           </a>
           <a href="#sobre" class="hover:text-sweet-darkPink transition">Sobre Nós</a>
         </div>
@@ -100,8 +107,27 @@
     </div>
   </nav>
 
+  <!-- FOLDER / BANNER FLUTUANTE DE DESTAQUE SAZONAL (CONDICIONAL) -->
+  <div id="seasonal-folder-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 hidden">
+    <div class="floating-folder bg-gradient-to-r from-sweet-darkPink via-pink-500 to-sweet-teal rounded-3xl p-5 sm:p-6 text-white shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4 border border-white/30">
+      <div class="flex items-center gap-4 text-center sm:text-left">
+        <div id="folder-emoji" class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl shrink-0 mx-auto sm:mx-0">
+          🎄
+        </div>
+        <div>
+          <span id="folder-badge" class="bg-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Edição Limitada / Período Festivo</span>
+          <h3 id="folder-title" class="text-xl sm:text-2xl font-title font-bold mt-1">Cardápio Especial de Natal & Fim de Ano</h3>
+          <p id="folder-desc" class="text-xs sm:text-sm text-pink-100 mt-0.5">Docinhos temáticos exclusivos criados especialmente para celebrar suas festas com muito sabor!</p>
+        </div>
+      </div>
+      <button onclick="window.setCategory('Especial Sazonal'); location.href='#cardapio';" class="bg-white text-sweet-darkPink hover:bg-pink-50 font-bold px-6 py-3 rounded-full text-xs sm:text-sm shadow-lg transition whitespace-nowrap flex items-center gap-2">
+        <i class="fa-solid fa-gift"></i> Ver Cardápio Especial
+      </button>
+    </div>
+  </div>
+
   <!-- Hero / Apresentação -->
-  <section class="relative py-16 sm:py-20 overflow-hidden bg-gradient-to-b from-pink-50/70 via-white to-sweet-softPink">
+  <section class="relative py-12 sm:py-16 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
@@ -146,7 +172,7 @@
 
         <div class="relative flex justify-center">
           <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden relative">
-            <img id="hero-carousel-img" src="" alt="Destaque de Doces" class="w-full h-full object-cover transition-opacity duration-500 rounded-full" onerror="window.handleImageError(this)">
+            <img id="hero-carousel-img" src="" alt="Destaque de Doces" class="w-full h-full object-cover transition-opacity duration-500 rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80';">
           </div>
           <div class="absolute -bottom-4 right-4 sm:right-12 bg-white p-4 rounded-2xl shadow-xl border border-pink-100 flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-sweet-darkPink">
@@ -335,7 +361,7 @@
         
         <div>
           <label class="block text-xs font-bold uppercase text-gray-600 mb-1">NOME DO ITEM</label>
-          <input type="text" id="form-item-name" placeholder="Brigadeiro Tradicional" class="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-sweet-darkPink outline-none font-medium">
+          <input type="text" id="form-item-name" placeholder="Ex: Brigadeiro Natalino" class="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-sweet-darkPink outline-none font-medium">
         </div>
 
         <div>
@@ -344,31 +370,32 @@
             <option value="Doce de Festa">Doce de Festa</option>
             <option value="Pipoca Gourmet">Pipoca Gourmet</option>
             <option value="Bolo">Bolo</option>
+            <option value="Especial Sazonal">Especial Sazonal (Temático de Época)</option>
           </select>
         </div>
 
         <div id="form-price-container">
-          <label id="form-price-label" class="block text-xs font-bold uppercase text-gray-600 mb-1">VALOR DO CENTO (R$)</label>
+          <label id="form-price-label" class="block text-xs font-bold uppercase text-gray-600 mb-1">VALOR (R$)</label>
           <input type="text" id="form-item-price" placeholder="145,00" class="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-sweet-darkPink outline-none font-bold text-sweet-darkPink">
-          <p id="form-price-help" class="text-[11px] text-gray-400 mt-1">O sistema calculará automaticamente o valor fracionado por unidade.</p>
+          <p id="form-price-help" class="text-[11px] text-gray-400 mt-1">Insira o valor (por cento, unidade ou pacote conforme o item).</p>
         </div>
 
         <div>
           <label class="block text-xs font-bold uppercase text-gray-600 mb-1">DESCRIÇÃO</label>
-          <textarea id="form-item-desc" rows="2" placeholder="Clássico brigadeiro artesanal com granulado nobre." class="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-sweet-darkPink outline-none"></textarea>
+          <textarea id="form-item-desc" rows="2" placeholder="Ex: Decorado artesanalmente com tema natalino." class="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-sweet-darkPink outline-none"></textarea>
         </div>
 
         <div>
           <label class="block text-xs font-bold uppercase text-gray-600 mb-1">FOTOS DO PRODUTO (MÁX. 2 IMAGENS)</label>
           <div class="space-y-2">
-            <input type="file" id="form-item-file" multiple accept="image/*" onchange="window.handleFormImageUpload(event)" class="w-full text-xs text-gray-500 border rounded-lg p-2 bg-gray-50 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-sweet-darkPink file:text-white hover:file:bg-pink-600">
-            <input type="text" id="form-item-imgs" placeholder="Ou cole até 2 URLs separadas por vírgula (https://...)" onchange="window.handleUrlInputChange()" class="w-full border rounded-lg p-2 text-xs focus:ring-2 focus:ring-sweet-darkPink outline-none">
+            <input type="file" id="form-item-file" multiple accept="image/*,.pdf" onchange="window.handleFormImageUpload(event)" class="w-full text-xs text-gray-500 border rounded-lg p-2 bg-gray-50 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-sweet-darkPink file:text-white hover:file:bg-pink-600">
+            <input type="text" id="form-item-imgs" placeholder="Ou cole URLs..." class="w-full border rounded-lg p-2 text-xs focus:ring-2 focus:ring-sweet-darkPink outline-none">
           </div>
 
           <!-- Pré-visualização de imagens -->
           <div id="form-item-preview-container" class="mt-3 hidden">
             <div class="text-[11px] font-bold text-gray-500 w-full">
-              <span>Pré-visualização das Imagens (Otimizadas):</span>
+              <span>Pré-visualização:</span>
               <div id="form-item-preview-list" class="flex gap-2 mt-1"></div>
             </div>
           </div>
@@ -377,7 +404,7 @@
 
       <div class="bg-gray-50 p-4 border-t flex justify-end gap-2">
         <button onclick="window.closeItemFormModal()" class="px-5 py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-100 transition">Cancelar</button>
-        <button id="btn-save-item-form" onclick="window.saveItemForm()" class="px-6 py-2.5 bg-sweet-darkPink hover:bg-pink-600 text-white font-bold rounded-xl text-xs shadow-md transition">Salvar Item</button>
+        <button onclick="window.saveItemForm()" class="px-6 py-2.5 bg-sweet-darkPink hover:bg-pink-600 text-white font-bold rounded-xl text-xs shadow-md transition">Salvar Item</button>
       </div>
     </div>
   </div>
@@ -392,7 +419,7 @@
           </div>
           <div>
             <h3 class="font-bold text-lg leading-tight">Painel Administrativo</h3>
-            <p class="text-xs text-gray-300">Edite dados da loja, preços, fotos e senha de acesso</p>
+            <p class="text-xs text-gray-300">Edite dados da loja, preços, folder sazonal e senha</p>
           </div>
         </div>
         <button onclick="window.toggleAdminModal()" class="text-gray-400 hover:text-white text-xl">
@@ -412,8 +439,8 @@
 
       <div id="admin-content-view" class="hidden flex-1 overflow-y-auto p-6 space-y-8">
         <div class="flex border-b border-gray-200 gap-4 font-semibold text-sm">
-          <button onclick="window.switchAdminTab('general')" id="tab-btn-general" class="pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink">Geral, Contatos & Segurança</button>
-          <button onclick="window.switchAdminTab('menu')" id="tab-btn-menu" class="pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">Gerenciar Cardápio & Categorias</button>
+          <button onclick="window.switchAdminTab('general')" id="tab-btn-general" class="pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink">Geral, Contatos & Folder Sazonal</button>
+          <button onclick="window.switchAdminTab('menu')" id="tab-btn-menu" class="pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">Gerenciar Cardápio</button>
         </div>
 
         <div id="admin-sec-general" class="space-y-6">
@@ -439,6 +466,34 @@
             <input type="text" id="edit-fb" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
           </div>
 
+          <!-- CONFIGURAÇÕES DO FOLDER SAZONAL -->
+          <div class="border-t pt-6 mt-6">
+            <h4 class="font-bold text-sweet-darkMoka mb-1 text-sm uppercase"><i class="fa-solid fa-wand-magic-sparkles text-sweet-darkPink mr-1"></i> Configuração do Folder Sazonal (Destaque)</h4>
+            <p class="text-[11px] text-gray-500 mb-3">Este folder só aparecerá no site se houver pelo menos um item cadastrado na categoria "Especial Sazonal".</p>
+            
+            <div class="grid md:grid-cols-3 gap-4 mb-4">
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Emoji / Ícone</label>
+                <input type="text" id="edit-folder-emoji" placeholder="Ex: 🎄 ou 🎃 ou 🐰" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Badge / Subtítulo</label>
+                <input type="text" id="edit-folder-badge" placeholder="Ex: Edição Limitada / Natal & Fim de Ano" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Título da Campagna</label>
+                <input type="text" id="edit-folder-title" placeholder="Ex: Cardápio Especial de Natal & Fim de Ano" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Descrição do Folder</label>
+                <textarea id="edit-folder-desc" rows="2" placeholder="Ex: Docinhos temáticos exclusivos criados especialmente para celebrar suas festas!" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none"></textarea>
+              </div>
+            </div>
+          </div>
+
           <div class="border-t pt-6 mt-6">
             <h4 class="font-bold text-gray-800 mb-1 text-xs uppercase"><i class="fa-solid fa-key text-sweet-darkPink mr-1"></i> Alterar PIN de Acesso Admin</h4>
             <p class="text-[11px] text-gray-500 mb-3">Preencha apenas caso deseje alterar a senha atual de acesso ao painel (4 dígitos).</p>
@@ -460,16 +515,13 @@
         </div>
 
         <div id="admin-sec-menu" class="hidden space-y-6">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex justify-between items-center">
             <h4 class="font-bold text-gray-800">Itens do Cardápio por Categoria</h4>
-            <div class="flex flex-wrap gap-2">
-              <button onclick="window.exportHtmlWithData()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1 shadow-sm">
-                <i class="fa-solid fa-file-code"></i> Baixar HTML com Dados
-              </button>
+            <div class="flex gap-2">
               <button onclick="window.exportMenuBackup()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1 border">
-                <i class="fa-solid fa-download"></i> Backup JSON
+                <i class="fa-solid fa-download"></i> Baixar Backup
               </button>
-              <button onclick="window.openAddSweetModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1 shadow-sm">
+              <button onclick="window.openAddSweetModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1">
                 <i class="fa-solid fa-plus"></i> Adicionar Item
               </button>
             </div>
@@ -505,21 +557,18 @@
   </div>
 
   <script>
-    // Fallback de imagem embutida via Data URL
-    const fallbackImageSvg = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400"><rect width="400" height="400" fill="%23FDF2F5"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="24" fill="%23D85B88" font-weight="bold">Doces Artesanais</text><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Quicksand, sans-serif" font-size="16" fill="%237D5D55">Gostosuras e Travessuras</text></svg>';
-
-    window.handleImageError = function(imgEl) {
-      if (!imgEl) return;
-      imgEl.onerror = null;
-      imgEl.src = fallbackImageSvg;
-    };
-
     const defaultData = {
       adminPin: "1234",
       logoUrl: "https://lh3.googleusercontent.com/d/1g_98L_Z9V7M2p4D6_X5-X1vX2y3Z4w5v=w800",
       whatsapp: "5511985063638",
       igLink: "https://www.instagram.com/gostosuras.e.travessuras/",
       fbLink: "https://www.facebook.com/doces.gostosuras.e.travessuras",
+      seasonalConfig: {
+        emoji: "🎄",
+        badge: "Edição Limitada / Período Festivo",
+        title: "Cardápio Especial de Natal & Fim de Ano",
+        desc: "Docinhos temáticos exclusivos criados especialmente para celebrar suas festas com muito sabor!"
+      },
       sweets: [
         { id: 1, name: "Brigadeiro Tradicional", category: "Doce de Festa", price: "145,00", desc: "Clássico brigadeiro artesanal enrolado no granulado.", imgs: ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=400&q=80"] },
         { id: 2, name: "Beijinho de Coco", category: "Doce de Festa", price: "145,00", desc: "Doce de coco macio envolvido no açúcar e cravo.", imgs: ["https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"] },
@@ -528,20 +577,13 @@
         { id: 5, name: "Pipoca Gourmet Leite Ninho", category: "Pipoca Gourmet", price: "12,00", desc: "Pipoca artesanal banhada no chocolate branco e Leite Ninho (Pacote indiv. 100g).", imgs: ["https://images.unsplash.com/photo-1578849278619-e73505e9610f?auto=format&fit=crop&w=400&q=80"] },
         { id: 6, name: "Pipoca Gourmet Ovaltine", category: "Pipoca Gourmet", price: "12,00", desc: "Crocante com cobertura de chocolate e Ovaltine.", imgs: ["https://images.unsplash.com/photo-1578849278619-e73505e9610f?auto=format&fit=crop&w=400&q=80"] },
         { id: 7, name: "Bolo Decorado de Aniversário", category: "Bolo", price: "Sob Consulta", desc: "Bolo personalizado com massa fofinha e recheio gourmet a sua escolha.", imgs: ["https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=400&q=80"] },
-        { id: 8, name: "Bolo Vulpino de Casamento", category: "Bolo", price: "Sob Consulta", desc: "Bolo de andares decorado artesanalmente para grandes comemorações.", imgs: ["https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=400&q=80"] }
+        { id: 8, name: "Brigadeiro Natalino Especial 🎄", category: "Especial Sazonal", price: "190,00", desc: "Brigadeiro gourmet decorado com toque especial de festas de fim de ano.", imgs: ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"] }
       ]
     };
 
-    // Inicializador seguro de estado
-    let appData = defaultData;
-    try {
-      const stored = localStorage.getItem('gostosuras_clean_data');
-      if (stored) {
-        appData = JSON.parse(stored);
-      }
-    } catch (e) {
-      console.warn("Erro ao carregar dados do LocalStorage", e);
-      appData = defaultData;
+    let appData = JSON.parse(localStorage.getItem('gostosuras_clean_data')) || defaultData;
+    if (!appData.seasonalConfig) {
+      appData.seasonalConfig = defaultData.seasonalConfig;
     }
 
     let activeCategory = "Todas";
@@ -550,7 +592,7 @@
     let cardImageIndexes = {};
     let calcCart = {};
     let selectedPaymentMethod = "PIX";
-    window.pendingUploadedImgs = [];
+    let windowUploadedImgs = [];
 
     function parsePrice(priceStr) {
       if (!priceStr || priceStr.toLowerCase().includes("consulta")) return 0;
@@ -560,20 +602,16 @@
 
     function getUnitPrice(sweet) {
       const priceNum = parsePrice(sweet.price);
-      if (sweet.category === "Doce de Festa") {
+      if (sweet.category === "Doce de Festa" || sweet.category === "Especial Sazonal") {
         return priceNum / 100;
       }
       return priceNum;
     }
 
     window.saveData = function() {
-      try {
-        localStorage.setItem('gostosuras_clean_data', JSON.stringify(appData));
-      } catch (err) {
-        alert("O limite de armazenamento do seu navegador foi atingido! As imagens foram salvas na sessão atual. Recomendamos clicar em 'Baixar HTML com Dados' no Admin para atualizar o site permanentemente.");
-      }
+      localStorage.setItem('gostosuras_clean_data', JSON.stringify(appData));
       window.renderPage();
-    };
+    }
 
     window.updatePaymentMethod = function(method) {
       selectedPaymentMethod = method;
@@ -585,7 +623,7 @@
           noteEl.innerText = "Cartão de Crédito via Link (parcelamento em até 11x com pequena taxa)";
         }
       }
-    };
+    }
 
     window.updateCalculatorUI = function() {
       const calcListContainer = document.getElementById('calc-items-list');
@@ -594,7 +632,6 @@
       let totalUnits = 0;
       let totalPrice = 0;
       let hasConsulta = false;
-
       const keys = Object.keys(calcCart);
 
       if (keys.length === 0) {
@@ -616,13 +653,10 @@
           const subtotal = qty * unitPrice;
 
           totalUnits += qty;
-          if (isBolo) {
-            hasConsulta = true;
-          } else {
-            totalPrice += subtotal;
-          }
+          if (isBolo) hasConsulta = true;
+          else totalPrice += subtotal;
 
-          const step = sweet.category === "Doce de Festa" ? 25 : 1;
+          const step = (sweet.category === "Doce de Festa" || sweet.category === "Especial Sazonal") ? 25 : 1;
 
           return `
             <div class="flex items-center justify-between bg-pink-50 p-3 rounded-xl border border-pink-100 text-xs sm:text-sm">
@@ -649,161 +683,128 @@
       }
 
       const formattedTotal = `R$ ${totalPrice.toFixed(2).replace('.', ',')}${hasConsulta ? ' + Sob Consulta' : ''}`;
-      const totalPriceEl = document.getElementById('calc-total-price');
-      const totalUnitsEl = document.getElementById('calc-total-units');
-      const barUnitsText = document.getElementById('bar-units-text');
-      const barTotalText = document.getElementById('bar-total-text');
-
-      if (totalPriceEl) totalPriceEl.innerText = formattedTotal;
-      if (totalUnitsEl) totalUnitsEl.innerText = `${totalUnits} itens selecionados no total`;
-      if (barUnitsText) barUnitsText.innerText = `${totalUnits} itens selecionados`;
-      if (barTotalText) barTotalText.innerText = `Total: ${formattedTotal}`;
-    };
+      document.getElementById('calc-total-price').innerText = formattedTotal;
+      document.getElementById('calc-total-units').innerText = `${totalUnits} itens selecionados no total`;
+      document.getElementById('bar-units-text').innerText = `${totalUnits} itens selecionados`;
+      document.getElementById('bar-total-text').innerText = `Total: ${formattedTotal}`;
+    }
 
     window.updateCalcQty = function(sweetId, delta) {
       const current = calcCart[sweetId] || 0;
       const next = Math.max(0, current + delta);
-      if (next === 0) {
-        delete calcCart[sweetId];
-      } else {
-        calcCart[sweetId] = next;
-      }
+      if (next === 0) delete calcCart[sweetId];
+      else calcCart[sweetId] = next;
       window.renderPage();
-    };
+    }
 
     window.setCalcQtyDirect = function(sweetId, val) {
       const qty = parseInt(val) || 0;
-      if (qty <= 0) {
-        delete calcCart[sweetId];
-      } else {
-        calcCart[sweetId] = qty;
-      }
+      if (qty <= 0) delete calcCart[sweetId];
+      else calcCart[sweetId] = qty;
       window.renderPage();
-    };
+    }
 
     window.clearCalculator = function() {
       calcCart = {};
       window.renderPage();
-    };
+    }
 
     window.renderPage = function() {
-      const yearEl = document.getElementById('year');
-      if (yearEl) yearEl.innerText = new Date().getFullYear();
-
-      const mainLogo = document.getElementById('main-logo-img');
-      if (mainLogo) mainLogo.src = appData.logoUrl || defaultData.logoUrl;
+      document.getElementById('year').innerText = new Date().getFullYear();
+      document.getElementById('main-logo-img').src = appData.logoUrl || defaultData.logoUrl;
 
       const waUrl = `https://wa.me/${appData.whatsapp}?text=Olá!%20Gostaria%20de%20fazer%20uma%20encomenda!`;
       ['nav-btn-whatsapp', 'hero-btn-pedir', 'btn-whatsapp-float'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.href = waUrl;
+        document.getElementById(id).href = waUrl;
       });
 
       ['nav-btn-ig', 'about-link-ig', 'footer-ig'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.href = appData.igLink;
+        document.getElementById(id).href = appData.igLink;
       });
 
       ['nav-btn-fb', 'about-link-fb', 'footer-fb'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.href = appData.fbLink;
+        document.getElementById(id).href = appData.fbLink;
       });
 
-      const categories = ["Todas", "Doce de Festa", "Pipoca Gourmet", "Bolo"];
-      const catTabs = document.getElementById('category-tabs');
-      if (catTabs) {
-        catTabs.innerHTML = categories.map(cat => `
-          <button onclick="window.setCategory('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold transition ${cat === activeCategory ? 'bg-sweet-darkPink text-white shadow-md' : 'bg-white text-gray-700 hover:bg-pink-100 border border-pink-200'}">
-            ${cat}
-          </button>
-        `).join('');
+      // REGRA DO FOLDER SAZONAL: Só exibe se houver ao menos 1 item na categoria "Especial Sazonal"
+      const seasonalItems = appData.sweets.filter(s => s.category === "Especial Sazonal");
+      const folderContainer = document.getElementById('seasonal-folder-container');
+      
+      if (seasonalItems.length > 0) {
+        folderContainer.classList.remove('hidden');
+        const cfg = appData.seasonalConfig || defaultData.seasonalConfig;
+        document.getElementById('folder-emoji').innerText = cfg.emoji || "🎄";
+        document.getElementById('folder-badge').innerText = cfg.badge || "Edição Limitada";
+        document.getElementById('folder-title').innerText = cfg.title || "Cardápio Especial";
+        document.getElementById('folder-desc').innerText = cfg.desc || "Docinhos temáticos exclusivos!";
+      } else {
+        folderContainer.classList.add('hidden');
+        if (activeCategory === "Especial Sazonal") {
+          activeCategory = "Todas";
+        }
       }
+
+      // Categorias do Cardápio (Exclui "Especial Sazonal" se não houver itens)
+      let categories = ["Todas", "Doce de Festa", "Pipoca Gourmet", "Bolo"];
+      if (seasonalItems.length > 0) {
+        categories.push("Especial Sazonal");
+      }
+
+      document.getElementById('category-tabs').innerHTML = categories.map(cat => `
+        <button onclick="window.setCategory('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold transition ${cat === activeCategory ? 'bg-sweet-darkPink text-white shadow-md' : 'bg-white text-gray-700 hover:bg-pink-100 border border-pink-200'}">
+          ${cat === 'Especial Sazonal' ? '✨ ' + (appData.seasonalConfig?.title || 'Especial Sazonal') : cat}
+        </button>
+      `).join('');
 
       const filteredSweets = activeCategory === "Todas" ? appData.sweets : appData.sweets.filter(s => s.category === activeCategory);
       
-      const sweetsGrid = document.getElementById('sweets-grid');
-      if (sweetsGrid) {
-        sweetsGrid.innerHTML = filteredSweets.map(sweet => {
-          let imgs = sweet.imgs && sweet.imgs.length > 0 ? sweet.imgs.slice(0, 2) : [sweet.img || fallbackImageSvg];
-          const currentIdx = cardImageIndexes[sweet.id] || 0;
-          const currentQty = calcCart[sweet.id] || 0;
+      document.getElementById('sweets-grid').innerHTML = filteredSweets.map(sweet => {
+        let imgs = sweet.imgs && sweet.imgs.length > 0 ? sweet.imgs.slice(0, 2) : [sweet.img || defaultData.sweets[0].imgs[0]];
+        const currentIdx = cardImageIndexes[sweet.id] || 0;
+        const currentQty = calcCart[sweet.id] || 0;
 
-          let priceBadge = "";
-          let stepQty = 1;
+        let priceBadge = sweet.category === "Doce de Festa" || sweet.category === "Especial Sazonal" ? `R$ ${sweet.price} / cento` : (sweet.category === "Pipoca Gourmet" ? `R$ ${sweet.price} / un` : `Sob Consulta`);
+        let stepQty = (sweet.category === "Doce de Festa" || sweet.category === "Especial Sazonal") ? 25 : 1;
 
-          if (sweet.category === "Doce de Festa") {
-            priceBadge = `R$ ${sweet.price} / cento`;
-            stepQty = 25;
-          } else if (sweet.category === "Pipoca Gourmet") {
-            priceBadge = `R$ ${sweet.price} / un`;
-            stepQty = 1;
-          } else {
-            priceBadge = `Sob Consulta`;
-            stepQty = 1;
-          }
+        return `
+          <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-pink-100 flex flex-col group">
+            <div class="relative h-48 w-full overflow-hidden bg-gray-100 group">
+              <img src="${imgs[currentIdx]}" alt="${sweet.name}" class="h-full w-full object-cover transition-opacity duration-300" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';">
+              <span class="absolute top-2 left-2 text-[10px] ${sweet.category === 'Especial Sazonal' ? 'bg-sweet-darkPink text-white' : 'bg-white/90 text-sweet-darkMoka'} backdrop-blur font-bold px-2.5 py-1 rounded-full shadow-sm border border-pink-100">${sweet.category}</span>
+            </div>
 
-          return `
-            <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-pink-100 flex flex-col group">
-              <div class="relative h-48 w-full overflow-hidden bg-gray-100 group">
-                <img src="${imgs[currentIdx] || fallbackImageSvg}" alt="${sweet.name}" class="h-full w-full object-cover transition-opacity duration-300" onerror="window.handleImageError(this)">
-                
-                ${imgs.length > 1 ? `
-                  <button onclick="window.prevCardImage(${sweet.id}, ${imgs.length})" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-sweet-dark w-8 h-8 rounded-full flex items-center justify-center shadow transition opacity-80 group-hover:opacity-100 z-10">
-                    <i class="fa-solid fa-chevron-left text-xs"></i>
-                  </button>
-                  <button onclick="window.nextCardImage(${sweet.id}, ${imgs.length})" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-sweet-dark w-8 h-8 rounded-full flex items-center justify-center shadow transition opacity-80 group-hover:opacity-100 z-10">
-                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                  </button>
-                  <div class="absolute bottom-2 inset-x-0 flex justify-center gap-1 z-10">
-                    ${imgs.map((_, idx) => `
-                      <span class="w-1.5 h-1.5 rounded-full ${idx === currentIdx ? 'bg-sweet-darkPink scale-125 shadow' : 'bg-white/70'}"></span>
-                    `).join('')}
-                  </div>
-                ` : ''}
-                <span class="absolute top-2 left-2 text-[10px] bg-white/90 backdrop-blur font-bold px-2.5 py-1 rounded-full text-sweet-darkMoka shadow-sm border border-pink-100">${sweet.category}</span>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex justify-between items-start mb-2 gap-2">
+                  <h3 class="font-title font-bold text-lg text-sweet-darkMoka leading-tight">${sweet.name}</h3>
+                  <span class="text-xs bg-sweet-softPink text-sweet-darkPink font-bold px-2 py-1 rounded-md shrink-0 border border-pink-200">${priceBadge}</span>
+                </div>
+                <p class="text-xs text-gray-500 mb-4">${sweet.desc}</p>
               </div>
 
-              <div class="p-5 flex-1 flex flex-col justify-between">
-                <div>
-                  <div class="flex justify-between items-start mb-2 gap-2">
-                    <h3 class="font-title font-bold text-lg text-sweet-darkMoka leading-tight">${sweet.name}</h3>
-                    <span class="text-xs bg-sweet-softPink text-sweet-darkPink font-bold px-2 py-1 rounded-md shrink-0 border border-pink-200">
-                      ${priceBadge}
-                    </span>
-                  </div>
-                  <p class="text-xs text-gray-500 mb-4">${sweet.desc || ''}</p>
+              <div class="bg-sweet-softPink p-3 rounded-xl border border-pink-200 space-y-2">
+                <div class="flex justify-between items-center text-xs font-semibold text-sweet-darkMoka">
+                  <span>Quantidade desejada:</span>
+                  <span class="text-sweet-darkPink font-bold">${currentQty} un</span>
                 </div>
-
-                <div class="bg-sweet-softPink p-3 rounded-xl border border-pink-200 space-y-2">
-                  <div class="flex justify-between items-center text-xs font-semibold text-sweet-darkMoka">
-                    <span>Quantidade desejada:</span>
-                    <span class="text-sweet-darkPink font-bold">${currentQty} un</span>
-                  </div>
-
-                  <div class="flex items-center gap-2">
-                    <button onclick="window.updateCalcQty(${sweet.id}, -${stepQty})" class="w-8 h-8 rounded-lg bg-white text-sweet-dark font-bold hover:bg-pink-100 transition shadow-sm border border-pink-200 flex items-center justify-center text-xs">
-                      -${stepQty}
-                    </button>
-                    <input type="number" min="0" value="${currentQty}" onchange="window.setCalcQtyDirect(${sweet.id}, this.value)" class="w-full text-center bg-white border border-pink-200 rounded-lg py-1 text-sm font-bold text-sweet-darkMoka focus:ring-2 focus:ring-sweet-darkPink outline-none">
-                    <button onclick="window.updateCalcQty(${sweet.id}, ${stepQty})" class="w-8 h-8 rounded-lg bg-white text-sweet-dark font-bold hover:bg-pink-100 transition shadow-sm border border-pink-200 flex items-center justify-center text-xs">
-                      +${stepQty}
-                    </button>
-                  </div>
-
-                  <div class="flex justify-between items-center pt-1 text-[11px] text-gray-600 border-t border-pink-200/50">
-                    <span>Subtotal:</span>
-                    <strong class="text-sweet-darkMoka font-bold">${sweet.category === 'Bolo' ? 'Sob Consulta' : 'R$ ' + (currentQty * getUnitPrice(sweet)).toFixed(2).replace('.', ',')}</strong>
-                  </div>
+                <div class="flex items-center gap-2">
+                  <button onclick="window.updateCalcQty(${sweet.id}, -${stepQty})" class="w-8 h-8 rounded-lg bg-white text-sweet-dark font-bold hover:bg-pink-100 transition shadow-sm border border-pink-200 flex items-center justify-center text-xs">-${stepQty}</button>
+                  <input type="number" min="0" value="${currentQty}" onchange="window.setCalcQtyDirect(${sweet.id}, this.value)" class="w-full text-center bg-white border border-pink-200 rounded-lg py-1 text-sm font-bold text-sweet-darkMoka focus:ring-2 focus:ring-sweet-darkPink outline-none">
+                  <button onclick="window.updateCalcQty(${sweet.id}, ${stepQty})" class="w-8 h-8 rounded-lg bg-white text-sweet-dark font-bold hover:bg-pink-100 transition shadow-sm border border-pink-200 flex items-center justify-center text-xs">+${stepQty}</button>
+                </div>
+                <div class="flex justify-between items-center pt-1 text-[11px] text-gray-600 border-t border-pink-200/50">
+                  <span>Subtotal:</span>
+                  <strong class="text-sweet-darkMoka font-bold">${sweet.category === 'Bolo' ? 'Sob Consulta' : 'R$ ' + (currentQty * getUnitPrice(sweet)).toFixed(2).replace('.', ',')}</strong>
                 </div>
               </div>
             </div>
-          `;
-        }).join('');
-      }
+          </div>
+        `;
+      }).join('');
 
       window.updateCalculatorUI();
       window.startHeroCarousel();
-    };
+    }
 
     window.sendCalcOrderToWhatsApp = function() {
       const keys = Object.keys(calcCart);
@@ -811,22 +812,15 @@
         alert("Sua calculadora está vazia! Selecione ao menos um item.");
         return;
       }
-
-      let totalUnits = 0;
-      let totalPrice = 0;
-      let itemsText = "";
-      let hasConsulta = false;
-
+      let totalUnits = 0, totalPrice = 0, itemsText = "", hasConsulta = false;
       keys.forEach(idStr => {
         const id = parseInt(idStr);
         const sweet = appData.sweets.find(s => s.id === id);
         if (sweet) {
           const qty = calcCart[id];
-          const isBolo = sweet.category === "Bolo";
           const subtotal = qty * getUnitPrice(sweet);
-          
           totalUnits += qty;
-          if (isBolo) {
+          if (sweet.category === "Bolo") {
             hasConsulta = true;
             itemsText += `• ${sweet.name} (${sweet.category}): ${qty} un (Sob Consulta)\n`;
           } else {
@@ -835,133 +829,73 @@
           }
         }
       });
-
-      let msg = `Olá! Montei meu pedido no site da Gostosuras e Travessuras:\n\n`;
-      msg += `*ITENS ENCOMENDADOS:*\n${itemsText}\n`;
-      msg += `*TOTAL DE ITENS:* ${totalUnits} un\n`;
-      msg += `*VALOR ESTIMADO:* R$ ${totalPrice.toFixed(2).replace('.', ',')}${hasConsulta ? ' (+ itens Sob Consulta)' : ''}\n\n`;
-      msg += `💳 *FORMA DE PAGAMENTO:* ${selectedPaymentMethod}${selectedPaymentMethod === 'Crédito via Link' ? ' (parcelado em até 11x)' : ''}\n`;
-      msg += `Gostaria de verificar a disponibilidade e orçamento para a data do meu evento!`;
-
-      window.open(`https://wa.me/${appData.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank');
-    };
-
-    window.prevCardImage = function(sweetId, length) {
-      if (!cardImageIndexes[sweetId]) cardImageIndexes[sweetId] = 0;
-      cardImageIndexes[sweetId] = (cardImageIndexes[sweetId] - 1 + length) % length;
-      window.renderPage();
-    };
-
-    window.nextCardImage = function(sweetId, length) {
-      if (!cardImageIndexes[sweetId]) cardImageIndexes[sweetId] = 0;
-      cardImageIndexes[sweetId] = (cardImageIndexes[sweetId] + 1) % length;
-      window.renderPage();
-    };
+      let msg = `Olá! Montei meu pedido no site da Gostosuras e Travessuras:\n\n*ITENS:*\n${itemsText}\n*TOTAL:* ${totalUnits} un (R$ ${totalPrice.toFixed(2).replace('.', ',')})\n💳 *PAGAMENTO:* ${selectedPaymentMethod}\nVerificar disponibilidade!`;
+      window.open(`https://wa.me/${appData.whatsapp}?text=` + encodeURIComponent(msg), '_blank');
+    }
 
     window.startHeroCarousel = function() {
       if (carouselTimer) clearInterval(carouselTimer);
       if (!appData.sweets || appData.sweets.length === 0) return;
-
       const updateHero = () => {
         if (carouselIndex >= appData.sweets.length) carouselIndex = 0;
         const currentSweet = appData.sweets[carouselIndex];
-        const imgs = currentSweet.imgs && currentSweet.imgs.length > 0 ? currentSweet.imgs : [currentSweet.img || fallbackImageSvg];
-        
-        const imgEl = document.getElementById('hero-carousel-img');
-        const titleEl = document.getElementById('hero-carousel-title');
-        const catEl = document.getElementById('hero-carousel-cat');
-
-        if (imgEl && titleEl && catEl) {
-          imgEl.src = imgs[0] || fallbackImageSvg;
-          titleEl.innerText = currentSweet.name;
-          catEl.innerText = `${currentSweet.category} • ${currentSweet.category === 'Bolo' ? 'Sob Consulta' : 'R$ ' + currentSweet.price}`;
-        }
+        const imgs = currentSweet.imgs && currentSweet.imgs.length > 0 ? currentSweet.imgs : [currentSweet.img];
+        document.getElementById('hero-carousel-img').src = imgs[0];
+        document.getElementById('hero-carousel-title').innerText = currentSweet.name;
+        document.getElementById('hero-carousel-cat').innerText = `${currentSweet.category} • ${currentSweet.price}`;
         carouselIndex++;
       };
-
       updateHero();
       carouselTimer = setInterval(updateHero, 3500);
-    };
+    }
 
     window.setCategory = function(cat) {
       activeCategory = cat;
       window.renderPage();
-    };
+    }
 
     window.handleCategoryFormChange = function() {
       const cat = document.getElementById('form-item-category').value;
       const priceContainer = document.getElementById('form-price-container');
-      const priceLabel = document.getElementById('form-price-label');
-      const priceHelp = document.getElementById('form-price-help');
-
-      if (!priceContainer || !priceLabel || !priceHelp) return;
-
-      if (cat === "Bolo") {
-        priceContainer.classList.add('hidden');
-        document.getElementById('form-item-price').value = "Sob Consulta";
-      } else if (cat === "Pipoca Gourmet") {
-        priceContainer.classList.remove('hidden');
-        priceLabel.innerText = "VALOR UNITÁRIO (R$)";
-        priceHelp.innerText = "Digite o preço de cada pacote de pipoca (ex: 12,00).";
-      } else {
-        priceContainer.classList.remove('hidden');
-        priceLabel.innerText = "VALOR DO CENTO (R$)";
-        priceHelp.innerText = "O sistema calculará automaticamente o valor fracionado por unidade.";
-      }
+      if (cat === "Bolo") priceContainer.classList.add('hidden');
+      else priceContainer.classList.remove('hidden');
     };
 
     window.updatePreviewList = function(imgs) {
       const container = document.getElementById('form-item-preview-container');
       const list = document.getElementById('form-item-preview-list');
       if (!container || !list) return;
-
-      const validImgs = (imgs || []).slice(0, 2).filter(Boolean);
-      if (validImgs.length > 0) {
-        list.innerHTML = validImgs.map((src, i) => `
-          <div class="relative w-12 h-12 rounded-lg border border-pink-200 overflow-hidden shadow-sm bg-gray-50">
-            <img src="${src}" class="w-full h-full object-cover" onerror="window.handleImageError(this)">
-            <span class="absolute bottom-0 inset-x-0 bg-sweet-darkMoka/80 text-white text-[9px] text-center font-bold">${i + 1}</span>
-          </div>
-        `).join('');
+      if (imgs.length > 0) {
+        list.innerHTML = imgs.map((src, i) => `<div class="relative w-12 h-12 rounded-lg border overflow-hidden bg-gray-50"><img src="${src}" class="w-full h-full object-cover"></div>`).join('');
         container.classList.remove('hidden');
-      } else {
-        container.classList.add('hidden');
-      }
-    };
+      } else container.classList.add('hidden');
+    }
 
     window.openAddSweetModal = function() {
+      windowUploadedImgs = [];
       document.getElementById('item-form-title').innerHTML = '<i class="fa-solid fa-plus text-sweet-darkPink"></i> Adicionar Novo Item';
       document.getElementById('form-item-id').value = "";
       document.getElementById('form-item-name').value = "";
       document.getElementById('form-item-price').value = "145,00";
       document.getElementById('form-item-desc').value = "";
       document.getElementById('form-item-imgs').value = "";
-      document.getElementById('form-item-file').value = "";
       document.getElementById('form-item-category').value = "Doce de Festa";
-
-      window.pendingUploadedImgs = [];
       window.updatePreviewList([]);
-      window.handleCategoryFormChange();
       document.getElementById('item-form-modal').classList.remove('hidden');
     };
 
     window.openEditSweetModal = function(id) {
       const sweet = appData.sweets.find(s => s.id === id);
       if (!sweet) return;
-
+      windowUploadedImgs = (sweet.imgs || []).slice(0, 2);
       document.getElementById('item-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square text-sweet-darkPink"></i> Editar Doce';
       document.getElementById('form-item-id').value = sweet.id;
       document.getElementById('form-item-name').value = sweet.name;
       document.getElementById('form-item-category').value = sweet.category || "Doce de Festa";
       document.getElementById('form-item-price').value = sweet.price;
       document.getElementById('form-item-desc').value = sweet.desc || "";
-      document.getElementById('form-item-file').value = "";
-
-      const imgs = (sweet.imgs || []).slice(0, 2);
-      window.pendingUploadedImgs = [...imgs];
-      document.getElementById('form-item-imgs').value = imgs.join(', ');
-
-      window.updatePreviewList(imgs);
+      document.getElementById('form-item-imgs').value = windowUploadedImgs.join(', ');
+      window.updatePreviewList(windowUploadedImgs);
       window.handleCategoryFormChange();
       document.getElementById('item-form-modal').classList.remove('hidden');
     };
@@ -970,149 +904,48 @@
       document.getElementById('item-form-modal').classList.add('hidden');
     };
 
-    window.handleUrlInputChange = function() {
-      const val = document.getElementById('form-item-imgs').value;
-      if (val) {
-        const urls = val.split(',').map(s => s.trim()).filter(Boolean).slice(0, 2);
-        window.pendingUploadedImgs = urls;
-        window.updatePreviewList(urls);
-      }
-    };
-
-    // Função de Redimensionamento Automático e Compressão para evitar estouro de LocalStorage
-    function compressImageFile(file, maxWidth = 600, quality = 0.7) {
-      return new Promise((resolve) => {
+    window.handleFormImageUpload = function(event) {
+      const files = Array.from(event.target.files).slice(0, 2);
+      Promise.all(files.map(file => new Promise(res => {
         const reader = new FileReader();
-        reader.onload = (e) => {
-          const img = new Image();
-          img.onload = () => {
-            const canvas = document.createElement('canvas');
-            let width = img.width;
-            let height = img.height;
-
-            if (width > maxWidth) {
-              height = Math.round((height * maxWidth) / width);
-              width = maxWidth;
-            }
-
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-
-            // Converter para JPEG ultraleve em Base64
-            const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
-            resolve(compressedDataUrl);
-          };
-          img.onerror = () => resolve(e.target.result);
-          img.src = e.target.result;
-        };
+        reader.onload = e => res(e.target.result);
         reader.readAsDataURL(file);
+      }))).then(results => {
+        windowUploadedImgs = results;
+        document.getElementById('form-item-imgs').value = results.join(', ');
+        window.updatePreviewList(results);
       });
-    }
-
-    window.handleFormImageUpload = async function(event) {
-      const files = Array.from(event.target.files);
-      if (files.length === 0) return;
-
-      if (files.length > 2) {
-        alert("Você pode selecionar no máximo 2 imagens por item. Apenas as 2 primeiras imagens foram carregadas.");
-      }
-
-      const selectedFiles = files.slice(0, 2);
-      const filePromises = selectedFiles.map(file => compressImageFile(file, 600, 0.7));
-
-      const loadedImgs = await Promise.all(filePromises);
-      window.pendingUploadedImgs = loadedImgs;
-      window.updatePreviewList(loadedImgs);
     };
 
     window.saveItemForm = function() {
-      const rawId = document.getElementById('form-item-id').value.trim();
-      const name = document.getElementById('form-item-name').value.trim();
+      const rawId = document.getElementById('form-item-id').value;
+      const name = document.getElementById('form-item-name').value;
       const category = document.getElementById('form-item-category').value;
-      let price = document.getElementById('form-item-price').value.trim();
-      const desc = document.getElementById('form-item-desc').value.trim();
+      let price = document.getElementById('form-item-price').value;
+      const desc = document.getElementById('form-item-desc').value;
 
-      if (!name) {
-        alert("Preencha o nome do produto!");
-        return;
-      }
+      if (!name) { alert("Preencha o nome!"); return; }
+      if (category === "Bolo") price = "Sob Consulta";
+      const finalImgs = windowUploadedImgs.length > 0 ? windowUploadedImgs : ["https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"];
 
-      if (category === "Bolo") {
-        price = "Sob Consulta";
-      }
-
-      let imgs = [...window.pendingUploadedImgs];
-      if (imgs.length === 0) {
-        const textVal = document.getElementById('form-item-imgs').value.trim();
-        if (textVal) {
-          imgs = textVal.split(',').map(s => s.trim()).filter(Boolean).slice(0, 2);
-        }
-      }
-
-      if (imgs.length === 0) {
-        imgs = [fallbackImageSvg];
-      }
-
-      if (rawId !== "") {
-        const parsedId = parseInt(rawId);
-        const sweet = appData.sweets.find(s => s.id === parsedId);
-        if (sweet) {
-          sweet.name = name;
-          sweet.category = category;
-          sweet.price = price;
-          sweet.desc = desc;
-          sweet.imgs = imgs;
-        } else {
-          appData.sweets.push({
-            id: Date.now(),
-            name,
-            category,
-            price,
-            desc,
-            imgs
-          });
-        }
+      if (rawId) {
+        const sweet = appData.sweets.find(s => s.id === parseInt(rawId));
+        if (sweet) Object.assign(sweet, { name, category, price, desc, imgs: finalImgs });
       } else {
-        appData.sweets.push({
-          id: Date.now(),
-          name,
-          category,
-          price,
-          desc,
-          imgs
-        });
+        appData.sweets.push({ id: Date.now(), name, category, price, desc, imgs: finalImgs });
       }
 
       window.saveData();
       window.closeItemFormModal();
       window.renderAdminSweetsTable();
-      alert("Item salvo permanentemente com sucesso!");
-    };
-
-    // Exportação em massa (HTML compilado com os dados atuais salvos)
-    window.exportHtmlWithData = function() {
-      let currentDoc = document.documentElement.outerHTML;
-      const dataScriptPattern = /const defaultData = \{[\s\S]*?\};/;
-      const updatedDataCode = `const defaultData = ${JSON.stringify(appData, null, 2)};`;
-
-      const newHtml = currentDoc.replace(dataScriptPattern, updatedDataCode);
-
-      const blob = new Blob([newHtml], { type: 'text/html' });
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.href = URL.createObjectURL(blob);
-      downloadAnchor.download = 'index.html';
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
+      alert("Salvo com sucesso!");
     };
 
     window.exportMenuBackup = function() {
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
       const downloadAnchor = document.createElement('a');
       downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `gostosuras_backup_${new Date().toISOString().slice(0,10)}.json`);
+      downloadAnchor.setAttribute("download", `cardapio_gostosuras_backup_${new Date().toISOString().slice(0,10)}.json`);
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       downloadAnchor.remove();
@@ -1122,105 +955,75 @@
 
     window.toggleAdminModal = function() {
       const modal = document.getElementById('admin-modal');
-      if (!modal) return;
-      
       modal.classList.toggle('hidden');
-      if (!modal.classList.contains('hidden')) {
-        if (isAdminLoggedIn) {
-          window.populateAdminFields();
-        } else {
-          const pinEl = document.getElementById('admin-pin');
-          if (pinEl) pinEl.value = '';
-          document.getElementById('admin-login-view')?.classList.remove('hidden');
-          document.getElementById('admin-content-view')?.classList.add('hidden');
-          document.getElementById('admin-footer-actions')?.classList.add('hidden');
-        }
+      if (!modal.classList.contains('hidden') && isAdminLoggedIn) {
+        window.populateAdminFields();
       }
     };
 
     window.checkAdminPin = function() {
-      const pin = document.getElementById('admin-pin')?.value;
-      const validPin = appData.adminPin || "1234";
-      if (pin === validPin) {
+      const pin = document.getElementById('admin-pin').value;
+      if (pin === (appData.adminPin || "1234")) {
         isAdminLoggedIn = true;
-        document.getElementById('admin-login-view')?.classList.add('hidden');
-        document.getElementById('admin-content-view')?.classList.remove('hidden');
-        document.getElementById('admin-footer-actions')?.classList.remove('hidden');
+        document.getElementById('admin-login-view').classList.add('hidden');
+        document.getElementById('admin-content-view').classList.remove('hidden');
+        document.getElementById('admin-footer-actions').classList.remove('hidden');
         window.populateAdminFields();
-      } else {
-        alert("PIN Incorreto!");
-      }
+      } else alert("PIN Incorreto!");
     };
 
     window.switchAdminTab = function(tab) {
-      const btnGeneral = document.getElementById('tab-btn-general');
-      const btnMenu = document.getElementById('tab-btn-menu');
-      if (btnGeneral) btnGeneral.className = tab === 'general' ? 'pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink' : 'pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700';
-      if (btnMenu) btnMenu.className = tab === 'menu' ? 'pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink' : 'pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700';
-
-      document.getElementById('admin-sec-general')?.classList.toggle('hidden', tab !== 'general');
-      document.getElementById('admin-sec-menu')?.classList.toggle('hidden', tab !== 'menu');
+      ['general', 'menu'].forEach(t => {
+        document.getElementById(`tab-btn-${t}`).className = t === tab ? 'pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink' : 'pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700';
+        document.getElementById(`admin-sec-${t}`).classList.toggle('hidden', t !== tab);
+      });
     };
 
     window.populateAdminFields = function() {
-      const logoEl = document.getElementById('edit-logo-url');
-      const waEl = document.getElementById('edit-whatsapp');
-      const igEl = document.getElementById('edit-ig');
-      const fbEl = document.getElementById('edit-fb');
+      document.getElementById('edit-logo-url').value = appData.logoUrl || defaultData.logoUrl;
+      document.getElementById('edit-whatsapp').value = appData.whatsapp;
+      document.getElementById('edit-ig').value = appData.igLink;
+      document.getElementById('edit-fb').value = appData.fbLink;
 
-      if (logoEl) logoEl.value = appData.logoUrl || defaultData.logoUrl;
-      if (waEl) waEl.value = appData.whatsapp || "";
-      if (igEl) igEl.value = appData.igLink || "";
-      if (fbEl) fbEl.value = appData.fbLink || "";
-
-      if (document.getElementById('edit-current-pin')) document.getElementById('edit-current-pin').value = '';
-      if (document.getElementById('edit-new-pin')) document.getElementById('edit-new-pin').value = '';
-      if (document.getElementById('edit-confirm-pin')) document.getElementById('edit-confirm-pin').value = '';
+      // Preencher campos do folder sazonal
+      const cfg = appData.seasonalConfig || defaultData.seasonalConfig;
+      document.getElementById('edit-folder-emoji').value = cfg.emoji || "";
+      document.getElementById('edit-folder-badge').value = cfg.badge || "";
+      document.getElementById('edit-folder-title').value = cfg.title || "";
+      document.getElementById('edit-folder-desc').value = cfg.desc || "";
 
       window.renderAdminSweetsTable();
     };
 
     window.renderAdminSweetsTable = function() {
-      const tbody = document.getElementById('admin-sweets-table-body');
-      if (!tbody) return;
+      document.getElementById('admin-sweets-table-body').innerHTML = appData.sweets.map(item => `
+        <tr>
+          <td class="p-3"><img src="${item.imgs[0]}" class="w-10 h-10 object-cover rounded-lg border"></td>
+          <td class="p-3 font-medium">${item.name}</td>
+          <td class="p-3"><span class="text-xs bg-pink-50 text-sweet-darkPink font-bold px-2 py-1 rounded-md">${item.category}</span></td>
+          <td class="p-3 font-semibold text-sweet-darkMoka">${item.price === 'Sob Consulta' ? 'Sob Consulta' : 'R$ ' + item.price}</td>
+          <td class="p-3 text-right space-x-2">
+            <button onclick="window.openEditSweetModal(${item.id})" class="text-blue-600 hover:text-blue-800 text-xs font-bold"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+            <button onclick="window.deleteSweet(${item.id})" class="text-red-500 hover:text-red-700 text-xs font-bold"><i class="fa-solid fa-trash"></i> Excluir</button>
+          </td>
+        </tr>
+      `).join('');
+    };
 
-      tbody.innerHTML = appData.sweets.map(item => {
-        const imgs = item.imgs && item.imgs.length > 0 ? item.imgs : [item.img || fallbackImageSvg];
-        return `
-          <tr>
-            <td class="p-3">
-              <img src="${imgs[0] || fallbackImageSvg}" class="w-10 h-10 object-cover rounded-lg border" onerror="window.handleImageError(this)">
-            </td>
-            <td class="p-3 font-medium">${item.name}</td>
-            <td class="p-3"><span class="text-xs bg-pink-50 text-sweet-darkPink font-bold px-2 py-1 rounded-md">${item.category}</span></td>
-            <td class="p-3 font-semibold text-sweet-darkMoka">${item.price === 'Sob Consulta' ? 'Sob Consulta' : 'R$ ' + item.price}</td>
-            <td class="p-3 text-right space-x-2">
-              <button onclick="window.openEditSweetModal(${item.id})" class="text-blue-600 hover:text-blue-800 text-xs font-bold">
-                <i class="fa-solid fa-pen-to-square"></i> Editar
-              </button>
-              <button onclick="window.deleteSweet(${item.id})" class="text-red-500 hover:text-red-700 text-xs font-bold">
-                <i class="fa-solid fa-trash"></i> Excluir
-              </button>
-            </td>
-          </tr>
-        `;
-      }).join('');
+    window.deleteSweet = function(id) {
+      if (confirm("Remover este item?")) {
+        appData.sweets = appData.sweets.filter(s => s.id !== id);
+        window.saveData();
+        window.renderAdminSweetsTable();
+      }
     };
 
     window.handleLogoUpload = function(event) {
       const file = event.target.files[0];
       if (!file) return;
-      compressImageFile(file, 300, 0.8).then(dataUrl => {
-        document.getElementById('edit-logo-url').value = dataUrl;
-      });
-    };
-
-    window.deleteSweet = function(id) {
-      if (confirm("Remover este doce do cardápio?")) {
-        appData.sweets = appData.sweets.filter(s => s.id !== id);
-        window.saveData();
-        window.renderAdminSweetsTable();
-      }
+      const reader = new FileReader();
+      reader.onload = e => document.getElementById('edit-logo-url').value = e.target.result;
+      reader.readAsDataURL(file);
     };
 
     window.saveAdminChanges = function() {
@@ -1250,18 +1053,25 @@
       appData.igLink = document.getElementById('edit-ig').value;
       appData.fbLink = document.getElementById('edit-fb').value;
 
+      // Salvar dados do folder sazonal
+      appData.seasonalConfig = {
+        emoji: document.getElementById('edit-folder-emoji').value || "🎄",
+        badge: document.getElementById('edit-folder-badge').value || "Edição Limitada",
+        title: document.getElementById('edit-folder-title').value || "Cardápio Especial",
+        desc: document.getElementById('edit-folder-desc').value || ""
+      };
+
       window.saveData();
       window.toggleAdminModal();
       alert("Alterações salvas com sucesso!");
     };
 
     window.resetDefaultData = function() {
-      if (confirm("Restaurar os dados originais? (Isso redefinirá o PIN para 1234 e limpará alterações locais)")) {
-        localStorage.removeItem('gostosuras_clean_data');
+      if (confirm("Restaurar dados originais?")) {
         appData = JSON.parse(JSON.stringify(defaultData));
         window.saveData();
         window.populateAdminFields();
-        alert("Dados restaurados com sucesso!");
+        alert("Restaurado!");
       }
     };
 
