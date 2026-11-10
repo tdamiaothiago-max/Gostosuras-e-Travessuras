@@ -90,9 +90,6 @@
 
         <div class="hidden md:flex space-x-6 text-sm font-semibold text-gray-700">
           <a href="#cardapio" class="hover:text-sweet-darkPink transition">Cardápio</a>
-          <a href="#galeria-trabalhos" class="text-sweet-darkPink hover:text-pink-700 transition flex items-center gap-1 font-bold">
-            <i class="fa-solid fa-images"></i> Galeria de Trabalhos
-          </a>
           <a href="#calculadora-ancora" class="hover:text-sweet-darkPink transition flex items-center gap-1">
             <i class="fa-solid fa-calculator text-sweet-darkPink"></i> Calculadora
           </a>
@@ -186,20 +183,6 @@
     <div id="sweets-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
   </section>
 
-  <!-- GALERIA DE TRABALHOS -->
-  <section id="galeria-trabalhos" class="py-16 bg-white/70 border-y border-pink-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <span class="bg-pink-100 text-sweet-darkPink text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">Portfólio de Inspirações</span>
-        <h2 class="text-3xl sm:text-4xl font-title font-bold text-sweet-darkMoka mt-3 mb-3">Galeria de Trabalhos Realizados</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
-          Conheça os modelos artesanais sob encomenda da <strong>Ana Gusmão</strong>!
-        </p>
-      </div>
-      <div id="portfolio-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-    </div>
-  </section>
-
   <!-- CALCULADORA -->
   <span id="calculadora-ancora"></span>
   <section id="calculadora" class="py-12 bg-white/60 border-y border-pink-100">
@@ -260,11 +243,11 @@
     </div>
   </section>
 
-  <!-- MODAL DE CADASTRO/EDIÇÃO DE ITEM (ADMIN) -->
-  <div id="item-form-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <!-- MODAL DE CADASTRO/EDIÇÃO DE ITEM (ADMIN) - Z-INDEX CORRIGIDO PARA FICAR ACIMA DO PAINEL -->
+  <div id="item-form-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col border border-pink-100">
       <div class="bg-sweet-darkMoka text-white p-4 flex justify-between items-center">
-        <h4 id="item-form-title" class="font-bold text-base"><i class="fa-solid fa-pen-to-square text-sweet-darkPink"></i> Editar Doce</h4>
+        <h4 id="item-form-title" class="font-bold text-base"><i class="fa-solid fa-pen-to-square text-sweet-darkPink"></i> Novo Doce</h4>
         <button onclick="window.closeItemFormModal()" class="text-gray-300 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
 
@@ -295,9 +278,9 @@
           <label class="block text-xs font-bold uppercase text-gray-600 mb-1">FOTOS (MÁX. 2 IMAGENS)</label>
           <input type="file" id="form-item-file" multiple accept="image/*" onchange="window.handleFormImageUpload(event)" class="w-full text-xs border rounded-lg p-2 mb-2">
           <input type="text" id="form-item-imgs" placeholder="Ou cole URLs separadas por vírgula..." class="w-full border rounded-lg p-2 text-xs outline-none">
-          <div id="form-item-preview-container" class="mt-2 hidden">
+          <div id="item-form-preview-container" class="mt-2 hidden">
             <div class="text-[11px] font-bold text-gray-500">Pré-visualização:</div>
-            <div id="form-item-preview-list" class="flex gap-2 mt-1"></div>
+            <div id="item-form-preview-list" class="flex gap-2 mt-1"></div>
           </div>
         </div>
       </div>
@@ -407,7 +390,7 @@
         <div id="admin-sec-menu" class="hidden space-y-6">
           <div class="flex justify-between items-center">
             <h4 class="font-bold text-gray-800">Itens do Cardápio</h4>
-            <button onclick="window.openAddSweetModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1">
+            <button onclick="window.openAddSweetModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1 shadow-sm">
               <i class="fa-solid fa-plus"></i> Adicionar Item
             </button>
           </div>
@@ -560,8 +543,8 @@
     };
 
     window.updatePreviewList = function(imgs) {
-      const container = document.getElementById('form-item-preview-container');
-      const list = document.getElementById('form-item-preview-list');
+      const container = document.getElementById('item-form-preview-container');
+      const list = document.getElementById('item-form-preview-list');
       if (!container || !list) return;
       if (imgs.length > 0) {
         list.innerHTML = imgs.map(src => `<div class="w-12 h-12 rounded border overflow-hidden"><img src="${src}" class="w-full h-full object-cover"></div>`).join('');
