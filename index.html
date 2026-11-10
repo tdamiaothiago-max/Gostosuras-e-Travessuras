@@ -389,7 +389,7 @@
           <label class="block text-xs font-bold uppercase text-gray-600 mb-1">FOTOS DO PRODUTO (MÁX. 2 IMAGENS)</label>
           <div class="space-y-2">
             <input type="file" id="form-item-file" multiple accept="image/*,.pdf" onchange="window.handleFormImageUpload(event)" class="w-full text-xs text-gray-500 border rounded-lg p-2 bg-gray-50 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-sweet-darkPink file:text-white hover:file:bg-pink-600">
-            <input type="text" id="form-item-imgs" placeholder="Ou cole URLs..." class="w-full border rounded-lg p-2 text-xs focus:ring-2 focus:ring-sweet-darkPink outline-none">
+            <input type="text" id="form-item-imgs" placeholder="Ou cole URLs separadas por vírgula..." class="w-full border rounded-lg p-2 text-xs focus:ring-2 focus:ring-sweet-darkPink outline-none">
           </div>
 
           <!-- Pré-visualização de imagens -->
@@ -484,7 +484,7 @@
 
             <div class="space-y-4">
               <div>
-                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Título da Campagna</label>
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Título da Campanha</label>
                 <input type="text" id="edit-folder-title" placeholder="Ex: Cardápio Especial de Natal & Fim de Ano" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
               </div>
               <div>
@@ -759,7 +759,16 @@
       const filteredSweets = activeCategory === "Todas" ? appData.sweets : appData.sweets.filter(s => s.category === activeCategory);
       
       document.getElementById('sweets-grid').innerHTML = filteredSweets.map(sweet => {
-        let imgs = sweet.imgs && sweet.imgs.length > 0 ? sweet.imgs.slice(0, 2) : [sweet.img || defaultData.sweets[0].imgs[0]];
+        // Garantir que pegue corretamente as imagens do array imgs
+        let imgs = [];
+        if (sweet.imgs && Array.isArray(sweet.imgs) && sweet.imgs.length > 0) {
+          imgs = sweet.imgs.filter(Boolean);
+        } else if (sweet.img) {
+          imgs = [sweet.img];
+        } else {
+          imgs = ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"];
+        }
+
         const currentIdx = cardImageIndexes[sweet.id] || 0;
         const currentQty = calcCart[sweet.id] || 0;
 
@@ -769,7 +778,22 @@
         return `
           <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-pink-100 flex flex-col group">
             <div class="relative h-48 w-full overflow-hidden bg-gray-100 group">
-              <img src="${imgs[currentIdx]}" alt="${sweet.name}" class="h-full w-full object-cover transition-opacity duration-300" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';">
+              <img src="${imgs[currentIdx] || imgs[0]}" alt="${sweet.name}" class="h-full w-full object-cover transition-opacity duration-300" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';">
+              
+              ${imgs.length > 1 ? `
+                <button onclick="window.prevCardImage(${sweet.id}, ${imgs.length})" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-sweet-dark w-8 h-8 rounded-full flex items-center justify-center shadow transition opacity-80 group-hover:opacity-100 z-10">
+                  <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+                <button onclick="window.nextCardImage(${sweet.id}, ${imgs.length})" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-sweet-dark w-8 h-8 rounded-full flex items-center justify-center shadow transition opacity-80 group-hover:opacity-100 z-10">
+                  <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+                <div class="absolute bottom-2 inset-x-0 flex justify-center gap-1 z-10">
+                  ${imgs.map((_, idx) => `
+                    <span class="w-1.5 h-1.5 rounded-full ${idx === currentIdx ? 'bg-sweet-darkPink scale-125 shadow' : 'bg-white/70'}"></span>
+                  `).join('')}
+                </div>
+              ` : ''}
+
               <span class="absolute top-2 left-2 text-[10px] ${sweet.category === 'Especial Sazonal' ? 'bg-sweet-darkPink text-white' : 'bg-white/90 text-sweet-darkMoka'} backdrop-blur font-bold px-2.5 py-1 rounded-full shadow-sm border border-pink-100">${sweet.category}</span>
             </div>
 
@@ -806,6 +830,18 @@
       window.startHeroCarousel();
     }
 
+    window.prevCardImage = function(sweetId, length) {
+      if (!cardImageIndexes[sweetId]) cardImageIndexes[sweetId] = 0;
+      cardImageIndexes[sweetId] = (cardImageIndexes[sweetId] - 1 + length) % length;
+      window.renderPage();
+    }
+
+    window.nextCardImage = function(sweetId, length) {
+      if (!cardImageIndexes[sweetId]) cardImageIndexes[sweetId] = 0;
+      cardImageIndexes[sweetId] = (cardImageIndexes[sweetId] + 1) % length;
+      window.renderPage();
+    }
+
     window.sendCalcOrderToWhatsApp = function() {
       const keys = Object.keys(calcCart);
       if (keys.length === 0) {
@@ -840,7 +876,7 @@
         if (carouselIndex >= appData.sweets.length) carouselIndex = 0;
         const currentSweet = appData.sweets[carouselIndex];
         const imgs = currentSweet.imgs && currentSweet.imgs.length > 0 ? currentSweet.imgs : [currentSweet.img];
-        document.getElementById('hero-carousel-img').src = imgs[0];
+        document.getElementById('hero-carousel-img').src = imgs[0] || '';
         document.getElementById('hero-carousel-title').innerText = currentSweet.name;
         document.getElementById('hero-carousel-cat').innerText = `${currentSweet.category} • ${currentSweet.price}`;
         carouselIndex++;
@@ -865,8 +901,9 @@
       const container = document.getElementById('form-item-preview-container');
       const list = document.getElementById('form-item-preview-list');
       if (!container || !list) return;
-      if (imgs.length > 0) {
-        list.innerHTML = imgs.map((src, i) => `<div class="relative w-12 h-12 rounded-lg border overflow-hidden bg-gray-50"><img src="${src}" class="w-full h-full object-cover"></div>`).join('');
+      const validImgs = imgs.filter(Boolean);
+      if (validImgs.length > 0) {
+        list.innerHTML = validImgs.map((src, i) => `<div class="relative w-12 h-12 rounded-lg border overflow-hidden bg-gray-50"><img src="${src}" class="w-full h-full object-cover"></div>`).join('');
         container.classList.remove('hidden');
       } else container.classList.add('hidden');
     }
@@ -879,6 +916,7 @@
       document.getElementById('form-item-price').value = "145,00";
       document.getElementById('form-item-desc').value = "";
       document.getElementById('form-item-imgs').value = "";
+      document.getElementById('form-item-file').value = "";
       document.getElementById('form-item-category').value = "Doce de Festa";
       window.updatePreviewList([]);
       document.getElementById('item-form-modal').classList.remove('hidden');
@@ -906,6 +944,7 @@
 
     window.handleFormImageUpload = function(event) {
       const files = Array.from(event.target.files).slice(0, 2);
+      if (files.length === 0) return;
       Promise.all(files.map(file => new Promise(res => {
         const reader = new FileReader();
         reader.onload = e => res(e.target.result);
@@ -923,10 +962,22 @@
       const category = document.getElementById('form-item-category').value;
       let price = document.getElementById('form-item-price').value;
       const desc = document.getElementById('form-item-desc').value;
+      const imgsInputVal = document.getElementById('form-item-imgs').value;
 
       if (!name) { alert("Preencha o nome!"); return; }
       if (category === "Bolo") price = "Sob Consulta";
-      const finalImgs = windowUploadedImgs.length > 0 ? windowUploadedImgs : ["https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"];
+
+      // Tratamento robusto para capturar múltiplas imagens separadas por vírgula ou do array carregado
+      let finalImgs = [];
+      if (windowUploadedImgs && windowUploadedImgs.length > 0) {
+        finalImgs = windowUploadedImgs.slice(0, 2);
+      } else if (imgsInputVal) {
+        finalImgs = imgsInputVal.split(',').map(s => s.trim()).filter(Boolean).slice(0, 2);
+      }
+
+      if (finalImgs.length === 0) {
+        finalImgs.push("https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80");
+      }
 
       if (rawId) {
         const sweet = appData.sweets.find(s => s.id === parseInt(rawId));
@@ -938,7 +989,7 @@
       window.saveData();
       window.closeItemFormModal();
       window.renderAdminSweetsTable();
-      alert("Salvo com sucesso!");
+      alert("Item e imagens salvos com sucesso!");
     };
 
     window.exportMenuBackup = function() {
@@ -985,7 +1036,6 @@
       document.getElementById('edit-ig').value = appData.igLink;
       document.getElementById('edit-fb').value = appData.fbLink;
 
-      // Preencher campos do folder sazonal
       const cfg = appData.seasonalConfig || defaultData.seasonalConfig;
       document.getElementById('edit-folder-emoji').value = cfg.emoji || "";
       document.getElementById('edit-folder-badge').value = cfg.badge || "";
@@ -996,18 +1046,21 @@
     };
 
     window.renderAdminSweetsTable = function() {
-      document.getElementById('admin-sweets-table-body').innerHTML = appData.sweets.map(item => `
-        <tr>
-          <td class="p-3"><img src="${item.imgs[0]}" class="w-10 h-10 object-cover rounded-lg border"></td>
-          <td class="p-3 font-medium">${item.name}</td>
-          <td class="p-3"><span class="text-xs bg-pink-50 text-sweet-darkPink font-bold px-2 py-1 rounded-md">${item.category}</span></td>
-          <td class="p-3 font-semibold text-sweet-darkMoka">${item.price === 'Sob Consulta' ? 'Sob Consulta' : 'R$ ' + item.price}</td>
-          <td class="p-3 text-right space-x-2">
-            <button onclick="window.openEditSweetModal(${item.id})" class="text-blue-600 hover:text-blue-800 text-xs font-bold"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-            <button onclick="window.deleteSweet(${item.id})" class="text-red-500 hover:text-red-700 text-xs font-bold"><i class="fa-solid fa-trash"></i> Excluir</button>
-          </td>
-        </tr>
-      `).join('');
+      document.getElementById('admin-sweets-table-body').innerHTML = appData.sweets.map(item => {
+        const firstImg = (item.imgs && item.imgs.length > 0) ? item.imgs[0] : (item.img || '');
+        return `
+          <tr>
+            <td class="p-3"><img src="${firstImg}" class="w-10 h-10 object-cover rounded-lg border"></td>
+            <td class="p-3 font-medium">${item.name}</td>
+            <td class="p-3"><span class="text-xs bg-pink-50 text-sweet-darkPink font-bold px-2 py-1 rounded-md">${item.category}</span></td>
+            <td class="p-3 font-semibold text-sweet-darkMoka">${item.price === 'Sob Consulta' ? 'Sob Consulta' : 'R$ ' + item.price}</td>
+            <td class="p-3 text-right space-x-2">
+              <button onclick="window.openEditSweetModal(${item.id})" class="text-blue-600 hover:text-blue-800 text-xs font-bold"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+              <button onclick="window.deleteSweet(${item.id})" class="text-red-500 hover:text-red-700 text-xs font-bold"><i class="fa-solid fa-trash"></i> Excluir</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
     };
 
     window.deleteSweet = function(id) {
@@ -1053,7 +1106,6 @@
       appData.igLink = document.getElementById('edit-ig').value;
       appData.fbLink = document.getElementById('edit-fb').value;
 
-      // Salvar dados do folder sazonal
       appData.seasonalConfig = {
         emoji: document.getElementById('edit-folder-emoji').value || "🎄",
         badge: document.getElementById('edit-folder-badge').value || "Edição Limitada",
