@@ -10,6 +10,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FIREBASE SDKs COMPAT (para rodar direto no HTML) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -83,8 +88,11 @@
           </div>
         </a>
 
-        <div class="hidden md:flex space-x-8 text-sm font-semibold text-gray-700">
+        <div class="hidden md:flex space-x-6 text-sm font-semibold text-gray-700">
           <a href="#cardapio" class="hover:text-sweet-darkPink transition">Cardápio</a>
+          <a href="#galeria-trabalhos" class="text-sweet-darkPink hover:text-pink-700 transition flex items-center gap-1 font-bold">
+            <i class="fa-solid fa-images"></i> Galeria de Trabalhos
+          </a>
           <a href="#calculadora-ancora" class="hover:text-sweet-darkPink transition flex items-center gap-1">
             <i class="fa-solid fa-calculator text-sweet-darkPink"></i> Calculadora
           </a>
@@ -92,12 +100,8 @@
         </div>
 
         <div class="flex items-center gap-2 sm:gap-3">
-          <a id="nav-btn-fb" href="#" target="_blank" class="w-9 h-9 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-600 flex items-center justify-center text-base transition" title="Facebook">
-            <i class="fa-brands fa-facebook-f"></i>
-          </a>
-          <a id="nav-btn-ig" href="#" target="_blank" class="w-9 h-9 rounded-full bg-pink-50 hover:bg-pink-100 text-sweet-darkPink flex items-center justify-center text-base transition" title="Instagram">
-            <i class="fa-brands fa-instagram"></i>
-          </a>
+          <a id="nav-btn-fb" href="#" target="_blank" class="w-9 h-9 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-600 flex items-center justify-center text-base transition" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a id="nav-btn-ig" href="#" target="_blank" class="w-9 h-9 rounded-full bg-pink-50 hover:bg-pink-100 text-sweet-darkPink flex items-center justify-center text-base transition" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
           <a id="nav-btn-whatsapp" href="#" target="_blank" class="bg-sweet-darkPink hover:bg-pink-600 text-white px-5 py-2.5 rounded-full font-bold text-xs sm:text-sm transition shadow-md hover:shadow-lg flex items-center gap-2">
             <i class="fa-brands fa-whatsapp text-lg"></i>
             <span class="hidden sm:inline">Fazer Encomenda</span>
@@ -107,17 +111,15 @@
     </div>
   </nav>
 
-  <!-- FOLDER / BANNER FLUTUANTE DE DESTAQUE SAZONAL (CONDICIONAL) -->
+  <!-- FOLDER SAZONAL CONDICIONAL -->
   <div id="seasonal-folder-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 hidden">
     <div class="floating-folder bg-gradient-to-r from-sweet-darkPink via-pink-500 to-sweet-teal rounded-3xl p-5 sm:p-6 text-white shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4 border border-white/30">
       <div class="flex items-center gap-4 text-center sm:text-left">
-        <div id="folder-emoji" class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl shrink-0 mx-auto sm:mx-0">
-          🎄
-        </div>
+        <div id="folder-emoji" class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl shrink-0 mx-auto sm:mx-0">🎄</div>
         <div>
-          <span id="folder-badge" class="bg-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Edição Limitada / Período Festivo</span>
-          <h3 id="folder-title" class="text-xl sm:text-2xl font-title font-bold mt-1">Cardápio Especial de Natal & Fim de Ano</h3>
-          <p id="folder-desc" class="text-xs sm:text-sm text-pink-100 mt-0.5">Docinhos temáticos exclusivos criados especialmente para celebrar suas festas com muito sabor!</p>
+          <span id="folder-badge" class="bg-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Edição Limitada</span>
+          <h3 id="folder-title" class="text-xl sm:text-2xl font-title font-bold mt-1">Cardápio Especial</h3>
+          <p id="folder-desc" class="text-xs sm:text-sm text-pink-100 mt-0.5">Docinhos temáticos exclusivos!</p>
         </div>
       </div>
       <button onclick="window.setCategory('Especial Sazonal'); location.href='#cardapio';" class="bg-white text-sweet-darkPink hover:bg-pink-50 font-bold px-6 py-3 rounded-full text-xs sm:text-sm shadow-lg transition whitespace-nowrap flex items-center gap-2">
@@ -126,7 +128,7 @@
     </div>
   </div>
 
-  <!-- Hero / Apresentação -->
+  <!-- Hero Section -->
   <section class="relative py-12 sm:py-16 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -138,57 +140,40 @@
             Doces Artesanais feitos com amor para celebrar seus melhores momentos.
           </h1>
           <p class="text-base sm:text-lg text-gray-700 mb-6 leading-relaxed">
-            Docinhos tradicionais e gourmet, pipocas gourmet crocantes e bolos decorados sob encomenda. O sabor artesanal único de <strong>Ana Gusmão</strong> no seu evento.
+            Docinhos tradicionais e gourmet, pipocas gourmet crocantes e bolos decorados sob encomenda. O sabor artesanal único de <strong>Ana Gusmão</strong>.
           </p>
 
           <div class="inline-flex flex-wrap items-center gap-3 bg-white border border-pink-200 text-sweet-dark px-4 py-3 rounded-2xl mb-8 shadow-sm">
             <div class="flex items-center gap-1.5 text-xs font-bold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-200">
-              <svg class="pix-icon text-sweet-pix text-base" viewBox="0 0 512 512">
-                <path fill="currentColor" d="M363.5 391.5L276 304c-11-11-28.9-11-39.9 0l-87.5 87.5c-7.8 7.8-20.5 7.8-28.3 0l-45.3-45.3c-7.8-7.8-7.8-20.5 0-28.3L162.5 230.4c11-11 11-28.9 0-39.9L75 103c-7.8-7.8-7.8-20.5 0-28.3l45.3-45.3c7.8-7.8 20.5-7.8 28.3 0l87.5 87.5c11 11 28.9 11 39.9 0l87.5-87.5c7.8-7.8 20.5-7.8 28.3 0l45.3 45.3c7.8 7.8 7.8 20.5 0 28.3l-87.5 87.5c-11 11-11 28.9 0 39.9l87.5 87.5c7.8 7.8 7.8 20.5 0 28.3l-45.3 45.3c-7.8 7.8-20.5 7.8-28.3 0z"/>
-              </svg>
+              <svg class="pix-icon text-sweet-pix text-base" viewBox="0 0 512 512"><path fill="currentColor" d="M363.5 391.5L276 304c-11-11-28.9-11-39.9 0l-87.5 87.5c-7.8 7.8-20.5 7.8-28.3 0l-45.3-45.3c-7.8-7.8-7.8-20.5 0-28.3L162.5 230.4c11-11 11-28.9 0-39.9L75 103c-7.8-7.8-7.8-20.5 0-28.3l45.3-45.3c7.8-7.8 20.5-7.8 28.3 0l87.5 87.5c11 11 28.9 11 39.9 0l87.5-87.5c7.8-7.8 20.5-7.8 28.3 0l45.3 45.3c7.8 7.8 7.8 20.5 0 28.3l-87.5 87.5c-11 11-11 28.9 0 39.9l87.5 87.5c7.8 7.8 7.8 20.5 0 28.3l-45.3 45.3c-7.8 7.8-20.5 7.8-28.3 0z"/></svg>
               <span>PIX</span>
             </div>
-
             <div class="flex items-center gap-1.5 text-xs font-bold text-sweet-moka bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
               <i class="fa-solid fa-credit-card text-sweet-darkPink"></i>
-              <span>Crédito via Link em até 11x <span class="text-[10px] text-gray-500 font-normal">(incluída uma pequena taxa)</span></span>
+              <span>Crédito via Link em até 11x</span>
             </div>
           </div>
 
           <div class="flex flex-wrap gap-4 items-center">
-            <a id="hero-btn-pedir" href="#" target="_blank" class="bg-sweet-darkPink hover:bg-pink-600 text-white font-bold px-8 py-4 rounded-full shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-3 text-sm">
+            <a id="hero-btn-pedir" href="#" target="_blank" class="bg-sweet-darkPink hover:bg-pink-600 text-white font-bold px-8 py-4 rounded-full shadow-lg transition flex items-center gap-3 text-sm">
               <i class="fa-brands fa-whatsapp text-xl"></i> Fazer Pedido no WhatsApp
             </a>
             <a href="#cardapio" class="bg-white hover:bg-pink-50 text-sweet-darkMoka font-bold px-6 py-3.5 rounded-full border border-pink-200 transition text-sm shadow-sm">
               Ver Tabela de Preços
             </a>
           </div>
-
-          <div class="mt-8 flex items-center gap-6 text-xs font-semibold text-gray-600">
-            <span class="flex items-center gap-1.5"><i class="fa-solid fa-truck text-sweet-darkPink"></i> Apenas sob encomenda</span>
-            <span class="flex items-center gap-1.5"><i class="fa-solid fa-box-open text-sweet-teal"></i> Pedido Mínimo: 25 un (Doces)</span>
-          </div>
         </div>
 
         <div class="relative flex justify-center">
           <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden relative">
-            <img id="hero-carousel-img" src="" alt="Destaque de Doces" class="w-full h-full object-cover transition-opacity duration-500 rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80';">
-          </div>
-          <div class="absolute -bottom-4 right-4 sm:right-12 bg-white p-4 rounded-2xl shadow-xl border border-pink-100 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-sweet-darkPink">
-              <i class="fa-solid fa-star"></i>
-            </div>
-            <div>
-              <div id="hero-carousel-title" class="text-xs font-bold text-sweet-darkMoka">Docinhos Artesanais</div>
-              <div id="hero-carousel-cat" class="text-[10px] text-gray-500">Confira nosso cardápio</div>
-            </div>
+            <img id="hero-carousel-img" src="" class="w-full h-full object-cover transition-opacity duration-500 rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80';">
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Cardápio / Vitrine de Produtos -->
+  <!-- Cardápio Vitrine -->
   <section id="cardapio" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-10">
       <h2 class="text-3xl sm:text-4xl font-title font-bold text-sweet-darkMoka mb-3">Nosso Cardápio</h2>
@@ -196,71 +181,48 @@
         Selecione qualquer combinação de itens. <br>
         <span class="text-sweet-darkPink font-bold">⚠️ Doces de Festa: pedido mínimo de 25 unidades.</span>
       </p>
-
       <div id="category-tabs" class="flex flex-wrap justify-center gap-2 mt-6"></div>
     </div>
-
     <div id="sweets-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
   </section>
 
-  <!-- SEÇÃO CALCULADORA DE ENCOMENDA -->
+  <!-- GALERIA DE TRABALHOS -->
+  <section id="galeria-trabalhos" class="py-16 bg-white/70 border-y border-pink-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="bg-pink-100 text-sweet-darkPink text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">Portfólio de Inspirações</span>
+        <h2 class="text-3xl sm:text-4xl font-title font-bold text-sweet-darkMoka mt-3 mb-3">Galeria de Trabalhos Realizados</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
+          Conheça os modelos artesanais sob encomenda da <strong>Ana Gusmão</strong>!
+        </p>
+      </div>
+      <div id="portfolio-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </div>
+  </section>
+
+  <!-- CALCULADORA -->
   <span id="calculadora-ancora"></span>
   <section id="calculadora" class="py-12 bg-white/60 border-y border-pink-100">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-pink-100">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-pink-100 pb-4">
-          <div>
-            <h2 class="text-2xl sm:text-3xl font-title font-bold text-sweet-darkMoka flex items-center gap-2">
-              <i class="fa-solid fa-calculator text-sweet-darkPink"></i> Calculadora & Orçamento
-            </h2>
-            <p class="text-xs sm:text-sm text-gray-500">Adicione itens diversos para ver o total e enviar a sua solicitação.</p>
-          </div>
-          
-          <div class="w-full sm:w-auto bg-pink-50 p-2 rounded-2xl border border-pink-200">
-            <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1 px-1">Forma de Pagamento:</label>
-            <div class="flex gap-1 text-xs font-bold">
-              <label class="flex-1 cursor-pointer">
-                <input type="radio" name="payment-method" value="PIX" checked onchange="window.updatePaymentMethod('PIX')" class="peer hidden">
-                <span class="block px-3 py-1.5 rounded-xl text-center peer-checked:bg-teal-600 peer-checked:text-white bg-white text-gray-600 transition border border-gray-200 peer-checked:border-teal-600">
-                  <svg class="pix-icon text-current inline mr-1" viewBox="0 0 512 512"><path fill="currentColor" d="M363.5 391.5L276 304c-11-11-28.9-11-39.9 0l-87.5 87.5c-7.8 7.8-20.5 7.8-28.3 0l-45.3-45.3c-7.8-7.8-7.8-20.5 0-28.3L162.5 230.4c11-11 11-28.9 0-39.9L75 103c-7.8-7.8-7.8-20.5 0-28.3l45.3-45.3c7.8-7.8 20.5-7.8 28.3 0l87.5 87.5c11 11 28.9 11 39.9 0l87.5-87.5c7.8-7.8 20.5-7.8 28.3 0l45.3 45.3c7.8 7.8 7.8 20.5 0 28.3l-87.5 87.5c-11 11-11 28.9 0 39.9l87.5 87.5c7.8 7.8 7.8 20.5 0 28.3l-45.3 45.3c-7.8 7.8-20.5 7.8-28.3 0z"/></svg>
-                  PIX
-                </span>
-              </label>
-
-              <label class="flex-1 cursor-pointer">
-                <input type="radio" name="payment-method" value="Crédito via Link" onchange="window.updatePaymentMethod('Crédito via Link')" class="peer hidden">
-                <span class="block px-3 py-1.5 rounded-xl text-center peer-checked:bg-sweet-darkPink peer-checked:text-white bg-white text-gray-600 transition border border-gray-200 peer-checked:border-sweet-darkPink">
-                  <i class="fa-solid fa-credit-card mr-1"></i> Crédito (até 11x)
-                </span>
-              </label>
-            </div>
-            <div id="payment-note" class="text-[10px] text-gray-500 mt-1 text-center font-medium">Pagamento instantâneo via chave PIX</div>
-          </div>
-        </div>
-
+        <h2 class="text-2xl font-title font-bold text-sweet-darkMoka mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-calculator text-sweet-darkPink"></i> Calculadora & Orçamento
+        </h2>
         <div id="calc-items-list" class="space-y-3 mb-6 min-h-[80px]"></div>
-
         <div class="bg-sweet-softPink p-5 rounded-2xl border border-pink-200 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div>
             <div class="text-xs text-gray-500 font-semibold">Total Estimado</div>
             <div class="text-3xl font-title font-bold text-sweet-darkPink" id="calc-total-price">R$ 0,00</div>
-            <div class="text-[11px] text-gray-500" id="calc-total-units">0 itens selecionados no total</div>
           </div>
-          
-          <div class="w-full sm:w-auto flex flex-col sm:flex-row gap-2">
-            <button onclick="window.clearCalculator()" class="px-4 py-2.5 text-xs text-gray-500 hover:text-red-500 font-bold border border-gray-200 rounded-xl bg-white hover:bg-gray-50 transition">
-              Limpar Tudo
-            </button>
-            <button onclick="window.sendCalcOrderToWhatsApp()" id="btn-calc-whatsapp" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-full shadow-md transition flex items-center justify-center gap-2 text-sm">
-              <i class="fa-brands fa-whatsapp text-lg"></i> Solicitar Orçamento no WhatsApp
-            </button>
-          </div>
+          <button onclick="window.sendCalcOrderToWhatsApp()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-full shadow-md transition flex items-center gap-2 text-sm">
+            <i class="fa-brands fa-whatsapp text-lg"></i> Solicitar Orçamento no WhatsApp
+          </button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Sobre & Redes Sociais -->
+  <!-- Sobre Nós -->
   <section id="sobre" class="bg-white py-16 border-y border-pink-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -268,683 +230,159 @@
           <span class="text-sweet-darkPink font-bold text-xs uppercase tracking-wider">Tradição & Carinho</span>
           <h2 class="text-3xl font-title font-bold text-sweet-darkMoka mt-2 mb-4">Adoçando Vidas Desde 2014</h2>
           <p class="text-gray-700 leading-relaxed text-sm sm:text-base mb-6">
-            Sob o comando de <strong>Ana Gusmão</strong>, a <strong>Gostosuras e Travessuras</strong> é especializada em doces artesanais, pipocas gourmet e bolos decorados que encantam tanto no visual quanto no sabor. Cada receita é feita individualmente sob encomenda para garantir o máximo de frescor no seu evento.
+            Sob o comando de <strong>Ana Gusmão</strong>, a <strong>Gostosuras e Travessuras</strong> é especializada em doces artesanais, pipocas gourmet e bolos decorados.
           </p>
-
-          <div class="space-y-3">
-            <a id="about-link-ig" href="#" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-pink-50 hover:bg-pink-100 transition text-sweet-darkPink font-semibold text-sm">
-              <i class="fa-brands fa-instagram text-xl"></i>
-              <span>Siga no Instagram (@gostosuras.e.travessuras)</span>
-            </a>
-            <a id="about-link-fb" href="#" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-blue-50 hover:bg-blue-100 transition text-blue-700 font-semibold text-sm">
-              <i class="fa-brands fa-facebook text-xl"></i>
-              <span>Acompanhe nossa Página no Facebook</span>
-            </a>
-          </div>
-        </div>
-
-        <div id="encomendas" class="bg-sweet-softPink rounded-3xl p-8 border border-pink-200">
-          <h3 class="font-title font-bold text-xl text-sweet-darkMoka mb-4 text-center">Como Fazer Seu Pedido</h3>
-          <ul class="space-y-4 text-xs sm:text-sm text-gray-700">
-            <li class="flex items-start gap-3">
-              <span class="w-6 h-6 rounded-full bg-sweet-darkPink text-white font-bold flex items-center justify-center shrink-0">1</span>
-              <span>Escolha os itens desejados no cardápio e ajuste as quantidades.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="w-6 h-6 rounded-full bg-sweet-darkPink text-white font-bold flex items-center justify-center shrink-0">2</span>
-              <span>Envie o resumo via WhatsApp com a data do evento para verificar a disponibilidade.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="w-6 h-6 rounded-full bg-sweet-darkPink text-white font-bold flex items-center justify-center shrink-0">3</span>
-              <span>Após a confirmação do pagamento (PIX ou Crédito em 11x via Link), preparamos a sua encomenda!</span>
-            </li>
-          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Barra Flutuante de Resumo -->
-  <div id="sticky-calc-bar" class="fixed bottom-0 inset-x-0 bg-sweet-darkMoka text-white p-3 sm:p-4 z-40 shadow-2xl border-t border-pink-400/30 flex justify-between items-center px-4 sm:px-8 transition-transform duration-300">
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-full bg-sweet-darkPink flex items-center justify-center text-white">
-        <i class="fa-solid fa-cart-shopping"></i>
-      </div>
-      <div>
-        <div class="text-xs text-pink-100 font-medium" id="bar-units-text">0 itens selecionados</div>
-        <div class="text-lg font-title font-bold text-sweet-pink" id="bar-total-text">Total: R$ 0,00</div>
-      </div>
-    </div>
-    <div class="flex items-center gap-2">
-      <a href="#calculadora-ancora" class="bg-white/10 hover:bg-white/20 text-white text-xs px-3 py-2 rounded-xl transition hidden sm:inline-block">
-        Ver Calculadora
-      </a>
-      <button onclick="window.sendCalcOrderToWhatsApp()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-5 py-2.5 rounded-full text-xs sm:text-sm transition flex items-center gap-2">
-        <i class="fa-brands fa-whatsapp text-base"></i> Solicitar Orçamento
-      </button>
-    </div>
-  </div>
-
-  <!-- Rodapé -->
-  <footer class="bg-sweet-darkMoka text-white text-xs py-8 mb-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div>
-        © <span id="year"></span> Gostosuras e Travessuras - Doces Artesanais By Ana Gusmão.
-      </div>
-      <div class="flex items-center gap-4">
-        <a id="footer-fb" href="#" target="_blank" class="hover:text-sweet-pink transition"><i class="fa-brands fa-facebook"></i> Facebook</a>
-        <a id="footer-ig" href="#" target="_blank" class="hover:text-sweet-pink transition"><i class="fa-brands fa-instagram"></i> Instagram</a>
-        <button onclick="window.toggleAdminModal()" class="hover:text-sweet-pink transition flex items-center gap-1 ml-4">
-          <i class="fa-solid fa-lock text-[10px]"></i> Painel Admin
-        </button>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Botão Flutuante WhatsApp -->
-  <a id="btn-whatsapp-float" href="#" target="_blank" class="fixed bottom-20 right-6 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-40 transition transform hover:scale-110">
-    <i class="fa-brands fa-whatsapp"></i>
-  </a>
-
   <!-- MODAL DE CADASTRO/EDIÇÃO DE ITEM (ADMIN) -->
   <div id="item-form-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col border border-pink-100">
       <div class="bg-sweet-darkMoka text-white p-4 flex justify-between items-center">
-        <h4 id="item-form-title" class="font-bold text-base flex items-center gap-2">
-          <i class="fa-solid fa-pen-to-square text-sweet-darkPink"></i> Editar Doce
-        </h4>
+        <h4 id="item-form-title" class="font-bold text-base"><i class="fa-solid fa-pen-to-square text-sweet-darkPink"></i> Editar Doce</h4>
         <button onclick="window.closeItemFormModal()" class="text-gray-300 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
 
       <div class="p-6 space-y-4 text-sm overflow-y-auto max-h-[75vh]">
         <input type="hidden" id="form-item-id">
-        
         <div>
           <label class="block text-xs font-bold uppercase text-gray-600 mb-1">NOME DO ITEM</label>
-          <input type="text" id="form-item-name" placeholder="Ex: Brigadeiro Natalino" class="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-sweet-darkPink outline-none font-medium">
+          <input type="text" id="form-item-name" class="w-full border rounded-lg p-2.5 font-medium outline-none">
         </div>
-
         <div>
           <label class="block text-xs font-bold uppercase text-gray-600 mb-1">CATEGORIA</label>
-          <select id="form-item-category" onchange="window.handleCategoryFormChange()" class="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-sweet-darkPink outline-none font-medium">
+          <select id="form-item-category" class="w-full border rounded-lg p-2.5 font-medium outline-none">
             <option value="Doce de Festa">Doce de Festa</option>
             <option value="Pipoca Gourmet">Pipoca Gourmet</option>
             <option value="Bolo">Bolo</option>
-            <option value="Especial Sazonal">Especial Sazonal (Temático de Época)</option>
+            <option value="Especial Sazonal">Especial Sazonal</option>
           </select>
         </div>
-
-        <div id="form-price-container">
-          <label id="form-price-label" class="block text-xs font-bold uppercase text-gray-600 mb-1">VALOR (R$)</label>
-          <input type="text" id="form-item-price" placeholder="145,00" class="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-sweet-darkPink outline-none font-bold text-sweet-darkPink">
-          <p id="form-price-help" class="text-[11px] text-gray-400 mt-1">Insira o valor (por cento, unidade ou pacote conforme o item).</p>
+        <div>
+          <label class="block text-xs font-bold uppercase text-gray-600 mb-1">VALOR (R$)</label>
+          <input type="text" id="form-item-price" class="w-full border rounded-lg p-2.5 font-bold text-sweet-darkPink outline-none">
         </div>
-
         <div>
           <label class="block text-xs font-bold uppercase text-gray-600 mb-1">DESCRIÇÃO</label>
-          <textarea id="form-item-desc" rows="2" placeholder="Ex: Decorado artesanalmente com tema natalino." class="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-sweet-darkPink outline-none"></textarea>
+          <textarea id="form-item-desc" rows="2" class="w-full border rounded-lg p-2.5 outline-none"></textarea>
         </div>
-
         <div>
-          <label class="block text-xs font-bold uppercase text-gray-600 mb-1">FOTOS DO PRODUTO (MÁX. 2 IMAGENS)</label>
-          <div class="space-y-2">
-            <input type="file" id="form-item-file" multiple accept="image/*,.pdf" onchange="window.handleFormImageUpload(event)" class="w-full text-xs text-gray-500 border rounded-lg p-2 bg-gray-50 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-sweet-darkPink file:text-white hover:file:bg-pink-600">
-            <input type="text" id="form-item-imgs" placeholder="Ou cole URLs separadas por vírgula..." class="w-full border rounded-lg p-2 text-xs focus:ring-2 focus:ring-sweet-darkPink outline-none">
-          </div>
-
-          <!-- Pré-visualização de imagens -->
-          <div id="form-item-preview-container" class="mt-3 hidden">
-            <div class="text-[11px] font-bold text-gray-500 w-full">
-              <span>Pré-visualização:</span>
-              <div id="form-item-preview-list" class="flex gap-2 mt-1"></div>
-            </div>
-          </div>
+          <label class="block text-xs font-bold uppercase text-gray-600 mb-1">FOTOS (URLs separadas por vírgula ou arquivo)</label>
+          <input type="file" id="form-item-file" multiple accept="image/*" onchange="window.handleFormImageUpload(event)" class="w-full text-xs border rounded-lg p-2 mb-2">
+          <input type="text" id="form-item-imgs" placeholder="Ou cole URLs separadas por vírgula..." class="w-full border rounded-lg p-2 text-xs outline-none">
         </div>
       </div>
-
       <div class="bg-gray-50 p-4 border-t flex justify-end gap-2">
-        <button onclick="window.closeItemFormModal()" class="px-5 py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-100 transition">Cancelar</button>
-        <button onclick="window.saveItemForm()" class="px-6 py-2.5 bg-sweet-darkPink hover:bg-pink-600 text-white font-bold rounded-xl text-xs shadow-md transition">Salvar Item</button>
+        <button onclick="window.closeItemFormModal()" class="px-5 py-2.5 border rounded-xl text-xs font-bold">Cancelar</button>
+        <button onclick="window.saveItemFirebase()" class="px-6 py-2.5 bg-sweet-darkPink text-white font-bold rounded-xl text-xs">Salvar na Nuvem</button>
       </div>
     </div>
   </div>
 
-  <!-- PAINEL ADMIN MAIN MODAL -->
+  <!-- PAINEL ADMIN MODAL PRINCIPAL -->
   <div id="admin-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
-      <div class="bg-sweet-darkMoka text-white p-4 sm:p-6 flex justify-between items-center border-b border-gray-800">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-sweet-darkPink flex items-center justify-center text-white">
-            <i class="fa-solid fa-gear"></i>
-          </div>
-          <div>
-            <h3 class="font-bold text-lg leading-tight">Painel Administrativo</h3>
-            <p class="text-xs text-gray-300">Edite dados da loja, preços, folder sazonal e senha</p>
-          </div>
-        </div>
-        <button onclick="window.toggleAdminModal()" class="text-gray-400 hover:text-white text-xl">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+      <div class="bg-sweet-darkMoka text-white p-4 flex justify-between items-center">
+        <h3 class="font-bold text-lg">Painel Administrativo (Sincronizado via Firebase)</h3>
+        <button onclick="window.toggleAdminModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div id="admin-login-view" class="p-8 text-center max-w-sm mx-auto my-auto">
-        <i class="fa-solid fa-lock text-4xl text-sweet-darkPink mb-4"></i>
-        <h4 class="font-bold text-sweet-darkMoka text-lg mb-2">Digite o PIN de Acesso</h4>
-        <p class="text-xs text-gray-500 mb-4">PIN Padrão: <strong class="text-sweet-darkPink">1234</strong></p>
-        <input type="password" id="admin-pin" placeholder="****" maxlength="4" class="w-full text-center text-2xl font-bold tracking-widest border border-gray-300 rounded-lg p-3 mb-4 focus:ring-2 focus:ring-sweet-darkPink outline-none">
-        <button onclick="window.checkAdminPin()" class="w-full bg-sweet-darkPink hover:bg-pink-600 text-white font-bold py-3 rounded-lg transition">
-          Entrar no Painel
-        </button>
+        <h4 class="font-bold text-sweet-darkMoka text-lg mb-2">Digite o PIN</h4>
+        <input type="password" id="admin-pin" placeholder="****" maxlength="4" class="w-full text-center text-2xl font-bold border rounded-lg p-3 mb-4">
+        <button onclick="window.checkAdminPin()" class="w-full bg-sweet-darkPink text-white font-bold py-3 rounded-lg">Entrar</button>
       </div>
 
-      <div id="admin-content-view" class="hidden flex-1 overflow-y-auto p-6 space-y-8">
-        <div class="flex border-b border-gray-200 gap-4 font-semibold text-sm">
-          <button onclick="window.switchAdminTab('general')" id="tab-btn-general" class="pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink">Geral, Contatos & Folder Sazonal</button>
-          <button onclick="window.switchAdminTab('menu')" id="tab-btn-menu" class="pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">Gerenciar Cardápio</button>
+      <div id="admin-content-view" class="hidden flex-1 overflow-y-auto p-6 space-y-6">
+        <div class="flex justify-between items-center">
+          <h4 class="font-bold text-gray-800">Itens do Cardápio</h4>
+          <button onclick="window.openAddSweetModal()" class="bg-emerald-600 text-white text-xs font-bold px-3 py-2 rounded-lg">
+            <i class="fa-solid fa-plus"></i> Adicionar Novo Item
+          </button>
         </div>
-
-        <div id="admin-sec-general" class="space-y-6">
-          <div>
-            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Logótipo da Loja (Carregar PNG / JPG)</label>
-            <input type="file" id="logo-file-input" accept="image/*" onchange="window.handleLogoUpload(event)" class="text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-pink-50 file:text-sweet-darkPink hover:file:bg-pink-100">
-            <input type="text" id="edit-logo-url" placeholder="Ou cole a URL..." class="w-full mt-2 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
-          </div>
-
-          <div class="grid md:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-bold uppercase text-gray-600 mb-1">WhatsApp (com DDD)</label>
-              <input type="text" id="edit-whatsapp" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
-            </div>
-            <div>
-              <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Link do Instagram</label>
-              <input type="text" id="edit-ig" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Link do Facebook</label>
-            <input type="text" id="edit-fb" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
-          </div>
-
-          <!-- CONFIGURAÇÕES DO FOLDER SAZONAL -->
-          <div class="border-t pt-6 mt-6">
-            <h4 class="font-bold text-sweet-darkMoka mb-1 text-sm uppercase"><i class="fa-solid fa-wand-magic-sparkles text-sweet-darkPink mr-1"></i> Configuração do Folder Sazonal (Destaque)</h4>
-            <p class="text-[11px] text-gray-500 mb-3">Este folder só aparecerá no site se houver pelo menos um item cadastrado na categoria "Especial Sazonal".</p>
-            
-            <div class="grid md:grid-cols-3 gap-4 mb-4">
-              <div>
-                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Emoji / Ícone</label>
-                <input type="text" id="edit-folder-emoji" placeholder="Ex: 🎄 ou 🎃 ou 🐰" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
-              </div>
-              <div class="md:col-span-2">
-                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Badge / Subtítulo</label>
-                <input type="text" id="edit-folder-badge" placeholder="Ex: Edição Limitada / Natal & Fim de Ano" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
-              </div>
-            </div>
-
-            <div class="space-y-4">
-              <div>
-                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Título da Campanha</label>
-                <input type="text" id="edit-folder-title" placeholder="Ex: Cardápio Especial de Natal & Fim de Ano" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Descrição do Folder</label>
-                <textarea id="edit-folder-desc" rows="2" placeholder="Ex: Docinhos temáticos exclusivos criados especialmente para celebrar suas festas!" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none"></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="border-t pt-6 mt-6">
-            <h4 class="font-bold text-gray-800 mb-1 text-xs uppercase"><i class="fa-solid fa-key text-sweet-darkPink mr-1"></i> Alterar PIN de Acesso Admin</h4>
-            <p class="text-[11px] text-gray-500 mb-3">Preencha apenas caso deseje alterar a senha atual de acesso ao painel (4 dígitos).</p>
-            <div class="grid md:grid-cols-3 gap-4">
-              <div>
-                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">PIN Atual</label>
-                <input type="password" id="edit-current-pin" maxlength="4" placeholder="****" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Novo PIN (4 dígitos)</label>
-                <input type="password" id="edit-new-pin" maxlength="4" placeholder="****" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Confirmar Novo PIN</label>
-                <input type="password" id="edit-confirm-pin" maxlength="4" placeholder="****" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-sweet-darkPink outline-none">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="admin-sec-menu" class="hidden space-y-6">
-          <div class="flex justify-between items-center">
-            <h4 class="font-bold text-gray-800">Itens do Cardápio por Categoria</h4>
-            <div class="flex gap-2">
-              <button onclick="window.exportMenuBackup()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1 border">
-                <i class="fa-solid fa-download"></i> Baixar Backup
-              </button>
-              <button onclick="window.openAddSweetModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1">
-                <i class="fa-solid fa-plus"></i> Adicionar Item
-              </button>
-            </div>
-          </div>
-
-          <div class="overflow-x-auto border rounded-xl">
-            <table class="w-full text-left text-sm">
-              <thead class="bg-gray-50 border-b text-gray-600 text-xs uppercase">
-                <tr>
-                  <th class="p-3">Foto</th>
-                  <th class="p-3">Sabor / Nome</th>
-                  <th class="p-3">Categoria</th>
-                  <th class="p-3">Preço Cadastrado</th>
-                  <th class="p-3 text-right">Ações</th>
-                </tr>
-              </thead>
-              <tbody id="admin-sweets-table-body" class="divide-y"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div id="admin-footer-actions" class="hidden bg-gray-50 p-4 border-t flex justify-between items-center">
-        <button onclick="window.resetDefaultData()" class="text-xs text-red-600 hover:underline">
-          <i class="fa-solid fa-rotate-left"></i> Restaurar Originais
-        </button>
-        <div class="flex gap-2">
-          <button onclick="window.toggleAdminModal()" class="px-4 py-2 border rounded-lg text-sm text-gray-600 hover:bg-gray-100">Cancelar</button>
-          <button onclick="window.saveAdminChanges()" class="px-4 py-2 bg-sweet-darkPink hover:bg-pink-600 text-white font-bold rounded-lg text-sm">Salvar Alterações</button>
+        <div class="overflow-x-auto border rounded-xl">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-gray-50 border-b text-xs uppercase">
+              <tr>
+                <th class="p-3">Foto</th>
+                <th class="p-3">Nome</th>
+                <th class="p-3">Categoria</th>
+                <th class="p-3">Preço</th>
+                <th class="p-3 text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="admin-sweets-table-body" class="divide-y"></tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    const defaultData = {
-      adminPin: "1234",
-      logoUrl: "https://lh3.googleusercontent.com/d/1g_98L_Z9V7M2p4D6_X5-X1vX2y3Z4w5v=w800",
-      whatsapp: "5511985063638",
-      igLink: "https://www.instagram.com/gostosuras.e.travessuras/",
-      fbLink: "https://www.facebook.com/doces.gostosuras.e.travessuras",
-      seasonalConfig: {
-        emoji: "🎄",
-        badge: "Edição Limitada / Período Festivo",
-        title: "Cardápio Especial de Natal & Fim de Ano",
-        desc: "Docinhos temáticos exclusivos criados especialmente para celebrar suas festas com muito sabor!"
-      },
-      sweets: [
-        { id: 1, name: "Brigadeiro Tradicional", category: "Doce de Festa", price: "145,00", desc: "Clássico brigadeiro artesanal enrolado no granulado.", imgs: ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=400&q=80"] },
-        { id: 2, name: "Beijinho de Coco", category: "Doce de Festa", price: "145,00", desc: "Doce de coco macio envolvido no açúcar e cravo.", imgs: ["https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80"] },
-        { id: 3, name: "Bicho de Pé", category: "Doce de Festa", price: "165,00", desc: "Docinho tradicional de morango.", imgs: ["https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80"] },
-        { id: 4, name: "Docinho de Pistache", category: "Doce de Festa", price: "420,00", desc: "Pasta pura e pedaços de pistache nobre.", imgs: ["https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80"] },
-        { id: 5, name: "Pipoca Gourmet Leite Ninho", category: "Pipoca Gourmet", price: "12,00", desc: "Pipoca artesanal banhada no chocolate branco e Leite Ninho (Pacote indiv. 100g).", imgs: ["https://images.unsplash.com/photo-1578849278619-e73505e9610f?auto=format&fit=crop&w=400&q=80"] },
-        { id: 6, name: "Pipoca Gourmet Ovaltine", category: "Pipoca Gourmet", price: "12,00", desc: "Crocante com cobertura de chocolate e Ovaltine.", imgs: ["https://images.unsplash.com/photo-1578849278619-e73505e9610f?auto=format&fit=crop&w=400&q=80"] },
-        { id: 7, name: "Bolo Decorado de Aniversário", category: "Bolo", price: "Sob Consulta", desc: "Bolo personalizado com massa fofinha e recheio gourmet a sua escolha.", imgs: ["https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=400&q=80"] },
-        { id: 8, name: "Brigadeiro Natalino Especial 🎄", category: "Especial Sazonal", price: "190,00", desc: "Brigadeiro gourmet decorado com toque especial de festas de fim de ano.", imgs: ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"] }
-      ]
+    // CREDENCIAIS OFICIAIS DO SEU FIREBASE
+    const firebaseConfig = {
+      apiKey: "AIzaSyCk7qKv0jhOc1ybo1yH8doA6nkZ5RNtHMs",
+      authDomain: "gostosuras-e-travessuras-4e83d.firebaseapp.com",
+      projectId: "gostosuras-e-travessuras-4e83d",
+      storageBucket: "gostosuras-e-travessuras-4e83d.firebasestorage.app",
+      messagingSenderId: "458130252188",
+      appId: "1:458130252188:web:a7c9e04e2564b17507e859",
+      measurementId: "G-JMMYQSXK4W"
     };
 
-    let appData = JSON.parse(localStorage.getItem('gostosuras_clean_data')) || defaultData;
-    if (!appData.seasonalConfig) {
-      appData.seasonalConfig = defaultData.seasonalConfig;
-    }
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-    let activeCategory = "Todas";
-    let carouselIndex = 0;
-    let carouselTimer = null;
-    let cardImageIndexes = {};
+    let appData = { logoUrl: '', whatsapp: '5511985063638', igLink: '', fbLink: '', sweets: [], portfolio: [] };
     let calcCart = {};
-    let selectedPaymentMethod = "PIX";
+    let activeCategory = "Todas";
     let windowUploadedImgs = [];
 
-    function parsePrice(priceStr) {
-      if (!priceStr || priceStr.toLowerCase().includes("consulta")) return 0;
-      const clean = priceStr.toString().replace('R$', '').replace('un', '').replace('/', '').trim().replace('.', '').replace(',', '.');
-      return parseFloat(clean) || 0;
-    }
-
-    function getUnitPrice(sweet) {
-      const priceNum = parsePrice(sweet.price);
-      if (sweet.category === "Doce de Festa" || sweet.category === "Especial Sazonal") {
-        return priceNum / 100;
-      }
-      return priceNum;
-    }
-
-    window.saveData = function() {
-      localStorage.setItem('gostosuras_clean_data', JSON.stringify(appData));
+    // ESCUTA EM TEMPO REAL NO FIREBASE FIRESTORE
+    db.collection("sweets").onSnapshot((snapshot) => {
+      appData.sweets = [];
+      snapshot.forEach((doc) => {
+        appData.sweets.push({ id: doc.id, ...doc.data() });
+      });
       window.renderPage();
-    }
+      window.renderAdminSweetsTable();
+    });
 
-    window.updatePaymentMethod = function(method) {
-      selectedPaymentMethod = method;
-      const noteEl = document.getElementById('payment-note');
-      if (noteEl) {
-        if (method === 'PIX') {
-          noteEl.innerText = "Pagamento instantâneo via chave PIX";
-        } else {
-          noteEl.innerText = "Cartão de Crédito via Link (parcelamento em até 11x com pequena taxa)";
-        }
-      }
-    }
+    window.saveItemFirebase = function() {
+      const id = document.getElementById('form-item-id').value;
+      const name = document.getElementById('form-item-name').value;
+      const category = document.getElementById('form-item-category').value;
+      const price = document.getElementById('form-item-price').value;
+      const desc = document.getElementById('form-item-desc').value;
+      const rawImgs = document.getElementById('form-item-imgs').value;
 
-    window.updateCalculatorUI = function() {
-      const calcListContainer = document.getElementById('calc-items-list');
-      if (!calcListContainer) return;
+      if (!name) { alert("Informe o nome do item!"); return; }
 
-      let totalUnits = 0;
-      let totalPrice = 0;
-      let hasConsulta = false;
-      const keys = Object.keys(calcCart);
+      let finalImgs = windowUploadedImgs.length > 0 ? windowUploadedImgs : rawImgs.split(',').map(s => s.trim()).filter(Boolean);
+      if (finalImgs.length === 0) finalImgs = ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"];
 
-      if (keys.length === 0) {
-        calcListContainer.innerHTML = `
-          <div class="text-center py-6 text-gray-400 text-sm">
-            <i class="fa-solid fa-basket-shopping text-3xl mb-2 opacity-50 block text-sweet-darkPink"></i>
-            Nenhum item selecionado ainda. Adicione itens do cardápio para calcular!
-          </div>
-        `;
+      const payload = { name, category, price, desc, imgs: finalImgs };
+
+      if (id) {
+        db.collection("sweets").doc(id).update(payload);
       } else {
-        calcListContainer.innerHTML = keys.map(idStr => {
-          const id = parseInt(idStr);
-          const sweet = appData.sweets.find(s => s.id === id);
-          if (!sweet) return '';
-          
-          const qty = calcCart[id];
-          const isBolo = sweet.category === "Bolo";
-          const unitPrice = getUnitPrice(sweet);
-          const subtotal = qty * unitPrice;
-
-          totalUnits += qty;
-          if (isBolo) hasConsulta = true;
-          else totalPrice += subtotal;
-
-          const step = (sweet.category === "Doce de Festa" || sweet.category === "Especial Sazonal") ? 25 : 1;
-
-          return `
-            <div class="flex items-center justify-between bg-pink-50 p-3 rounded-xl border border-pink-100 text-xs sm:text-sm">
-              <div class="flex items-center gap-3">
-                <span class="font-bold text-sweet-darkMoka">${sweet.name}</span>
-                <span class="text-[10px] text-gray-500 bg-white px-2 py-0.5 rounded-md border font-semibold">${sweet.category}</span>
-              </div>
-              <div class="flex items-center gap-4">
-                <div class="flex items-center gap-2">
-                  <button onclick="window.updateCalcQty(${sweet.id}, -${step})" class="w-6 h-6 rounded bg-white text-gray-600 font-bold hover:bg-gray-100 flex items-center justify-center text-xs border">-</button>
-                  <span class="font-bold min-w-[30px] text-center">${qty} un</span>
-                  <button onclick="window.updateCalcQty(${sweet.id}, ${step})" class="w-6 h-6 rounded bg-white text-gray-600 font-bold hover:bg-gray-100 flex items-center justify-center text-xs border">+</button>
-                </div>
-                <div class="font-bold text-sweet-darkPink w-24 text-right">
-                  ${isBolo ? 'Sob Consulta' : 'R$ ' + subtotal.toFixed(2).replace('.', ',')}
-                </div>
-                <button onclick="window.updateCalcQty(${sweet.id}, -${qty})" class="text-red-400 hover:text-red-600 ml-1">
-                  <i class="fa-solid fa-trash-can text-xs"></i>
-                </button>
-              </div>
-            </div>
-          `;
-        }).join('');
+        db.collection("sweets").add(payload);
       }
 
-      const formattedTotal = `R$ ${totalPrice.toFixed(2).replace('.', ',')}${hasConsulta ? ' + Sob Consulta' : ''}`;
-      document.getElementById('calc-total-price').innerText = formattedTotal;
-      document.getElementById('calc-total-units').innerText = `${totalUnits} itens selecionados no total`;
-      document.getElementById('bar-units-text').innerText = `${totalUnits} itens selecionados`;
-      document.getElementById('bar-total-text').innerText = `Total: ${formattedTotal}`;
-    }
-
-    window.updateCalcQty = function(sweetId, delta) {
-      const current = calcCart[sweetId] || 0;
-      const next = Math.max(0, current + delta);
-      if (next === 0) delete calcCart[sweetId];
-      else calcCart[sweetId] = next;
-      window.renderPage();
-    }
-
-    window.setCalcQtyDirect = function(sweetId, val) {
-      const qty = parseInt(val) || 0;
-      if (qty <= 0) delete calcCart[sweetId];
-      else calcCart[sweetId] = qty;
-      window.renderPage();
-    }
-
-    window.clearCalculator = function() {
-      calcCart = {};
-      window.renderPage();
-    }
-
-    window.renderPage = function() {
-      document.getElementById('year').innerText = new Date().getFullYear();
-      document.getElementById('main-logo-img').src = appData.logoUrl || defaultData.logoUrl;
-
-      const waUrl = `https://wa.me/${appData.whatsapp}?text=Olá!%20Gostaria%20de%20fazer%20uma%20encomenda!`;
-      ['nav-btn-whatsapp', 'hero-btn-pedir', 'btn-whatsapp-float'].forEach(id => {
-        document.getElementById(id).href = waUrl;
-      });
-
-      ['nav-btn-ig', 'about-link-ig', 'footer-ig'].forEach(id => {
-        document.getElementById(id).href = appData.igLink;
-      });
-
-      ['nav-btn-fb', 'about-link-fb', 'footer-fb'].forEach(id => {
-        document.getElementById(id).href = appData.fbLink;
-      });
-
-      // REGRA DO FOLDER SAZONAL: Só exibe se houver ao menos 1 item na categoria "Especial Sazonal"
-      const seasonalItems = appData.sweets.filter(s => s.category === "Especial Sazonal");
-      const folderContainer = document.getElementById('seasonal-folder-container');
-      
-      if (seasonalItems.length > 0) {
-        folderContainer.classList.remove('hidden');
-        const cfg = appData.seasonalConfig || defaultData.seasonalConfig;
-        document.getElementById('folder-emoji').innerText = cfg.emoji || "🎄";
-        document.getElementById('folder-badge').innerText = cfg.badge || "Edição Limitada";
-        document.getElementById('folder-title').innerText = cfg.title || "Cardápio Especial";
-        document.getElementById('folder-desc').innerText = cfg.desc || "Docinhos temáticos exclusivos!";
-      } else {
-        folderContainer.classList.add('hidden');
-        if (activeCategory === "Especial Sazonal") {
-          activeCategory = "Todas";
-        }
-      }
-
-      // Categorias do Cardápio (Exclui "Especial Sazonal" se não houver itens)
-      let categories = ["Todas", "Doce de Festa", "Pipoca Gourmet", "Bolo"];
-      if (seasonalItems.length > 0) {
-        categories.push("Especial Sazonal");
-      }
-
-      document.getElementById('category-tabs').innerHTML = categories.map(cat => `
-        <button onclick="window.setCategory('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold transition ${cat === activeCategory ? 'bg-sweet-darkPink text-white shadow-md' : 'bg-white text-gray-700 hover:bg-pink-100 border border-pink-200'}">
-          ${cat === 'Especial Sazonal' ? '✨ ' + (appData.seasonalConfig?.title || 'Especial Sazonal') : cat}
-        </button>
-      `).join('');
-
-      const filteredSweets = activeCategory === "Todas" ? appData.sweets : appData.sweets.filter(s => s.category === activeCategory);
-      
-      document.getElementById('sweets-grid').innerHTML = filteredSweets.map(sweet => {
-        // Garantir que pegue corretamente as imagens do array imgs
-        let imgs = [];
-        if (sweet.imgs && Array.isArray(sweet.imgs) && sweet.imgs.length > 0) {
-          imgs = sweet.imgs.filter(Boolean);
-        } else if (sweet.img) {
-          imgs = [sweet.img];
-        } else {
-          imgs = ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"];
-        }
-
-        const currentIdx = cardImageIndexes[sweet.id] || 0;
-        const currentQty = calcCart[sweet.id] || 0;
-
-        let priceBadge = sweet.category === "Doce de Festa" || sweet.category === "Especial Sazonal" ? `R$ ${sweet.price} / cento` : (sweet.category === "Pipoca Gourmet" ? `R$ ${sweet.price} / un` : `Sob Consulta`);
-        let stepQty = (sweet.category === "Doce de Festa" || sweet.category === "Especial Sazonal") ? 25 : 1;
-
-        return `
-          <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-pink-100 flex flex-col group">
-            <div class="relative h-48 w-full overflow-hidden bg-gray-100 group">
-              <img src="${imgs[currentIdx] || imgs[0]}" alt="${sweet.name}" class="h-full w-full object-cover transition-opacity duration-300" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';">
-              
-              ${imgs.length > 1 ? `
-                <button onclick="window.prevCardImage(${sweet.id}, ${imgs.length})" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-sweet-dark w-8 h-8 rounded-full flex items-center justify-center shadow transition opacity-80 group-hover:opacity-100 z-10">
-                  <i class="fa-solid fa-chevron-left text-xs"></i>
-                </button>
-                <button onclick="window.nextCardImage(${sweet.id}, ${imgs.length})" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-sweet-dark w-8 h-8 rounded-full flex items-center justify-center shadow transition opacity-80 group-hover:opacity-100 z-10">
-                  <i class="fa-solid fa-chevron-right text-xs"></i>
-                </button>
-                <div class="absolute bottom-2 inset-x-0 flex justify-center gap-1 z-10">
-                  ${imgs.map((_, idx) => `
-                    <span class="w-1.5 h-1.5 rounded-full ${idx === currentIdx ? 'bg-sweet-darkPink scale-125 shadow' : 'bg-white/70'}"></span>
-                  `).join('')}
-                </div>
-              ` : ''}
-
-              <span class="absolute top-2 left-2 text-[10px] ${sweet.category === 'Especial Sazonal' ? 'bg-sweet-darkPink text-white' : 'bg-white/90 text-sweet-darkMoka'} backdrop-blur font-bold px-2.5 py-1 rounded-full shadow-sm border border-pink-100">${sweet.category}</span>
-            </div>
-
-            <div class="p-5 flex-1 flex flex-col justify-between">
-              <div>
-                <div class="flex justify-between items-start mb-2 gap-2">
-                  <h3 class="font-title font-bold text-lg text-sweet-darkMoka leading-tight">${sweet.name}</h3>
-                  <span class="text-xs bg-sweet-softPink text-sweet-darkPink font-bold px-2 py-1 rounded-md shrink-0 border border-pink-200">${priceBadge}</span>
-                </div>
-                <p class="text-xs text-gray-500 mb-4">${sweet.desc}</p>
-              </div>
-
-              <div class="bg-sweet-softPink p-3 rounded-xl border border-pink-200 space-y-2">
-                <div class="flex justify-between items-center text-xs font-semibold text-sweet-darkMoka">
-                  <span>Quantidade desejada:</span>
-                  <span class="text-sweet-darkPink font-bold">${currentQty} un</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button onclick="window.updateCalcQty(${sweet.id}, -${stepQty})" class="w-8 h-8 rounded-lg bg-white text-sweet-dark font-bold hover:bg-pink-100 transition shadow-sm border border-pink-200 flex items-center justify-center text-xs">-${stepQty}</button>
-                  <input type="number" min="0" value="${currentQty}" onchange="window.setCalcQtyDirect(${sweet.id}, this.value)" class="w-full text-center bg-white border border-pink-200 rounded-lg py-1 text-sm font-bold text-sweet-darkMoka focus:ring-2 focus:ring-sweet-darkPink outline-none">
-                  <button onclick="window.updateCalcQty(${sweet.id}, ${stepQty})" class="w-8 h-8 rounded-lg bg-white text-sweet-dark font-bold hover:bg-pink-100 transition shadow-sm border border-pink-200 flex items-center justify-center text-xs">+${stepQty}</button>
-                </div>
-                <div class="flex justify-between items-center pt-1 text-[11px] text-gray-600 border-t border-pink-200/50">
-                  <span>Subtotal:</span>
-                  <strong class="text-sweet-darkMoka font-bold">${sweet.category === 'Bolo' ? 'Sob Consulta' : 'R$ ' + (currentQty * getUnitPrice(sweet)).toFixed(2).replace('.', ',')}</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      window.updateCalculatorUI();
-      window.startHeroCarousel();
-    }
-
-    window.prevCardImage = function(sweetId, length) {
-      if (!cardImageIndexes[sweetId]) cardImageIndexes[sweetId] = 0;
-      cardImageIndexes[sweetId] = (cardImageIndexes[sweetId] - 1 + length) % length;
-      window.renderPage();
-    }
-
-    window.nextCardImage = function(sweetId, length) {
-      if (!cardImageIndexes[sweetId]) cardImageIndexes[sweetId] = 0;
-      cardImageIndexes[sweetId] = (cardImageIndexes[sweetId] + 1) % length;
-      window.renderPage();
-    }
-
-    window.sendCalcOrderToWhatsApp = function() {
-      const keys = Object.keys(calcCart);
-      if (keys.length === 0) {
-        alert("Sua calculadora está vazia! Selecione ao menos um item.");
-        return;
-      }
-      let totalUnits = 0, totalPrice = 0, itemsText = "", hasConsulta = false;
-      keys.forEach(idStr => {
-        const id = parseInt(idStr);
-        const sweet = appData.sweets.find(s => s.id === id);
-        if (sweet) {
-          const qty = calcCart[id];
-          const subtotal = qty * getUnitPrice(sweet);
-          totalUnits += qty;
-          if (sweet.category === "Bolo") {
-            hasConsulta = true;
-            itemsText += `• ${sweet.name} (${sweet.category}): ${qty} un (Sob Consulta)\n`;
-          } else {
-            totalPrice += subtotal;
-            itemsText += `• ${sweet.name} (${sweet.category}): ${qty} un (R$ ${subtotal.toFixed(2).replace('.', ',')})\n`;
-          }
-        }
-      });
-      let msg = `Olá! Montei meu pedido no site da Gostosuras e Travessuras:\n\n*ITENS:*\n${itemsText}\n*TOTAL:* ${totalUnits} un (R$ ${totalPrice.toFixed(2).replace('.', ',')})\n💳 *PAGAMENTO:* ${selectedPaymentMethod}\nVerificar disponibilidade!`;
-      window.open(`https://wa.me/${appData.whatsapp}?text=` + encodeURIComponent(msg), '_blank');
-    }
-
-    window.startHeroCarousel = function() {
-      if (carouselTimer) clearInterval(carouselTimer);
-      if (!appData.sweets || appData.sweets.length === 0) return;
-      const updateHero = () => {
-        if (carouselIndex >= appData.sweets.length) carouselIndex = 0;
-        const currentSweet = appData.sweets[carouselIndex];
-        const imgs = currentSweet.imgs && currentSweet.imgs.length > 0 ? currentSweet.imgs : [currentSweet.img];
-        document.getElementById('hero-carousel-img').src = imgs[0] || '';
-        document.getElementById('hero-carousel-title').innerText = currentSweet.name;
-        document.getElementById('hero-carousel-cat').innerText = `${currentSweet.category} • ${currentSweet.price}`;
-        carouselIndex++;
-      };
-      updateHero();
-      carouselTimer = setInterval(updateHero, 3500);
-    }
-
-    window.setCategory = function(cat) {
-      activeCategory = cat;
-      window.renderPage();
-    }
-
-    window.handleCategoryFormChange = function() {
-      const cat = document.getElementById('form-item-category').value;
-      const priceContainer = document.getElementById('form-price-container');
-      if (cat === "Bolo") priceContainer.classList.add('hidden');
-      else priceContainer.classList.remove('hidden');
+      alert("Salvo com sucesso no Firebase!");
+      window.closeItemFormModal();
     };
 
-    window.updatePreviewList = function(imgs) {
-      const container = document.getElementById('form-item-preview-container');
-      const list = document.getElementById('form-item-preview-list');
-      if (!container || !list) return;
-      const validImgs = imgs.filter(Boolean);
-      if (validImgs.length > 0) {
-        list.innerHTML = validImgs.map((src, i) => `<div class="relative w-12 h-12 rounded-lg border overflow-hidden bg-gray-50"><img src="${src}" class="w-full h-full object-cover"></div>`).join('');
-        container.classList.remove('hidden');
-      } else container.classList.add('hidden');
-    }
-
-    window.openAddSweetModal = function() {
-      windowUploadedImgs = [];
-      document.getElementById('item-form-title').innerHTML = '<i class="fa-solid fa-plus text-sweet-darkPink"></i> Adicionar Novo Item';
-      document.getElementById('form-item-id').value = "";
-      document.getElementById('form-item-name').value = "";
-      document.getElementById('form-item-price').value = "145,00";
-      document.getElementById('form-item-desc').value = "";
-      document.getElementById('form-item-imgs').value = "";
-      document.getElementById('form-item-file').value = "";
-      document.getElementById('form-item-category').value = "Doce de Festa";
-      window.updatePreviewList([]);
-      document.getElementById('item-form-modal').classList.remove('hidden');
-    };
-
-    window.openEditSweetModal = function(id) {
-      const sweet = appData.sweets.find(s => s.id === id);
-      if (!sweet) return;
-      windowUploadedImgs = (sweet.imgs || []).slice(0, 2);
-      document.getElementById('item-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square text-sweet-darkPink"></i> Editar Doce';
-      document.getElementById('form-item-id').value = sweet.id;
-      document.getElementById('form-item-name').value = sweet.name;
-      document.getElementById('form-item-category').value = sweet.category || "Doce de Festa";
-      document.getElementById('form-item-price').value = sweet.price;
-      document.getElementById('form-item-desc').value = sweet.desc || "";
-      document.getElementById('form-item-imgs').value = windowUploadedImgs.join(', ');
-      window.updatePreviewList(windowUploadedImgs);
-      window.handleCategoryFormChange();
-      document.getElementById('item-form-modal').classList.remove('hidden');
-    };
-
-    window.closeItemFormModal = function() {
-      document.getElementById('item-form-modal').classList.add('hidden');
+    window.deleteSweet = function(id) {
+      if (confirm("Remover este item do banco de dados?")) {
+        db.collection("sweets").doc(id).delete();
+      }
     };
 
     window.handleFormImageUpload = function(event) {
       const files = Array.from(event.target.files).slice(0, 2);
-      if (files.length === 0) return;
       Promise.all(files.map(file => new Promise(res => {
         const reader = new FileReader();
         reader.onload = e => res(e.target.result);
@@ -952,184 +390,82 @@
       }))).then(results => {
         windowUploadedImgs = results;
         document.getElementById('form-item-imgs').value = results.join(', ');
-        window.updatePreviewList(results);
       });
     };
 
-    window.saveItemForm = function() {
-      const rawId = document.getElementById('form-item-id').value;
-      const name = document.getElementById('form-item-name').value;
-      const category = document.getElementById('form-item-category').value;
-      let price = document.getElementById('form-item-price').value;
-      const desc = document.getElementById('form-item-desc').value;
-      const imgsInputVal = document.getElementById('form-item-imgs').value;
+    window.renderPage = function() {
+      const filtered = activeCategory === "Todas" ? appData.sweets : appData.sweets.filter(s => s.category === activeCategory);
+      document.getElementById('sweets-grid').innerHTML = filtered.map(sweet => `
+        <div class="bg-white rounded-2xl p-5 border border-pink-100 shadow-sm flex flex-col justify-between">
+          <div>
+            <img src="${sweet.imgs && sweet.imgs[0] ? sweet.imgs[0] : ''}" class="h-48 w-full object-cover rounded-xl mb-3">
+            <h3 class="font-title font-bold text-lg text-sweet-darkMoka">${sweet.name}</h3>
+            <span class="text-xs text-sweet-darkPink font-bold bg-pink-50 px-2 py-1 rounded">R$ ${sweet.price}</span>
+            <p class="text-xs text-gray-500 mt-2">${sweet.desc || ''}</p>
+          </div>
+          <button onclick="window.updateCalcQty('${sweet.id}', 25)" class="mt-4 w-full bg-sweet-softPink hover:bg-sweet-darkPink hover:text-white font-bold py-2 rounded-xl transition text-xs border border-pink-200">
+            Adicionar ao Orçamento
+          </button>
+        </div>
+      `).join('');
 
-      if (!name) { alert("Preencha o nome!"); return; }
-      if (category === "Bolo") price = "Sob Consulta";
-
-      // Tratamento robusto para capturar múltiplas imagens separadas por vírgula ou do array carregado
-      let finalImgs = [];
-      if (windowUploadedImgs && windowUploadedImgs.length > 0) {
-        finalImgs = windowUploadedImgs.slice(0, 2);
-      } else if (imgsInputVal) {
-        finalImgs = imgsInputVal.split(',').map(s => s.trim()).filter(Boolean).slice(0, 2);
-      }
-
-      if (finalImgs.length === 0) {
-        finalImgs.push("https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80");
-      }
-
-      if (rawId) {
-        const sweet = appData.sweets.find(s => s.id === parseInt(rawId));
-        if (sweet) Object.assign(sweet, { name, category, price, desc, imgs: finalImgs });
-      } else {
-        appData.sweets.push({ id: Date.now(), name, category, price, desc, imgs: finalImgs });
-      }
-
-      window.saveData();
-      window.closeItemFormModal();
-      window.renderAdminSweetsTable();
-      alert("Item e imagens salvos com sucesso!");
+      const categories = ["Todas", "Doce de Festa", "Pipoca Gourmet", "Bolo", "Especial Sazonal"];
+      document.getElementById('category-tabs').innerHTML = categories.map(cat => `
+        <button onclick="window.setCategory('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold ${cat === activeCategory ? 'bg-sweet-darkPink text-white' : 'bg-white border'}">${cat}</button>
+      `).join('');
     };
 
-    window.exportMenuBackup = function() {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `cardapio_gostosuras_backup_${new Date().toISOString().slice(0,10)}.json`);
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
+    window.openAddSweetModal = function() {
+      windowUploadedImgs = [];
+      document.getElementById('form-item-id').value = "";
+      document.getElementById('form-item-name').value = "";
+      document.getElementById('form-item-price').value = "145,00";
+      document.getElementById('form-item-desc').value = "";
+      document.getElementById('form-item-imgs').value = "";
+      document.getElementById('item-form-modal').classList.remove('hidden');
     };
 
-    let isAdminLoggedIn = false;
-
-    window.toggleAdminModal = function() {
-      const modal = document.getElementById('admin-modal');
-      modal.classList.toggle('hidden');
-      if (!modal.classList.contains('hidden') && isAdminLoggedIn) {
-        window.populateAdminFields();
-      }
+    window.openEditSweetModal = function(id) {
+      const sweet = appData.sweets.find(s => s.id === id);
+      if (!sweet) return;
+      document.getElementById('form-item-id').value = sweet.id;
+      document.getElementById('form-item-name').value = sweet.name;
+      document.getElementById('form-item-category').value = sweet.category;
+      document.getElementById('form-item-price').value = sweet.price;
+      document.getElementById('form-item-desc').value = sweet.desc || '';
+      document.getElementById('form-item-imgs').value = (sweet.imgs || []).join(', ');
+      document.getElementById('item-form-modal').classList.remove('hidden');
     };
 
+    window.closeItemFormModal = function() { document.getElementById('item-form-modal').classList.add('hidden'); };
+    window.setCategory = function(c) { activeCategory = c; window.renderPage(); };
+    window.toggleAdminModal = function() { document.getElementById('admin-modal').classList.toggle('hidden'); };
     window.checkAdminPin = function() {
-      const pin = document.getElementById('admin-pin').value;
-      if (pin === (appData.adminPin || "1234")) {
-        isAdminLoggedIn = true;
+      if (document.getElementById('admin-pin').value === "1234") {
         document.getElementById('admin-login-view').classList.add('hidden');
         document.getElementById('admin-content-view').classList.remove('hidden');
-        document.getElementById('admin-footer-actions').classList.remove('hidden');
-        window.populateAdminFields();
-      } else alert("PIN Incorreto!");
-    };
-
-    window.switchAdminTab = function(tab) {
-      ['general', 'menu'].forEach(t => {
-        document.getElementById(`tab-btn-${t}`).className = t === tab ? 'pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink' : 'pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700';
-        document.getElementById(`admin-sec-${t}`).classList.toggle('hidden', t !== tab);
-      });
-    };
-
-    window.populateAdminFields = function() {
-      document.getElementById('edit-logo-url').value = appData.logoUrl || defaultData.logoUrl;
-      document.getElementById('edit-whatsapp').value = appData.whatsapp;
-      document.getElementById('edit-ig').value = appData.igLink;
-      document.getElementById('edit-fb').value = appData.fbLink;
-
-      const cfg = appData.seasonalConfig || defaultData.seasonalConfig;
-      document.getElementById('edit-folder-emoji').value = cfg.emoji || "";
-      document.getElementById('edit-folder-badge').value = cfg.badge || "";
-      document.getElementById('edit-folder-title').value = cfg.title || "";
-      document.getElementById('edit-folder-desc').value = cfg.desc || "";
-
-      window.renderAdminSweetsTable();
+        window.renderAdminSweetsTable();
+      } else alert("PIN incorreto");
     };
 
     window.renderAdminSweetsTable = function() {
-      document.getElementById('admin-sweets-table-body').innerHTML = appData.sweets.map(item => {
-        const firstImg = (item.imgs && item.imgs.length > 0) ? item.imgs[0] : (item.img || '');
-        return `
-          <tr>
-            <td class="p-3"><img src="${firstImg}" class="w-10 h-10 object-cover rounded-lg border"></td>
-            <td class="p-3 font-medium">${item.name}</td>
-            <td class="p-3"><span class="text-xs bg-pink-50 text-sweet-darkPink font-bold px-2 py-1 rounded-md">${item.category}</span></td>
-            <td class="p-3 font-semibold text-sweet-darkMoka">${item.price === 'Sob Consulta' ? 'Sob Consulta' : 'R$ ' + item.price}</td>
-            <td class="p-3 text-right space-x-2">
-              <button onclick="window.openEditSweetModal(${item.id})" class="text-blue-600 hover:text-blue-800 text-xs font-bold"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-              <button onclick="window.deleteSweet(${item.id})" class="text-red-500 hover:text-red-700 text-xs font-bold"><i class="fa-solid fa-trash"></i> Excluir</button>
-            </td>
-          </tr>
-        `;
-      }).join('');
+      const tbody = document.getElementById('admin-sweets-table-body');
+      if (!tbody) return;
+      tbody.innerHTML = appData.sweets.map(item => `
+        <tr>
+          <td class="p-3"><img src="${item.imgs && item.imgs[0] ? item.imgs[0] : ''}" class="w-10 h-10 object-cover rounded-lg"></td>
+          <td class="p-3 font-medium">${item.name}</td>
+          <td class="p-3"><span class="text-xs bg-pink-50 text-sweet-darkPink font-bold px-2 py-1 rounded">${item.category}</span></td>
+          <td class="p-3 font-semibold">R$ ${item.price}</td>
+          <td class="p-3 text-right space-x-2">
+            <button onclick="window.openEditSweetModal('${item.id}')" class="text-blue-600 text-xs font-bold"><i class="fa-solid fa-pen"></i> Editar</button>
+            <button onclick="window.deleteSweet('${item.id}')" class="text-red-500 text-xs font-bold"><i class="fa-solid fa-trash"></i> Excluir</button>
+          </td>
+        </tr>
+      `).join('');
     };
 
-    window.deleteSweet = function(id) {
-      if (confirm("Remover este item?")) {
-        appData.sweets = appData.sweets.filter(s => s.id !== id);
-        window.saveData();
-        window.renderAdminSweetsTable();
-      }
-    };
-
-    window.handleLogoUpload = function(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = e => document.getElementById('edit-logo-url').value = e.target.result;
-      reader.readAsDataURL(file);
-    };
-
-    window.saveAdminChanges = function() {
-      const currentPinInput = document.getElementById('edit-current-pin').value;
-      const newPinInput = document.getElementById('edit-new-pin').value;
-      const confirmPinInput = document.getElementById('edit-confirm-pin').value;
-      const activePin = appData.adminPin || "1234";
-
-      if (currentPinInput || newPinInput || confirmPinInput) {
-        if (currentPinInput !== activePin) {
-          alert("O PIN atual informado está incorreto!");
-          return;
-        }
-        if (!newPinInput || newPinInput.length !== 4) {
-          alert("O novo PIN deve conter exatamente 4 dígitos!");
-          return;
-        }
-        if (newPinInput !== confirmPinInput) {
-          alert("A confirmação do novo PIN não confere!");
-          return;
-        }
-        appData.adminPin = newPinInput;
-      }
-
-      appData.logoUrl = document.getElementById('edit-logo-url').value || appData.logoUrl;
-      appData.whatsapp = document.getElementById('edit-whatsapp').value;
-      appData.igLink = document.getElementById('edit-ig').value;
-      appData.fbLink = document.getElementById('edit-fb').value;
-
-      appData.seasonalConfig = {
-        emoji: document.getElementById('edit-folder-emoji').value || "🎄",
-        badge: document.getElementById('edit-folder-badge').value || "Edição Limitada",
-        title: document.getElementById('edit-folder-title').value || "Cardápio Especial",
-        desc: document.getElementById('edit-folder-desc').value || ""
-      };
-
-      window.saveData();
-      window.toggleAdminModal();
-      alert("Alterações salvas com sucesso!");
-    };
-
-    window.resetDefaultData = function() {
-      if (confirm("Restaurar dados originais?")) {
-        appData = JSON.parse(JSON.stringify(defaultData));
-        window.saveData();
-        window.populateAdminFields();
-        alert("Restaurado!");
-      }
-    };
-
-    document.addEventListener("DOMContentLoaded", () => {
-      window.renderPage();
-    });
+    document.addEventListener("DOMContentLoaded", () => window.renderPage());
   </script>
 </body>
 </html>
