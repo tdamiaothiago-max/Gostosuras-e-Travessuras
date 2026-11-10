@@ -11,7 +11,7 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- FIREBASE SDKs COMPAT (para rodar direto no HTML) -->
+  <!-- FIREBASE SDKs COMPAT -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
@@ -80,7 +80,7 @@
       <div class="flex justify-between h-20 items-center">
         <a href="#" class="flex items-center gap-3 group">
           <div class="w-14 h-14 rounded-full border-2 border-sweet-darkPink p-0.5 bg-white shadow-sm flex items-center justify-center overflow-hidden group-hover:scale-105 transition">
-            <img id="main-logo-img" src="" alt="Gostosuras e Travessuras Logo" class="w-full h-full object-contain rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';">
+            <img id="main-logo-img" src="" alt="Logo" class="w-full h-full object-contain rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';">
           </div>
           <div>
             <span class="text-xl font-bold font-title text-sweet-darkMoka tracking-tight block leading-tight">Gostosuras e Travessuras</span>
@@ -205,16 +205,39 @@
   <section id="calculadora" class="py-12 bg-white/60 border-y border-pink-100">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-pink-100">
-        <h2 class="text-2xl font-title font-bold text-sweet-darkMoka mb-4 flex items-center gap-2">
-          <i class="fa-solid fa-calculator text-sweet-darkPink"></i> Calculadora & Orçamento
-        </h2>
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-pink-100 pb-4">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-title font-bold text-sweet-darkMoka flex items-center gap-2">
+              <i class="fa-solid fa-calculator text-sweet-darkPink"></i> Calculadora & Orçamento
+            </h2>
+            <p class="text-xs sm:text-sm text-gray-500">Adicione itens diversos para ver o total e enviar a sua solicitação.</p>
+          </div>
+          
+          <div class="w-full sm:w-auto bg-pink-50 p-2 rounded-2xl border border-pink-200">
+            <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1 px-1">Forma de Pagamento:</label>
+            <div class="flex gap-1 text-xs font-bold">
+              <label class="flex-1 cursor-pointer">
+                <input type="radio" name="payment-method" value="PIX" checked onchange="window.updatePaymentMethod('PIX')" class="peer hidden">
+                <span class="block px-3 py-1.5 rounded-xl text-center peer-checked:bg-teal-600 peer-checked:text-white bg-white text-gray-600 transition border border-gray-200 peer-checked:border-teal-600">PIX</span>
+              </label>
+              <label class="flex-1 cursor-pointer">
+                <input type="radio" name="payment-method" value="Crédito via Link" onchange="window.updatePaymentMethod('Crédito via Link')" class="peer hidden">
+                <span class="block px-3 py-1.5 rounded-xl text-center peer-checked:bg-sweet-darkPink peer-checked:text-white bg-white text-gray-600 transition border border-gray-200 peer-checked:border-sweet-darkPink">Crédito</span>
+              </label>
+            </div>
+            <div id="payment-note" class="text-[10px] text-gray-500 mt-1 text-center font-medium">Pagamento instantâneo via chave PIX</div>
+          </div>
+        </div>
+
         <div id="calc-items-list" class="space-y-3 mb-6 min-h-[80px]"></div>
+
         <div class="bg-sweet-softPink p-5 rounded-2xl border border-pink-200 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div>
             <div class="text-xs text-gray-500 font-semibold">Total Estimado</div>
             <div class="text-3xl font-title font-bold text-sweet-darkPink" id="calc-total-price">R$ 0,00</div>
+            <div class="text-[11px] text-gray-500" id="calc-total-units">0 itens selecionados no total</div>
           </div>
-          <button onclick="window.sendCalcOrderToWhatsApp()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-full shadow-md transition flex items-center gap-2 text-sm">
+          <button onclick="window.sendCalcOrderToWhatsApp()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-full shadow-md transition flex items-center justify-center gap-2 text-sm">
             <i class="fa-brands fa-whatsapp text-lg"></i> Solicitar Orçamento no WhatsApp
           </button>
         </div>
@@ -269,14 +292,18 @@
           <textarea id="form-item-desc" rows="2" class="w-full border rounded-lg p-2.5 outline-none"></textarea>
         </div>
         <div>
-          <label class="block text-xs font-bold uppercase text-gray-600 mb-1">FOTOS (URLs separadas por vírgula ou arquivo)</label>
+          <label class="block text-xs font-bold uppercase text-gray-600 mb-1">FOTOS (MÁX. 2 IMAGENS)</label>
           <input type="file" id="form-item-file" multiple accept="image/*" onchange="window.handleFormImageUpload(event)" class="w-full text-xs border rounded-lg p-2 mb-2">
           <input type="text" id="form-item-imgs" placeholder="Ou cole URLs separadas por vírgula..." class="w-full border rounded-lg p-2 text-xs outline-none">
+          <div id="form-item-preview-container" class="mt-2 hidden">
+            <div class="text-[11px] font-bold text-gray-500">Pré-visualização:</div>
+            <div id="form-item-preview-list" class="flex gap-2 mt-1"></div>
+          </div>
         </div>
       </div>
       <div class="bg-gray-50 p-4 border-t flex justify-end gap-2">
         <button onclick="window.closeItemFormModal()" class="px-5 py-2.5 border rounded-xl text-xs font-bold">Cancelar</button>
-        <button onclick="window.saveItemFirebase()" class="px-6 py-2.5 bg-sweet-darkPink text-white font-bold rounded-xl text-xs">Salvar na Nuvem</button>
+        <button onclick="window.saveItemFirebase()" class="px-6 py-2.5 bg-sweet-darkPink text-white font-bold rounded-xl text-xs">Salvar Item</button>
       </div>
     </div>
   </div>
@@ -284,44 +311,127 @@
   <!-- PAINEL ADMIN MODAL PRINCIPAL -->
   <div id="admin-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
-      <div class="bg-sweet-darkMoka text-white p-4 flex justify-between items-center">
-        <h3 class="font-bold text-lg">Painel Administrativo (Sincronizado via Firebase)</h3>
-        <button onclick="window.toggleAdminModal()"><i class="fa-solid fa-xmark"></i></button>
+      <div class="bg-sweet-darkMoka text-white p-4 sm:p-6 flex justify-between items-center border-b border-gray-800">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-sweet-darkPink flex items-center justify-center text-white"><i class="fa-solid fa-gear"></i></div>
+          <div>
+            <h3 class="font-bold text-lg leading-tight">Painel Administrativo</h3>
+            <p class="text-xs text-gray-300">Sincronizado via Firebase em tempo real</p>
+          </div>
+        </div>
+        <button onclick="window.toggleAdminModal()" class="text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div id="admin-login-view" class="p-8 text-center max-w-sm mx-auto my-auto">
-        <h4 class="font-bold text-sweet-darkMoka text-lg mb-2">Digite o PIN</h4>
-        <input type="password" id="admin-pin" placeholder="****" maxlength="4" class="w-full text-center text-2xl font-bold border rounded-lg p-3 mb-4">
-        <button onclick="window.checkAdminPin()" class="w-full bg-sweet-darkPink text-white font-bold py-3 rounded-lg">Entrar</button>
+        <i class="fa-solid fa-lock text-4xl text-sweet-darkPink mb-4"></i>
+        <h4 class="font-bold text-sweet-darkMoka text-lg mb-2">Digite o PIN de Acesso</h4>
+        <p class="text-xs text-gray-500 mb-4">PIN Padrão: <strong class="text-sweet-darkPink">1234</strong></p>
+        <input type="password" id="admin-pin" placeholder="****" maxlength="4" class="w-full text-center text-2xl font-bold tracking-widest border rounded-lg p-3 mb-4 outline-none">
+        <button onclick="window.checkAdminPin()" class="w-full bg-sweet-darkPink text-white font-bold py-3 rounded-lg transition">Entrar no Painel</button>
       </div>
 
       <div id="admin-content-view" class="hidden flex-1 overflow-y-auto p-6 space-y-6">
-        <div class="flex justify-between items-center">
-          <h4 class="font-bold text-gray-800">Itens do Cardápio</h4>
-          <button onclick="window.openAddSweetModal()" class="bg-emerald-600 text-white text-xs font-bold px-3 py-2 rounded-lg">
-            <i class="fa-solid fa-plus"></i> Adicionar Novo Item
-          </button>
+        <div class="flex border-b border-gray-200 gap-4 font-semibold text-sm">
+          <button onclick="window.switchAdminTab('general')" id="tab-btn-general" class="pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink">Geral, Contatos & Folder Sazonal</button>
+          <button onclick="window.switchAdminTab('menu')" id="tab-btn-menu" class="pb-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">Gerenciar Cardápio</button>
         </div>
-        <div class="overflow-x-auto border rounded-xl">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-gray-50 border-b text-xs uppercase">
-              <tr>
-                <th class="p-3">Foto</th>
-                <th class="p-3">Nome</th>
-                <th class="p-3">Categoria</th>
-                <th class="p-3">Preço</th>
-                <th class="p-3 text-right">Ações</th>
-              </tr>
-            </thead>
-            <tbody id="admin-sweets-table-body" class="divide-y"></tbody>
-          </table>
+
+        <!-- ABA GERAL -->
+        <div id="admin-sec-general" class="space-y-6">
+          <div>
+            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Logotipo da Loja (URL)</label>
+            <input type="text" id="edit-logo-url" placeholder="https://..." class="w-full border rounded-lg p-2.5 text-sm outline-none">
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold uppercase text-gray-600 mb-1">WhatsApp (com DDD)</label>
+              <input type="text" id="edit-whatsapp" class="w-full border rounded-lg p-2.5 text-sm outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Link do Instagram</label>
+              <input type="text" id="edit-ig" class="w-full border rounded-lg p-2.5 text-sm outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Link do Facebook</label>
+            <input type="text" id="edit-fb" class="w-full border rounded-lg p-2.5 text-sm outline-none">
+          </div>
+
+          <!-- FOLDER SAZONAL -->
+          <div class="border-t pt-6 mt-6">
+            <h4 class="font-bold text-sweet-darkMoka mb-1 text-sm uppercase"><i class="fa-solid fa-wand-magic-sparkles text-sweet-darkPink mr-1"></i> Configuração do Folder Sazonal</h4>
+            <div class="grid md:grid-cols-3 gap-4 mb-4">
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Emoji</label>
+                <input type="text" id="edit-folder-emoji" class="w-full border rounded-lg p-2.5 text-sm outline-none">
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Badge / Subtítulo</label>
+                <input type="text" id="edit-folder-badge" class="w-full border rounded-lg p-2.5 text-sm outline-none">
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Título da Campanha</label>
+                <input type="text" id="edit-folder-title" class="w-full border rounded-lg p-2.5 text-sm outline-none">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Descrição</label>
+                <textarea id="edit-folder-desc" rows="2" class="w-full border rounded-lg p-2.5 text-sm outline-none"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- PIN ADMIN -->
+          <div class="border-t pt-6 mt-6">
+            <h4 class="font-bold text-gray-800 mb-1 text-xs uppercase"><i class="fa-solid fa-key text-sweet-darkPink mr-1"></i> Alterar PIN</h4>
+            <div class="grid md:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">PIN Atual</label>
+                <input type="password" id="edit-current-pin" maxlength="4" placeholder="****" class="w-full border rounded-lg p-2.5 text-sm outline-none">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Novo PIN</label>
+                <input type="password" id="edit-new-pin" maxlength="4" placeholder="****" class="w-full border rounded-lg p-2.5 text-sm outline-none">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">Confirmar PIN</label>
+                <input type="password" id="edit-confirm-pin" maxlength="4" placeholder="****" class="w-full border rounded-lg p-2.5 text-sm outline-none">
+              </div>
+            </div>
+          </div>
+          <button onclick="window.saveGeneralSettingsFirebase()" class="bg-sweet-darkPink text-white font-bold px-6 py-2.5 rounded-xl text-xs shadow">Salvar Configurações Gerais</button>
+        </div>
+
+        <!-- ABA CARDÁPIO -->
+        <div id="admin-sec-menu" class="hidden space-y-6">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-gray-800">Itens do Cardápio</h4>
+            <button onclick="window.openAddSweetModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1">
+              <i class="fa-solid fa-plus"></i> Adicionar Item
+            </button>
+          </div>
+          <div class="overflow-x-auto border rounded-xl">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-gray-50 border-b text-gray-600 text-xs uppercase">
+                <tr>
+                  <th class="p-3">Foto</th>
+                  <th class="p-3">Sabor / Nome</th>
+                  <th class="p-3">Categoria</th>
+                  <th class="p-3">Preço</th>
+                  <th class="p-3 text-right">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="admin-sweets-table-body" class="divide-y"></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // CREDENCIAIS OFICIAIS DO SEU FIREBASE
+    // CREDENCIAIS DO SEU FIREBASE
     const firebaseConfig = {
       apiKey: "AIzaSyCk7qKv0jhOc1ybo1yH8doA6nkZ5RNtHMs",
       authDomain: "gostosuras-e-travessuras-4e83d.firebaseapp.com",
@@ -335,12 +445,37 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    let appData = { logoUrl: '', whatsapp: '5511985063638', igLink: '', fbLink: '', sweets: [], portfolio: [] };
+    let appData = {
+      adminPin: "1234",
+      logoUrl: "",
+      whatsapp: "5511985063638",
+      igLink: "https://www.instagram.com/gostosuras.e.travessuras/",
+      fbLink: "https://www.facebook.com/doces.gostosuras.e.travessuras",
+      seasonalConfig: {
+        emoji: "🎄",
+        badge: "Edição Limitada / Período Festivo",
+        title: "Cardápio Especial de Natal & Fim de Ano",
+        desc: "Docinhos temáticos exclusivos criados especialmente para celebrar suas festas com muito sabor!"
+      },
+      sweets: []
+    };
+
     let calcCart = {};
     let activeCategory = "Todas";
     let windowUploadedImgs = [];
+    let cardImageIndexes = {};
+    let selectedPaymentMethod = "PIX";
 
-    // ESCUTA EM TEMPO REAL NO FIREBASE FIRESTORE
+    // SINCRONIZAÇÃO EM TEMPO REAL COM O FIREBASE
+    db.collection("config").doc("main").onSnapshot((doc) => {
+      if (doc.exists) {
+        appData = { ...appData, ...doc.data() };
+      } else {
+        db.collection("config").doc("main").set(appData);
+      }
+      window.renderPage();
+    });
+
     db.collection("sweets").onSnapshot((snapshot) => {
       appData.sweets = [];
       snapshot.forEach((doc) => {
@@ -350,17 +485,47 @@
       window.renderAdminSweetsTable();
     });
 
+    window.saveGeneralSettingsFirebase = function() {
+      const currentPinInput = document.getElementById('edit-current-pin').value;
+      const newPinInput = document.getElementById('edit-new-pin').value;
+      const confirmPinInput = document.getElementById('edit-confirm-pin').value;
+      const activePin = appData.adminPin || "1234";
+
+      if (currentPinInput || newPinInput || confirmPinInput) {
+        if (currentPinInput !== activePin) { alert("PIN atual incorreto!"); return; }
+        if (!newPinInput || newPinInput.length !== 4) { alert("O novo PIN precisa ter 4 dígitos!"); return; }
+        if (newPinInput !== confirmPinInput) { alert("A confirmação do PIN não confere!"); return; }
+        appData.adminPin = newPinInput;
+      }
+
+      appData.logoUrl = document.getElementById('edit-logo-url').value;
+      appData.whatsapp = document.getElementById('edit-whatsapp').value;
+      appData.igLink = document.getElementById('edit-ig').value;
+      appData.fbLink = document.getElementById('edit-fb').value;
+      appData.seasonalConfig = {
+        emoji: document.getElementById('edit-folder-emoji').value,
+        badge: document.getElementById('edit-folder-badge').value,
+        title: document.getElementById('edit-folder-title').value,
+        desc: document.getElementById('edit-folder-desc').value
+      };
+
+      db.collection("config").doc("main").set(appData).then(() => {
+        alert("Configurações salvas na nuvem com sucesso!");
+      });
+    };
+
     window.saveItemFirebase = function() {
       const id = document.getElementById('form-item-id').value;
       const name = document.getElementById('form-item-name').value;
       const category = document.getElementById('form-item-category').value;
-      const price = document.getElementById('form-item-price').value;
+      let price = document.getElementById('form-item-price').value;
       const desc = document.getElementById('form-item-desc').value;
       const rawImgs = document.getElementById('form-item-imgs').value;
 
-      if (!name) { alert("Informe o nome do item!"); return; }
+      if (!name) { alert("Preencha o nome!"); return; }
+      if (category === "Bolo") price = "Sob Consulta";
 
-      let finalImgs = windowUploadedImgs.length > 0 ? windowUploadedImgs : rawImgs.split(',').map(s => s.trim()).filter(Boolean);
+      let finalImgs = windowUploadedImgs.length > 0 ? windowUploadedImgs.slice(0, 2) : rawImgs.split(',').map(s => s.trim()).filter(Boolean).slice(0, 2);
       if (finalImgs.length === 0) finalImgs = ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"];
 
       const payload = { name, category, price, desc, imgs: finalImgs };
@@ -371,12 +536,12 @@
         db.collection("sweets").add(payload);
       }
 
-      alert("Salvo com sucesso no Firebase!");
+      alert("Item salvo com sucesso na nuvem!");
       window.closeItemFormModal();
     };
 
     window.deleteSweet = function(id) {
-      if (confirm("Remover este item do banco de dados?")) {
+      if (confirm("Remover este item?")) {
         db.collection("sweets").doc(id).delete();
       }
     };
@@ -390,62 +555,208 @@
       }))).then(results => {
         windowUploadedImgs = results;
         document.getElementById('form-item-imgs').value = results.join(', ');
+        window.updatePreviewList(results);
       });
     };
 
+    window.updatePreviewList = function(imgs) {
+      const container = document.getElementById('form-item-preview-container');
+      const list = document.getElementById('form-item-preview-list');
+      if (!container || !list) return;
+      if (imgs.length > 0) {
+        list.innerHTML = imgs.map(src => `<div class="w-12 h-12 rounded border overflow-hidden"><img src="${src}" class="w-full h-full object-cover"></div>`).join('');
+        container.classList.remove('hidden');
+      } else container.classList.add('hidden');
+    };
+
+    window.parsePrice = function(priceStr) {
+      if (!priceStr || priceStr.toLowerCase().includes("consulta")) return 0;
+      const clean = priceStr.toString().replace('R$', '').replace('un', '').trim().replace('.', '').replace(',', '.');
+      return parseFloat(clean) || 0;
+    };
+
+    window.getUnitPrice = function(sweet) {
+      const priceNum = parsePrice(sweet.price);
+      return (sweet.category === "Doce de Festa" || sweet.category === "Especial Sazonal") ? priceNum / 100 : priceNum;
+    };
+
     window.renderPage = function() {
-      const filtered = activeCategory === "Todas" ? appData.sweets : appData.sweets.filter(s => s.category === activeCategory);
-      document.getElementById('sweets-grid').innerHTML = filtered.map(sweet => `
-        <div class="bg-white rounded-2xl p-5 border border-pink-100 shadow-sm flex flex-col justify-between">
-          <div>
-            <img src="${sweet.imgs && sweet.imgs[0] ? sweet.imgs[0] : ''}" class="h-48 w-full object-cover rounded-xl mb-3">
-            <h3 class="font-title font-bold text-lg text-sweet-darkMoka">${sweet.name}</h3>
-            <span class="text-xs text-sweet-darkPink font-bold bg-pink-50 px-2 py-1 rounded">R$ ${sweet.price}</span>
-            <p class="text-xs text-gray-500 mt-2">${sweet.desc || ''}</p>
-          </div>
-          <button onclick="window.updateCalcQty('${sweet.id}', 25)" class="mt-4 w-full bg-sweet-softPink hover:bg-sweet-darkPink hover:text-white font-bold py-2 rounded-xl transition text-xs border border-pink-200">
-            Adicionar ao Orçamento
-          </button>
-        </div>
-      `).join('');
+      document.getElementById('main-logo-img').src = appData.logoUrl || 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';
+      const waUrl = `https://wa.me/${appData.whatsapp}?text=Olá!%20Gostaria%20de%20fazer%20uma%20encomenda!`;
+      ['nav-btn-whatsapp', 'hero-btn-pedir'].forEach(id => { const el = document.getElementById(id); if(el) el.href = waUrl; });
+      ['nav-btn-ig'].forEach(id => { const el = document.getElementById(id); if(el) el.href = appData.igLink; });
+      ['nav-btn-fb'].forEach(id => { const el = document.getElementById(id); if(el) el.href = appData.fbLink; });
 
-      const categories = ["Todas", "Doce de Festa", "Pipoca Gourmet", "Bolo", "Especial Sazonal"];
+      // Folder Sazonal
+      const seasonalItems = appData.sweets.filter(s => s.category === "Especial Sazonal");
+      const folderContainer = document.getElementById('seasonal-folder-container');
+      if (seasonalItems.length > 0) {
+        folderContainer.classList.remove('hidden');
+        const cfg = appData.seasonalConfig || {};
+        document.getElementById('folder-emoji').innerText = cfg.emoji || "🎄";
+        document.getElementById('folder-badge').innerText = cfg.badge || "Edição Limitada";
+        document.getElementById('folder-title').innerText = cfg.title || "Cardápio Especial";
+        document.getElementById('folder-desc').innerText = cfg.desc || "";
+      } else {
+        folderContainer.classList.add('hidden');
+      }
+
+      let categories = ["Todas", "Doce de Festa", "Pipoca Gourmet", "Bolo"];
+      if (seasonalItems.length > 0) categories.push("Especial Sazonal");
+
       document.getElementById('category-tabs').innerHTML = categories.map(cat => `
-        <button onclick="window.setCategory('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold ${cat === activeCategory ? 'bg-sweet-darkPink text-white' : 'bg-white border'}">${cat}</button>
+        <button onclick="window.setCategory('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold transition ${cat === activeCategory ? 'bg-sweet-darkPink text-white shadow' : 'bg-white border'}">
+          ${cat}
+        </button>
       `).join('');
+
+      const filtered = activeCategory === "Todas" ? appData.sweets : appData.sweets.filter(s => s.category === activeCategory);
+      
+      document.getElementById('sweets-grid').innerHTML = filtered.map(sweet => {
+        let imgs = sweet.imgs && sweet.imgs.length > 0 ? sweet.imgs : ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"];
+        let currentIdx = cardImageIndexes[sweet.id] || 0;
+        let currentQty = calcCart[sweet.id] || 0;
+        let priceBadge = (sweet.category === "Doce de Festa" || sweet.category === "Especial Sazonal") ? `R$ ${sweet.price} / cento` : (sweet.category === "Pipoca Gourmet" ? `R$ ${sweet.price} / un` : `Sob Consulta`);
+        let stepQty = (sweet.category === "Doce de Festa" || sweet.category === "Especial Sazonal") ? 25 : 1;
+
+        return `
+          <div class="bg-white rounded-2xl shadow-sm hover:shadow transition overflow-hidden border border-pink-100 flex flex-col group">
+            <div class="relative h-48 w-full bg-gray-100 overflow-hidden">
+              <img src="${imgs[currentIdx]}" class="h-full w-full object-cover">
+              ${imgs.length > 1 ? `
+                <button onclick="window.prevCardImg('${sweet.id}', ${imgs.length})" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 w-7 h-7 rounded-full flex items-center justify-center text-xs shadow"><i class="fa-solid fa-chevron-left"></i></button>
+                <button onclick="window.nextCardImg('${sweet.id}', ${imgs.length})" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 w-7 h-7 rounded-full flex items-center justify-center text-xs shadow"><i class="fa-solid fa-chevron-right"></i></button>
+              ` : ''}
+              <span class="absolute top-2 left-2 text-[10px] bg-white/90 font-bold px-2.5 py-1 rounded-full">${sweet.category}</span>
+            </div>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-title font-bold text-lg text-sweet-darkMoka">${sweet.name}</h3>
+                  <span class="text-xs bg-sweet-softPink text-sweet-darkPink font-bold px-2 py-1 rounded">${priceBadge}</span>
+                </div>
+                <p class="text-xs text-gray-500 mb-4">${sweet.desc || ''}</p>
+              </div>
+              <div class="bg-sweet-softPink p-3 rounded-xl border border-pink-200 space-y-2">
+                <div class="flex justify-between items-center text-xs font-semibold">
+                  <span>Quantidade:</span>
+                  <span class="text-sweet-darkPink font-bold">${currentQty} un</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button onclick="window.updateCalcQty('${sweet.id}', -${stepQty})" class="w-8 h-8 rounded bg-white font-bold border text-xs">-${stepQty}</button>
+                  <input type="number" min="0" value="${currentQty}" onchange="window.setCalcQtyDirect('${sweet.id}', this.value)" class="w-full text-center bg-white border rounded py-1 text-sm font-bold">
+                  <button onclick="window.updateCalcQty('${sweet.id}', ${stepQty})" class="w-8 h-8 rounded bg-white font-bold border text-xs">+${stepQty}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      window.updateCalculatorUI();
     };
 
-    window.openAddSweetModal = function() {
-      windowUploadedImgs = [];
-      document.getElementById('form-item-id').value = "";
-      document.getElementById('form-item-name').value = "";
-      document.getElementById('form-item-price').value = "145,00";
-      document.getElementById('form-item-desc').value = "";
-      document.getElementById('form-item-imgs').value = "";
-      document.getElementById('item-form-modal').classList.remove('hidden');
+    window.prevCardImg = function(id, len) {
+      cardImageIndexes[id] = ((cardImageIndexes[id] || 0) - 1 + len) % len;
+      window.renderPage();
     };
 
-    window.openEditSweetModal = function(id) {
-      const sweet = appData.sweets.find(s => s.id === id);
-      if (!sweet) return;
-      document.getElementById('form-item-id').value = sweet.id;
-      document.getElementById('form-item-name').value = sweet.name;
-      document.getElementById('form-item-category').value = sweet.category;
-      document.getElementById('form-item-price').value = sweet.price;
-      document.getElementById('form-item-desc').value = sweet.desc || '';
-      document.getElementById('form-item-imgs').value = (sweet.imgs || []).join(', ');
-      document.getElementById('item-form-modal').classList.remove('hidden');
+    window.nextCardImg = function(id, len) {
+      cardImageIndexes[id] = ((cardImageIndexes[id] || 0) + 1) % len;
+      window.renderPage();
     };
 
-    window.closeItemFormModal = function() { document.getElementById('item-form-modal').classList.add('hidden'); };
+    window.updateCalcQty = function(id, delta) {
+      calcCart[id] = Math.max(0, (calcCart[id] || 0) + delta);
+      if (calcCart[id] === 0) delete calcCart[id];
+      window.renderPage();
+    };
+
+    window.setCalcQtyDirect = function(id, val) {
+      let q = parseInt(val) || 0;
+      if (q <= 0) delete calcCart[id];
+      else calcCart[id] = q;
+      window.renderPage();
+    };
+
+    window.updateCalculatorUI = function() {
+      const container = document.getElementById('calc-items-list');
+      if (!container) return;
+      let totalUnits = 0, totalPrice = 0, hasConsulta = false;
+      let keys = Object.keys(calcCart);
+
+      if (keys.length === 0) {
+        container.innerHTML = `<div class="text-center py-6 text-gray-400 text-sm">Nenhum item selecionado.</div>`;
+      } else {
+        container.innerHTML = keys.map(id => {
+          let sweet = appData.sweets.find(s => s.id === id);
+          if (!sweet) return '';
+          let qty = calcCart[id];
+          let subtotal = qty * getUnitPrice(sweet);
+          totalUnits += qty;
+          if (sweet.category === "Bolo") hasConsulta = true;
+          else totalPrice += subtotal;
+
+          return `
+            <div class="flex justify-between items-center bg-pink-50 p-3 rounded-xl border text-xs">
+              <span class="font-bold">${sweet.name} (${qty} un)</span>
+              <span class="font-bold text-sweet-darkPink">${sweet.category === 'Bolo' ? 'Sob Consulta' : 'R$ ' + subtotal.toFixed(2).replace('.', ',')}</span>
+            </div>
+          `;
+        }).join('');
+      }
+      document.getElementById('calc-total-price').innerText = `R$ ${totalPrice.toFixed(2).replace('.', ',')}${hasConsulta ? ' + Sob Consulta' : ''}`;
+      document.getElementById('calc-total-units').innerText = `${totalUnits} itens selecionados no total`;
+    };
+
+    window.updatePaymentMethod = function(m) { selectedPaymentMethod = m; };
+
+    window.sendCalcOrderToWhatsApp = function() {
+      let keys = Object.keys(calcCart);
+      if (keys.length === 0) { alert("Selecione ao menos um item!"); return; }
+      let text = "Olá! Montei meu pedido no site:\n\n";
+      let total = 0;
+      keys.forEach(id => {
+        let sweet = appData.sweets.find(s => s.id === id);
+        let q = calcCart[id];
+        let sub = q * getUnitPrice(sweet);
+        total += sub;
+        text += `• ${sweet.name}: ${q} un\n`;
+      });
+      text += `\n💳 Pagamento: ${selectedPaymentMethod}`;
+      window.open(`https://wa.me/${appData.whatsapp}?text=` + encodeURIComponent(text), '_blank');
+    };
+
     window.setCategory = function(c) { activeCategory = c; window.renderPage(); };
+
+    // ADMIN CONTROLS
     window.toggleAdminModal = function() { document.getElementById('admin-modal').classList.toggle('hidden'); };
     window.checkAdminPin = function() {
-      if (document.getElementById('admin-pin').value === "1234") {
+      if (document.getElementById('admin-pin').value === (appData.adminPin || "1234")) {
         document.getElementById('admin-login-view').classList.add('hidden');
         document.getElementById('admin-content-view').classList.remove('hidden');
-        window.renderAdminSweetsTable();
-      } else alert("PIN incorreto");
+        window.populateAdminFields();
+      } else alert("PIN Incorreto!");
+    };
+
+    window.switchAdminTab = function(tab) {
+      ['general', 'menu'].forEach(t => {
+        document.getElementById(`tab-btn-${t}`).className = t === tab ? 'pb-2 border-b-2 border-sweet-darkPink text-sweet-darkPink font-bold' : 'pb-2 border-b-2 border-transparent text-gray-500';
+        document.getElementById(`admin-sec-${t}`).classList.toggle('hidden', t !== tab);
+      });
+    };
+
+    window.populateAdminFields = function() {
+      document.getElementById('edit-logo-url').value = appData.logoUrl || "";
+      document.getElementById('edit-whatsapp').value = appData.whatsapp || "";
+      document.getElementById('edit-ig').value = appData.igLink || "";
+      document.getElementById('edit-fb').value = appData.fbLink || "";
+      let cfg = appData.seasonalConfig || {};
+      document.getElementById('edit-folder-emoji').value = cfg.emoji || "";
+      document.getElementById('edit-folder-badge').value = cfg.badge || "";
+      document.getElementById('edit-folder-title').value = cfg.title || "";
+      document.getElementById('edit-folder-desc').value = cfg.desc || "";
+      window.renderAdminSweetsTable();
     };
 
     window.renderAdminSweetsTable = function() {
@@ -453,7 +764,7 @@
       if (!tbody) return;
       tbody.innerHTML = appData.sweets.map(item => `
         <tr>
-          <td class="p-3"><img src="${item.imgs && item.imgs[0] ? item.imgs[0] : ''}" class="w-10 h-10 object-cover rounded-lg"></td>
+          <td class="p-3"><img src="${item.imgs && item.imgs[0] ? item.imgs[0] : ''}" class="w-10 h-10 object-cover rounded"></td>
           <td class="p-3 font-medium">${item.name}</td>
           <td class="p-3"><span class="text-xs bg-pink-50 text-sweet-darkPink font-bold px-2 py-1 rounded">${item.category}</span></td>
           <td class="p-3 font-semibold">R$ ${item.price}</td>
@@ -464,6 +775,33 @@
         </tr>
       `).join('');
     };
+
+    window.openAddSweetModal = function() {
+      windowUploadedImgs = [];
+      document.getElementById('form-item-id').value = "";
+      document.getElementById('form-item-name').value = "";
+      document.getElementById('form-item-price').value = "145,00";
+      document.getElementById('form-item-desc').value = "";
+      document.getElementById('form-item-imgs').value = "";
+      document.getElementById('item-form-preview-container').classList.add('hidden');
+      document.getElementById('item-form-modal').classList.remove('hidden');
+    };
+
+    window.openEditSweetModal = function(id) {
+      let sweet = appData.sweets.find(s => s.id === id);
+      if (!sweet) return;
+      windowUploadedImgs = sweet.imgs || [];
+      document.getElementById('form-item-id').value = sweet.id;
+      document.getElementById('form-item-name').value = sweet.name;
+      document.getElementById('form-item-category').value = sweet.category;
+      document.getElementById('form-item-price').value = sweet.price;
+      document.getElementById('form-item-desc').value = sweet.desc || "";
+      document.getElementById('form-item-imgs').value = windowUploadedImgs.join(', ');
+      window.updatePreviewList(windowUploadedImgs);
+      document.getElementById('item-form-modal').classList.remove('hidden');
+    };
+
+    window.closeItemFormModal = function() { document.getElementById('item-form-modal').classList.add('hidden'); };
 
     document.addEventListener("DOMContentLoaded", () => window.renderPage());
   </script>
