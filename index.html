@@ -14,7 +14,503 @@
   <script>
     tailwind.config = {
       theme: {
+        extend: {<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gostosuras e Travessuras - Doces Artesanais By Ana Gusmão</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- SUPABASE JS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
         extend: {
+          colors: {
+            sweet: {
+              pink: '#F7A8C4',
+              softPink: '#FDF2F5',
+              darkPink: '#D85B88',
+              teal: '#4A9E9B',
+              softTeal: '#EBF7F7',
+              cream: '#FFFDF9',
+              dark: '#3A2E39',
+              moka: '#7D5D55',
+              darkMoka: '#4A342E',
+              pix: '#32BCAD'
+            }
+          },
+          fontFamily: {
+            title: ['Fredoka', 'sans-serif'],
+            body: ['Quicksand', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-sweet-softPink text-sweet-dark font-body antialiased selection:bg-sweet-darkPink selection:text-white pb-24">
+
+  <!-- Banner Superior -->
+  <div class="bg-gradient-to-r from-sweet-darkPink via-sweet-pink to-sweet-teal text-white py-2 px-4 text-center text-xs sm:text-sm font-medium shadow-md sticky top-0 z-50 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto flex items-center justify-between w-full">
+      <span class="flex items-center gap-2">
+        <i class="fa-solid fa-cake-candles"></i>
+        <span>Cardápio Digital & Encomendas • <strong>Gostosuras e Travessuras</strong></span>
+      </span>
+      <button onclick="window.toggleAdminModal()" class="ml-4 bg-black/20 hover:bg-black/40 text-white text-xs px-3 py-1 rounded-full border border-white/20 transition flex items-center gap-1.5 shadow-sm">
+        <i class="fa-solid fa-lock text-[10px]"></i> Painel Admin
+      </button>
+    </div>
+  </div>
+
+  <!-- Cabeçalho / Navegação -->
+  <nav class="bg-white/90 backdrop-blur-md sticky top-[36px] z-40 shadow-sm border-b border-pink-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-20 items-center">
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-14 h-14 rounded-full border-2 border-sweet-darkPink p-0.5 bg-white shadow-sm flex items-center justify-center overflow-hidden group-hover:scale-105 transition">
+            <img id="main-logo-img" src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80" alt="Logo" class="w-full h-full object-contain rounded-full">
+          </div>
+          <div>
+            <span class="text-xl font-bold font-title text-sweet-darkMoka tracking-tight block leading-tight">Gostosuras e Travessuras</span>
+            <span class="text-xs text-sweet-darkPink font-semibold">By Ana Gusmão</span>
+          </div>
+        </a>
+
+        <div class="hidden md:flex space-x-6 text-sm font-semibold text-gray-700">
+          <a href="#cardapio" class="hover:text-sweet-darkPink transition">Cardápio</a>
+          <a href="#calculadora-ancora" class="hover:text-sweet-darkPink transition flex items-center gap-1">
+            <i class="fa-solid fa-calculator text-sweet-darkPink"></i> Calculadora
+          </a>
+        </div>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+          <a id="nav-btn-whatsapp" href="https://wa.me/5511985063638" target="_blank" class="bg-sweet-darkPink hover:bg-pink-600 text-white px-5 py-2.5 rounded-full font-bold text-xs sm:text-sm transition shadow-md hover:shadow-lg flex items-center gap-2">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span class="hidden sm:inline">Fazer Encomenda</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative py-12 sm:py-16 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <span class="inline-flex items-center gap-2 bg-sweet-softTeal border border-sweet-teal/30 text-sweet-teal text-xs font-bold px-3 py-1.5 rounded-full mb-4">
+            <i class="fa-solid fa-heart text-sweet-darkPink"></i> Adoçando vidas desde 2014
+          </span>
+          <h1 class="text-4xl sm:text-5xl font-title font-bold text-sweet-darkMoka leading-tight mb-4">
+            Doces Artesanais feitos com amor para celebrar seus melhores momentos.
+          </h1>
+          <p class="text-base sm:text-lg text-gray-700 mb-6 leading-relaxed">
+            Docinhos tradicionais e gourmet, pipocas gourmet crocantes e bolos decorados sob encomenda. O sabor artesanal único de <strong>Ana Gusmão</strong>.
+          </p>
+
+          <div class="flex flex-wrap gap-4 items-center">
+            <a href="https://wa.me/5511985063638" target="_blank" class="bg-sweet-darkPink hover:bg-pink-600 text-white font-bold px-8 py-4 rounded-full shadow-lg transition flex items-center gap-3 text-sm">
+              <i class="fa-brands fa-whatsapp text-xl"></i> Fazer Pedido no WhatsApp
+            </a>
+            <a href="#cardapio" class="bg-white hover:bg-pink-50 text-sweet-darkMoka font-bold px-6 py-3.5 rounded-full border border-pink-200 transition text-sm shadow-sm">
+              Ver Tabela de Preços
+            </a>
+          </div>
+        </div>
+
+        <div class="relative flex justify-center">
+          <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover rounded-full">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cardápio Vitrine -->
+  <section id="cardapio" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl sm:text-4xl font-title font-bold text-sweet-darkMoka mb-3">Nosso Cardápio</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
+        Selecione qualquer combinação de itens. <br>
+        <span class="text-sweet-darkPink font-bold">⚠️ Doces de Festa: pedido mínimo de 25 unidades.</span>
+      </p>
+      <div id="category-tabs" class="flex flex-wrap justify-center gap-2 mt-6"></div>
+    </div>
+    <div id="sweets-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- CALCULADORA -->
+  <span id="calculadora-ancora"></span>
+  <section id="calculadora" class="py-12 bg-white/60 border-y border-pink-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-pink-100">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-pink-100 pb-4">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-title font-bold text-sweet-darkMoka flex items-center gap-2">
+              <i class="fa-solid fa-calculator text-sweet-darkPink"></i> Calculadora & Orçamento
+            </h2>
+            <p class="text-xs sm:text-sm text-gray-500">Adicione itens diversos para ver o total e enviar a sua solicitação.</p>
+          </div>
+        </div>
+
+        <div id="calc-items-list" class="space-y-3 mb-6 min-h-[80px]"></div>
+
+        <div class="bg-sweet-softPink p-5 rounded-2xl border border-pink-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div>
+            <div class="text-xs text-gray-500 font-semibold">Total Estimado</div>
+            <div class="text-3xl font-title font-bold text-sweet-darkPink" id="calc-total-price">R$ 0,00</div>
+            <div class="text-[11px] text-gray-500" id="calc-total-units">0 itens selecionados no total</div>
+          </div>
+          <button onclick="window.sendCalcOrderToWhatsApp()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-full shadow-md transition flex items-center justify-center gap-2 text-sm">
+            <i class="fa-brands fa-whatsapp text-lg"></i> Solicitar Orçamento no WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL DE CADASTRO/EDIÇÃO (ADMIN) -->
+  <div id="item-form-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col border border-pink-100">
+      <div class="bg-sweet-darkMoka text-white p-4 flex justify-between items-center">
+        <h4 id="item-form-title" class="font-bold text-base"><i class="fa-solid fa-pen-to-square text-sweet-darkPink"></i> Gerenciar Doce</h4>
+        <button onclick="window.closeItemFormModal()" class="text-gray-300 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+
+      <div class="p-6 space-y-4 text-sm overflow-y-auto max-h-[75vh]">
+        <input type="hidden" id="form-item-id">
+        <div>
+          <label class="block text-xs font-bold uppercase text-gray-600 mb-1">NOME DO ITEM</label>
+          <input type="text" id="form-item-name" class="w-full border rounded-lg p-2.5 font-medium outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase text-gray-600 mb-1">CATEGORIA</label>
+          <select id="form-item-category" class="w-full border rounded-lg p-2.5 font-medium outline-none">
+            <option value="Doce de Festa">Doce de Festa</option>
+            <option value="Pipoca Gourmet">Pipoca Gourmet</option>
+            <option value="Bolo">Bolo</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase text-gray-600 mb-1">VALOR (R$)</label>
+          <input type="text" id="form-item-price" class="w-full border rounded-lg p-2.5 font-bold text-sweet-darkPink outline-none" value="145,00">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase text-gray-600 mb-1">DESCRIÇÃO</label>
+          <textarea id="form-item-desc" rows="2" class="w-full border rounded-lg p-2.5 outline-none"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase text-gray-600 mb-1">URL DA FOTO</label>
+          <input type="text" id="form-item-img" placeholder="https://..." class="w-full border rounded-lg p-2 text-xs outline-none">
+        </div>
+      </div>
+      <div class="bg-gray-50 p-4 border-t flex justify-end gap-2">
+        <button onclick="window.closeItemFormModal()" class="px-5 py-2.5 border rounded-xl text-xs font-bold">Cancelar</button>
+        <button onclick="window.saveItemSupabase()" class="px-6 py-2.5 bg-sweet-darkPink text-white font-bold rounded-xl text-xs">Salvar na Nuvem</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL ADMIN MODAL PRINCIPAL -->
+  <div id="admin-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
+      <div class="bg-sweet-darkMoka text-white p-4 sm:p-6 flex justify-between items-center border-b border-gray-800">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-sweet-darkPink flex items-center justify-center text-white"><i class="fa-solid fa-gear"></i></div>
+          <div>
+            <h3 class="font-bold text-lg leading-tight">Painel Administrativo</h3>
+            <p class="text-xs text-gray-300">Sincronizado via Supabase (Tabela: gostosura)</p>
+          </div>
+        </div>
+        <button onclick="window.toggleAdminModal()" class="text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div id="admin-login-view" class="p-8 text-center max-w-sm mx-auto my-auto">
+        <i class="fa-solid fa-lock text-4xl text-sweet-darkPink mb-4"></i>
+        <h4 class="font-bold text-sweet-darkMoka text-lg mb-2">Digite a Senha</h4>
+        <p class="text-xs text-gray-500 mb-4">Senha: <strong class="text-sweet-darkPink">Ana123</strong></p>
+        <input type="password" id="admin-pin" placeholder="Senha" class="w-full text-center text-xl font-bold tracking-widest border rounded-lg p-3 mb-4 outline-none">
+        <button onclick="window.checkAdminPin()" class="w-full bg-sweet-darkPink text-white font-bold py-3 rounded-lg transition">Entrar no Painel</button>
+      </div>
+
+      <div id="admin-content-view" class="hidden flex-1 overflow-y-auto p-6 space-y-6">
+        <div class="flex justify-between items-center">
+          <h4 class="font-bold text-gray-800">Itens do Cardápio</h4>
+          <button onclick="window.openAddSweetModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1 shadow-sm">
+            <i class="fa-solid fa-plus"></i> Adicionar Item
+          </button>
+        </div>
+        <div class="overflow-x-auto border rounded-xl">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-gray-50 border-b text-gray-600 text-xs uppercase">
+              <tr>
+                <th class="p-3">Foto</th>
+                <th class="p-3">Sabor / Nome</th>
+                <th class="p-3">Categoria</th>
+                <th class="p-3">Preço</th>
+                <th class="p-3 text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="admin-sweets-table-body" class="divide-y"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =======================================================
+    // ⚠️ COLE AS SUAS CREDENCIAIS DO SUPABASE AQUI ⚠️
+    // =======================================================
+    const SUPABASE_URL = "https://jmtfmfvzpuhgmnkhnvwi.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_Ta1YT2umsD591KwLAgzkLw_tduEl_PV";
+    // =======================================================
+
+    const { createClient } = supabase;
+    const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let appData = {
+      whatsapp: "5511985063638",
+      sweets: []
+    };
+
+    let calcCart = {};
+    let activeCategory = "Todas";
+
+    async function loadSweetsFromSupabase() {
+      const { data, error } = await _supabase.from('gostosura').select('*');
+      if (error) {
+        console.error("Erro ao carregar do Supabase:", error.message);
+      } else {
+        appData.sweets = data || [];
+        window.renderPage();
+        window.renderAdminSweetsTable();
+      }
+    }
+
+    window.saveItemSupabase = async function() {
+      const id = document.getElementById('form-item-id').value;
+      const nome = document.getElementById('form-item-name').value;
+      const categoria = document.getElementById('form-item-category').value;
+      const preco = document.getElementById('form-item-price').value;
+      const descricao = document.getElementById('form-item-desc').value;
+      const imagens = document.getElementById('form-item-img').value || "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80";
+
+      if (!nome) { alert("Preencha o nome do item!"); return; }
+
+      const payload = { nome, categoria, preco, descricao, imagens };
+
+      let result;
+      if (id) {
+        result = await _supabase.from('gostosura').update(payload).eq('id', id);
+      } else {
+        result = await _supabase.from('gostosura').insert([payload]);
+      }
+
+      if (result.error) {
+        alert("Erro ao salvar no Supabase: " + result.error.message);
+      } else {
+        alert("Item salvo com sucesso na nuvem!");
+        window.closeItemFormModal();
+        loadSweetsFromSupabase();
+      }
+    };
+
+    window.deleteSweet = async function(id) {
+      if (confirm("Remover este item?")) {
+        const { error } = await _supabase.from('gostosura').delete().eq('id', id);
+        if (error) {
+          alert("Erro ao excluir: " + error.message);
+        } else {
+          alert("Item removido com sucesso!");
+          loadSweetsFromSupabase();
+        }
+      }
+    };
+
+    window.renderPage = function() {
+      let categories = ["Todas", "Doce de Festa", "Pipoca Gourmet", "Bolo"];
+      
+      document.getElementById('category-tabs').innerHTML = categories.map(cat => `
+        <button onclick="window.setCategory('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold transition ${cat === activeCategory ? 'bg-sweet-darkPink text-white shadow' : 'bg-white border'}">
+          ${cat}
+        </button>
+      `).join('');
+
+      const filtered = activeCategory === "Todas" ? appData.sweets : appData.sweets.filter(s => s.categoria === activeCategory);
+      
+      document.getElementById('sweets-grid').innerHTML = filtered.map(sweet => {
+        let img = sweet.imagens || "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80";
+        let currentQty = calcCart[sweet.id] || 0;
+        let isFesta = sweet.categoria === "Doce de Festa";
+        let priceBadge = isFesta ? `R$ ${sweet.preco} / cento` : `R$ ${sweet.preco} / un`;
+        let stepQty = isFesta ? 25 : 1;
+
+        return `
+          <div class="bg-white rounded-2xl shadow-sm hover:shadow transition overflow-hidden border border-pink-100 flex flex-col group">
+            <div class="relative h-48 w-full bg-gray-100 overflow-hidden">
+              <img src="${img}" class="h-full w-full object-cover">
+              <span class="absolute top-2 left-2 text-[10px] bg-white/90 font-bold px-2.5 py-1 rounded-full">${sweet.categoria}</span>
+            </div>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-title font-bold text-lg text-sweet-darkMoka">${sweet.nome}</h3>
+                  <span class="text-xs bg-sweet-softPink text-sweet-darkPink font-bold px-2 py-1 rounded">${priceBadge}</span>
+                </div>
+                <p class="text-xs text-gray-500 mb-4">${sweet.descricao || ''}</p>
+              </div>
+              <div class="bg-sweet-softPink p-3 rounded-xl border border-pink-200 space-y-2">
+                <div class="flex justify-between items-center text-xs font-semibold">
+                  <span>Quantidade:</span>
+                  <span class="text-sweet-darkPink font-bold">${currentQty} un</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button onclick="window.updateCalcQty('${sweet.id}', -${stepQty})" class="w-8 h-8 rounded bg-white font-bold border text-xs">-${stepQty}</button>
+                  <input type="number" min="0" value="${currentQty}" onchange="window.setCalcQtyDirect('${sweet.id}', this.value)" class="w-full text-center bg-white border rounded py-1 text-sm font-bold">
+                  <button onclick="window.updateCalcQty('${sweet.id}', ${stepQty})" class="w-8 h-8 rounded bg-white font-bold border text-xs">+${stepQty}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      window.updateCalculatorUI();
+    };
+
+    window.updateCalcQty = function(id, delta) {
+      calcCart[id] = Math.max(0, (calcCart[id] || 0) + delta);
+      if (calcCart[id] === 0) delete calcCart[id];
+      window.renderPage();
+    };
+
+    window.setCalcQtyDirect = function(id, val) {
+      let q = parseInt(val) || 0;
+      if (q <= 0) delete calcCart[id];
+      else calcCart[id] = q;
+      window.renderPage();
+    };
+
+    window.parsePrice = function(priceStr) {
+      if (!priceStr) return 0;
+      const clean = priceStr.toString().replace('R$', '').trim().replace('.', '').replace(',', '.');
+      return parseFloat(clean) || 0;
+    };
+
+    window.getUnitPrice = function(sweet) {
+      const priceNum = parsePrice(sweet.preco);
+      return (sweet.categoria === "Doce de Festa") ? priceNum / 100 : priceNum;
+    };
+
+    window.updateCalculatorUI = function() {
+      const container = document.getElementById('calc-items-list');
+      if (!container) return;
+      let totalUnits = 0, totalPrice = 0;
+      let keys = Object.keys(calcCart);
+
+      if (keys.length === 0) {
+        container.innerHTML = `<div class="text-center py-6 text-gray-400 text-sm">Nenhum item selecionado.</div>`;
+      } else {
+        container.innerHTML = keys.map(id => {
+          let sweet = appData.sweets.find(s => String(s.id) === String(id));
+          if (!sweet) return '';
+          let qty = calcCart[id];
+          let subtotal = qty * getUnitPrice(sweet);
+          totalUnits += qty;
+          totalPrice += subtotal;
+
+          return `
+            <div class="flex justify-between items-center bg-pink-50 p-3 rounded-xl border text-xs">
+              <span class="font-bold">${sweet.nome} (${qty} un)</span>
+              <span class="font-bold text-sweet-darkPink">R$ ${subtotal.toFixed(2).replace('.', ',')}</span>
+            </div>
+          `;
+        }).join('');
+      }
+      document.getElementById('calc-total-price').innerText = `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
+      document.getElementById('calc-total-units').innerText = `${totalUnits} itens selecionados no total`;
+    };
+
+    window.sendCalcOrderToWhatsApp = function() {
+      let keys = Object.keys(calcCart);
+      if (keys.length === 0) { alert("Selecione ao menos um item!"); return; }
+      let text = "Olá! Montei meu pedido no site:\n\n";
+      keys.forEach(id => {
+        let sweet = appData.sweets.find(s => String(s.id) === String(id));
+        let q = calcCart[id];
+        text += `• ${sweet.nome}: ${q} un\n`;
+      });
+      window.open(`https://wa.me/${appData.whatsapp}?text=` + encodeURIComponent(text), '_blank');
+    };
+
+    window.setCategory = function(c) { activeCategory = c; window.renderPage(); };
+
+    // ADMIN CONTROLS
+    window.toggleAdminModal = function() { document.getElementById('admin-modal').classList.toggle('hidden'); };
+    window.checkAdminPin = function() {
+      if (document.getElementById('admin-pin').value === "Ana123") {
+        document.getElementById('admin-login-view').classList.add('hidden');
+        document.getElementById('admin-content-view').classList.remove('hidden');
+        window.renderAdminSweetsTable();
+      } else alert("Senha Incorreta!");
+    };
+
+    window.renderAdminSweetsTable = function() {
+      const tbody = document.getElementById('admin-sweets-table-body');
+      if (!tbody) return;
+      tbody.innerHTML = appData.sweets.map(item => `
+        <tr>
+          <td class="p-3"><img src="${item.imagens || ''}" class="w-10 h-10 object-cover rounded"></td>
+          <td class="p-3 font-medium">${item.nome}</td>
+          <td class="p-3"><span class="text-xs bg-pink-50 text-sweet-darkPink font-bold px-2 py-1 rounded">${item.categoria}</span></td>
+          <td class="p-3 font-semibold">R$ ${item.preco}</td>
+          <td class="p-3 text-right space-x-2">
+            <button onclick="window.openEditSweetModal('${item.id}')" class="text-blue-600 text-xs font-bold"><i class="fa-solid fa-pen"></i> Editar</button>
+            <button onclick="window.deleteSweet('${item.id}')" class="text-red-500 text-xs font-bold"><i class="fa-solid fa-trash"></i> Excluir</button>
+          </td>
+        </tr>
+      `).join('');
+    };
+
+    window.openAddSweetModal = function() {
+      document.getElementById('form-item-id').value = "";
+      document.getElementById('form-item-name').value = "";
+      document.getElementById('form-item-price').value = "145,00";
+      document.getElementById('form-item-desc').value = "";
+      document.getElementById('form-item-img').value = "";
+      document.getElementById('item-form-modal').classList.remove('hidden');
+    };
+
+    window.openEditSweetModal = function(id) {
+      let sweet = appData.sweets.find(s => String(s.id) === String(id));
+      if (!sweet) return;
+      document.getElementById('form-item-id').value = sweet.id;
+      document.getElementById('form-item-name').value = sweet.nome;
+      document.getElementById('form-item-category').value = sweet.categoria;
+      document.getElementById('form-item-price').value = sweet.preco;
+      document.getElementById('form-item-desc').value = sweet.descricao || "";
+      document.getElementById('form-item-img').value = sweet.imagens || "";
+      document.getElementById('item-form-modal').classList.remove('hidden');
+    };
+
+    window.closeItemFormModal = function() { document.getElementById('item-form-modal').classList.add('hidden'); };
+
+    document.addEventListener("DOMContentLoaded", () => loadSweetsFromSupabase());
+  </script>
+</body>
+</html>
           colors: {
             sweet: {
               pink: '#F7A8C4',
