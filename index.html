@@ -303,13 +303,63 @@
           <label class="block text-xs font-bold uppercase text-gray-600 mb-1">DESCRIÇÃO</label>
           <textarea id="form-item-desc" rows="2" class="w-full border rounded-xl p-2.5 outline-none focus:border-sweet-darkPink" placeholder="Ingredientes e detalhes..."></textarea>
         </div>
-        <div>
-          <label class="block text-xs font-bold uppercase text-gray-600 mb-1">FOTO DO ITEM (ARQUIVO OU LINK)</label>
-          <input type="file" id="form-item-file" accept="image/*" onchange="window.handleFormFileUpload(event)" class="w-full text-xs border rounded-xl p-2 mb-2 bg-sweet-softPink">
-          <input type="text" id="form-item-img" placeholder="Ou cole a URL da imagem (https://...)" class="w-full border rounded-xl p-2.5 text-xs outline-none focus:border-sweet-darkPink">
-          <div id="item-form-preview-container" class="mt-3 hidden p-2 bg-sweet-softPink rounded-xl border border-pink-100 flex items-center gap-3">
-            <img id="item-form-preview-img" src="" class="w-14 h-14 object-cover rounded-lg border border-pink-200">
-            <span class="text-xs font-bold text-gray-700">Foto carregada com sucesso!</span>
+        <!-- Fotos do Item (Até 3 fotos) -->
+        <div class="space-y-3 pt-1">
+          <!-- Foto 1 -->
+          <div class="bg-sweet-softPink p-3 rounded-2xl border border-pink-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <label class="block text-xs font-bold uppercase text-sweet-darkMoka flex items-center gap-1.5">
+                <i class="fa-solid fa-camera text-sweet-darkPink"></i> Foto 1 (Principal) *
+              </label>
+              <span class="text-[10px] text-gray-500 font-semibold">Capa do doce</span>
+            </div>
+            <input type="file" id="form-item-file1" accept="image/*" onchange="window.handleFormFileUpload(event, 1)" class="w-full text-xs border border-pink-300 rounded-xl p-2 bg-white">
+            <input type="text" id="form-item-img" placeholder="Ou cole a URL da Foto 1 (https://...)" oninput="window.updateFormImgPreview(1)" class="w-full border rounded-xl p-2 text-xs outline-none focus:border-sweet-darkPink bg-white">
+            <div id="item-form-preview-container1" class="hidden p-2 bg-white rounded-xl border border-pink-100 flex items-center gap-3">
+              <img id="item-form-preview-img1" src="" class="w-12 h-12 object-cover rounded-lg border border-pink-200">
+              <div class="text-xs">
+                <span class="font-bold text-gray-700 block">Prévia Foto 1</span>
+                <span class="text-[10px] text-emerald-600 font-semibold">Foto principal pronta</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Foto 2 -->
+          <div class="bg-sweet-softPink p-3 rounded-2xl border border-pink-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <label class="block text-xs font-bold uppercase text-sweet-darkMoka flex items-center gap-1.5">
+                <i class="fa-solid fa-camera text-sweet-teal"></i> Foto 2 (Detalhe / Interior)
+              </label>
+              <button type="button" onclick="window.removeFormPhoto(2)" class="text-[10px] text-red-500 font-bold hover:underline">Remover</button>
+            </div>
+            <input type="file" id="form-item-file2" accept="image/*" onchange="window.handleFormFileUpload(event, 2)" class="w-full text-xs border border-pink-300 rounded-xl p-2 bg-white">
+            <input type="text" id="form-item-img2" placeholder="Ou cole a URL da Foto 2 (https://...)" oninput="window.updateFormImgPreview(2)" class="w-full border rounded-xl p-2 text-xs outline-none focus:border-sweet-teal bg-white">
+            <div id="item-form-preview-container2" class="hidden p-2 bg-white rounded-xl border border-pink-100 flex items-center gap-3">
+              <img id="item-form-preview-img2" src="" class="w-12 h-12 object-cover rounded-lg border border-pink-200">
+              <div class="text-xs">
+                <span class="font-bold text-gray-700 block">Prévia Foto 2</span>
+                <span class="text-[10px] text-sweet-teal font-semibold">Segunda foto</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Foto 3 -->
+          <div class="bg-sweet-softPink p-3 rounded-2xl border border-pink-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <label class="block text-xs font-bold uppercase text-sweet-darkMoka flex items-center gap-1.5">
+                <i class="fa-solid fa-camera text-sweet-moka"></i> Foto 3 (Apresentação / Embalagem)
+              </label>
+              <button type="button" onclick="window.removeFormPhoto(3)" class="text-[10px] text-red-500 font-bold hover:underline">Remover</button>
+            </div>
+            <input type="file" id="form-item-file3" accept="image/*" onchange="window.handleFormFileUpload(event, 3)" class="w-full text-xs border border-pink-300 rounded-xl p-2 bg-white">
+            <input type="text" id="form-item-img3" placeholder="Ou cole a URL da Foto 3 (https://...)" oninput="window.updateFormImgPreview(3)" class="w-full border rounded-xl p-2 text-xs outline-none focus:border-sweet-moka bg-white">
+            <div id="item-form-preview-container3" class="hidden p-2 bg-white rounded-xl border border-pink-100 flex items-center gap-3">
+              <img id="item-form-preview-img3" src="" class="w-12 h-12 object-cover rounded-lg border border-pink-200">
+              <div class="text-xs">
+                <span class="font-bold text-gray-700 block">Prévia Foto 3</span>
+                <span class="text-[10px] text-sweet-moka font-semibold">Terceira foto</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -645,13 +695,43 @@
       });
     }
 
-    window.handleFormFileUpload = async function(event) {
+    window.handleFormFileUpload = async function(event, photoNum = 1) {
       const file = event.target.files[0];
       if (!file) return;
       const compressed = await compressImage(file);
-      document.getElementById('form-item-img').value = compressed;
-      document.getElementById('item-form-preview-img').src = compressed;
-      document.getElementById('item-form-preview-container').classList.remove('hidden');
+      const suffix = photoNum === 1 ? '' : photoNum;
+      const inputEl = document.getElementById('form-item-img' + suffix);
+      const previewEl = document.getElementById('item-form-preview-img' + photoNum);
+      const containerEl = document.getElementById('item-form-preview-container' + photoNum);
+
+      if (inputEl) inputEl.value = compressed;
+      if (previewEl) previewEl.src = compressed;
+      if (containerEl) containerEl.classList.remove('hidden');
+    };
+
+    window.updateFormImgPreview = function(photoNum = 1) {
+      const suffix = photoNum === 1 ? '' : photoNum;
+      const inputEl = document.getElementById('form-item-img' + suffix);
+      const previewEl = document.getElementById('item-form-preview-img' + photoNum);
+      const containerEl = document.getElementById('item-form-preview-container' + photoNum);
+      const val = (inputEl ? inputEl.value : '').trim();
+
+      if (val) {
+        if (previewEl) previewEl.src = val;
+        if (containerEl) containerEl.classList.remove('hidden');
+      } else {
+        if (containerEl) containerEl.classList.add('hidden');
+      }
+    };
+
+    window.removeFormPhoto = function(photoNum = 2) {
+      const suffix = photoNum === 1 ? '' : photoNum;
+      const inputEl = document.getElementById('form-item-img' + suffix);
+      const fileEl = document.getElementById('form-item-file' + photoNum);
+      const containerEl = document.getElementById('item-form-preview-container' + photoNum);
+      if (inputEl) inputEl.value = '';
+      if (fileEl) fileEl.value = '';
+      if (containerEl) containerEl.classList.add('hidden');
     };
 
     window.handleLogoUpload = async function(event) {
@@ -675,11 +755,25 @@
       let preco = document.getElementById('form-item-price').value.trim();
       const descricao = document.getElementById('form-item-desc').value.trim();
       const imagens = document.getElementById('form-item-img').value.trim() || 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';
+      const imagem2 = (document.getElementById('form-item-img2')?.value || '').trim();
+      const imagem3 = (document.getElementById('form-item-img3')?.value || '').trim();
 
       if (!nome) { alert('Informe o nome do doce!'); return; }
       if (categoria === 'Bolo') preco = 'Sob Consulta';
 
-      const itemPayload = { id: id || 'sweet-' + Date.now(), nome, categoria, preco, descricao, imagens };
+      const fotos = [imagens, ...(imagem2 ? [imagem2] : []), ...(imagem3 ? [imagem3] : [])];
+
+      const itemPayload = {
+        id: id || 'sweet-' + Date.now(),
+        nome,
+        categoria,
+        preco,
+        descricao,
+        imagens,
+        imagem2: imagem2 || undefined,
+        imagem3: imagem3 || undefined,
+        fotos
+      };
 
       if (id) {
         const idx = appData.sweets.findIndex(s => String(s.id) === String(id));
@@ -693,7 +787,7 @@
       window.renderAdminSweetsTable();
       window.closeItemFormModal();
 
-      // Attempt Supabase insert with only valid columns
+      // Attempt Supabase insert with valid columns
       try {
         await _supabase.from('gostosura').insert([{ nome, categoria, imagens }]);
       } catch (e) {}
@@ -783,20 +877,50 @@
         </button>
       `).join('');
 
-      // Grid
+      // Grid with multi-photo support (up to 3 photos per sweet)
+      window.cardPhotoIndexes = window.cardPhotoIndexes || {};
       const filtered = activeCategory === 'Todas' ? appData.sweets : appData.sweets.filter(s => s.categoria === activeCategory);
       document.getElementById('sweets-grid').innerHTML = filtered.map(sweet => {
-        const img = sweet.imagens || 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';
+        const rawImgs = [sweet.imagens, sweet.imagem2, sweet.imagem3, ...(Array.isArray(sweet.fotos) ? sweet.fotos : [])];
+        const imgs = rawImgs.filter((u, idx, arr) => Boolean(u) && arr.indexOf(u) === idx);
+        if (imgs.length === 0) imgs.push('https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80');
+
+        const activeImgIdx = (window.cardPhotoIndexes[sweet.id] || 0) % imgs.length;
+        const currentImg = imgs[activeImgIdx];
         const currentQty = calcCart[sweet.id] || 0;
         const isFesta = sweet.categoria === 'Doce de Festa' || sweet.categoria === 'Especial Sazonal';
         const priceBadge = sweet.categoria === 'Bolo' ? 'Sob Consulta' : (isFesta ? `R$ ${sweet.preco} / cento` : `R$ ${sweet.preco} / un`);
         const stepQty = isFesta ? 25 : 1;
+        const hasMultiple = imgs.length > 1;
 
         return `
           <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border ${currentQty > 0 ? 'border-sweet-darkPink ring-2 ring-pink-100' : 'border-pink-100'} flex flex-col group">
-            <div class="relative h-48 w-full bg-gray-100 overflow-hidden">
-              <img src="${img}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="relative h-52 w-full bg-gray-100 overflow-hidden">
+              <img id="card-img-${sweet.id}" src="${currentImg}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
               <span class="absolute top-2.5 left-2.5 text-[10px] bg-white/95 text-sweet-darkPink font-bold px-2.5 py-1 rounded-full shadow-xs">${sweet.categoria}</span>
+
+              ${hasMultiple ? `
+                <!-- Badge de Contador de Fotos -->
+                <span id="card-badge-${sweet.id}" class="absolute top-2.5 right-2.5 text-[10px] bg-black/60 backdrop-blur-xs text-white font-bold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+                  <i class="fa-solid fa-camera text-[9px]"></i>
+                  <span>${activeImgIdx + 1}/${imgs.length}</span>
+                </span>
+
+                <!-- Setas de navegação de fotos -->
+                <button type="button" onclick="window.stepCardPhoto('${sweet.id}', -1, event)" class="absolute left-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-sweet-darkMoka flex items-center justify-center text-xs shadow-md transition hover:scale-110 active:scale-95 cursor-pointer z-10" title="Foto anterior">
+                  <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                </button>
+                <button type="button" onclick="window.stepCardPhoto('${sweet.id}', 1, event)" class="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-sweet-darkMoka flex items-center justify-center text-xs shadow-md transition hover:scale-110 active:scale-95 cursor-pointer z-10" title="Próxima foto">
+                  <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                </button>
+
+                <!-- Indicadores de bolinha -->
+                <div id="card-dots-${sweet.id}" class="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5 px-2 z-10">
+                  ${imgs.map((_, pIdx) => `
+                    <button type="button" onclick="window.setCardPhoto('${sweet.id}', ${pIdx}, event)" class="h-1.5 rounded-full transition-all cursor-pointer ${pIdx === activeImgIdx ? 'w-5 bg-white shadow-sm' : 'w-1.5 bg-white/60 hover:bg-white'}"></button>
+                  `).join('')}
+                </div>
+              ` : ''}
             </div>
             <div class="p-5 flex-1 flex flex-col justify-between">
               <div>
@@ -824,6 +948,56 @@
 
       window.updateCalculatorUI();
       if (typeof updateCarouselUI === 'function') updateCarouselUI();
+    };
+
+    window.stepCardPhoto = function(id, delta, event) {
+      if (event) event.stopPropagation();
+      const sweet = appData.sweets.find(s => String(s.id) === String(id));
+      if (!sweet) return;
+      const rawImgs = [sweet.imagens, sweet.imagem2, sweet.imagem3, ...(Array.isArray(sweet.fotos) ? sweet.fotos : [])];
+      const imgs = rawImgs.filter((u, idx, arr) => Boolean(u) && arr.indexOf(u) === idx);
+      if (imgs.length <= 1) return;
+
+      window.cardPhotoIndexes = window.cardPhotoIndexes || {};
+      const current = window.cardPhotoIndexes[id] || 0;
+      const next = (current + delta + imgs.length) % imgs.length;
+      window.cardPhotoIndexes[id] = next;
+
+      const imgEl = document.getElementById('card-img-' + id);
+      const badgeEl = document.getElementById('card-badge-' + id);
+      const dotsEl = document.getElementById('card-dots-' + id);
+
+      if (imgEl) imgEl.src = imgs[next];
+      if (badgeEl) badgeEl.innerHTML = `<i class="fa-solid fa-camera text-[9px]"></i> <span>${next + 1}/${imgs.length}</span>`;
+      if (dotsEl) {
+        dotsEl.innerHTML = imgs.map((_, pIdx) => `
+          <button type="button" onclick="window.setCardPhoto('${id}', ${pIdx}, event)" class="h-1.5 rounded-full transition-all cursor-pointer ${pIdx === next ? 'w-5 bg-white shadow-sm' : 'w-1.5 bg-white/60 hover:bg-white'}"></button>
+        `).join('');
+      }
+    };
+
+    window.setCardPhoto = function(id, pIdx, event) {
+      if (event) event.stopPropagation();
+      const sweet = appData.sweets.find(s => String(s.id) === String(id));
+      if (!sweet) return;
+      const rawImgs = [sweet.imagens, sweet.imagem2, sweet.imagem3, ...(Array.isArray(sweet.fotos) ? sweet.fotos : [])];
+      const imgs = rawImgs.filter((u, idx, arr) => Boolean(u) && arr.indexOf(u) === idx);
+      if (imgs.length <= 1) return;
+
+      window.cardPhotoIndexes = window.cardPhotoIndexes || {};
+      window.cardPhotoIndexes[id] = pIdx % imgs.length;
+
+      const imgEl = document.getElementById('card-img-' + id);
+      const badgeEl = document.getElementById('card-badge-' + id);
+      const dotsEl = document.getElementById('card-dots-' + id);
+
+      if (imgEl) imgEl.src = imgs[pIdx];
+      if (badgeEl) badgeEl.innerHTML = `<i class="fa-solid fa-camera text-[9px]"></i> <span>${pIdx + 1}/${imgs.length}</span>`;
+      if (dotsEl) {
+        dotsEl.innerHTML = imgs.map((_, idx) => `
+          <button type="button" onclick="window.setCardPhoto('${id}', ${idx}, event)" class="h-1.5 rounded-full transition-all cursor-pointer ${idx === pIdx ? 'w-5 bg-white shadow-sm' : 'w-1.5 bg-white/60 hover:bg-white'}"></button>
+        `).join('');
+      }
     };
 
     window.updateCalcQty = function(id, delta) {
@@ -971,9 +1145,17 @@
       document.getElementById('form-item-category').value = 'Doce de Festa';
       document.getElementById('form-item-price').value = '145,00';
       document.getElementById('form-item-desc').value = '';
-      document.getElementById('form-item-img').value = '';
-      document.getElementById('form-item-file').value = '';
-      document.getElementById('item-form-preview-container').classList.add('hidden');
+
+      [1, 2, 3].forEach(num => {
+        const suffix = num === 1 ? '' : num;
+        const input = document.getElementById('form-item-img' + suffix);
+        const file = document.getElementById('form-item-file' + num);
+        const container = document.getElementById('item-form-preview-container' + num);
+        if (input) input.value = '';
+        if (file) file.value = '';
+        if (container) container.classList.add('hidden');
+      });
+
       document.getElementById('item-form-modal').classList.remove('hidden');
     };
 
@@ -985,14 +1167,31 @@
       document.getElementById('form-item-category').value = sweet.categoria;
       document.getElementById('form-item-price').value = sweet.preco;
       document.getElementById('form-item-desc').value = sweet.descricao || '';
-      document.getElementById('form-item-img').value = sweet.imagens || '';
-      document.getElementById('form-item-file').value = '';
-      if (sweet.imagens) {
-        document.getElementById('item-form-preview-img').src = sweet.imagens;
-        document.getElementById('item-form-preview-container').classList.remove('hidden');
-      } else {
-        document.getElementById('item-form-preview-container').classList.add('hidden');
-      }
+
+      const photos = [
+        sweet.imagens || '',
+        sweet.imagem2 || (Array.isArray(sweet.fotos) ? sweet.fotos[1] : '') || '',
+        sweet.imagem3 || (Array.isArray(sweet.fotos) ? sweet.fotos[2] : '') || ''
+      ];
+
+      [1, 2, 3].forEach(num => {
+        const suffix = num === 1 ? '' : num;
+        const input = document.getElementById('form-item-img' + suffix);
+        const file = document.getElementById('form-item-file' + num);
+        const preview = document.getElementById('item-form-preview-img' + num);
+        const container = document.getElementById('item-form-preview-container' + num);
+        const val = photos[num - 1] || '';
+
+        if (input) input.value = val;
+        if (file) file.value = '';
+        if (val) {
+          if (preview) preview.src = val;
+          if (container) container.classList.remove('hidden');
+        } else {
+          if (container) container.classList.add('hidden');
+        }
+      });
+
       document.getElementById('item-form-modal').classList.remove('hidden');
     };
 
@@ -1025,7 +1224,15 @@
     function getCarouselItems() {
       const items = [];
       (appData.sweets || []).forEach(s => {
-        if (s.imagens) items.push({ img: s.imagens, name: s.nome, cat: s.categoria });
+        const raw = [s.imagens, s.imagem2, s.imagem3, ...(Array.isArray(s.fotos) ? s.fotos : [])];
+        const unique = raw.filter((u, idx, arr) => Boolean(u) && arr.indexOf(u) === idx);
+        unique.forEach((imgUrl, photoIndex) => {
+          items.push({
+            img: imgUrl,
+            name: s.nome + (photoIndex > 0 ? ` (Foto ${photoIndex + 1})` : ''),
+            cat: s.categoria
+          });
+        });
       });
       return items.length > 0 ? items : [{ img: appData.logoUrl || 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80', name: appData.storeName || 'Gostosuras e Travessuras', cat: 'Doces Finos' }];
     }
