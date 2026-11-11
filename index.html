@@ -739,10 +739,10 @@
       if (document.getElementById('nav-btn-ig')) document.getElementById('nav-btn-ig').href = appData.igLink || '#';
       if (document.getElementById('nav-btn-fb')) document.getElementById('nav-btn-fb').href = appData.fbLink || '#';
 
-      // Seasonal folder
-      const seasonalItems = appData.sweets.filter(s => s.categoria === 'Especial Sazonal');
+      // Seasonal folder - Only show if there is at least one item with Sazonal category
+      const seasonalItems = appData.sweets.filter(s => s.categoria && s.categoria.toLowerCase().includes('sazonal'));
       const folderContainer = document.getElementById('seasonal-folder-container');
-      if (seasonalItems.length > 0 || appData.seasonalConfig?.enabled) {
+      if (seasonalItems.length > 0) {
         folderContainer.classList.remove('hidden');
         const cfg = appData.seasonalConfig || {};
         document.getElementById('folder-emoji').innerText = cfg.emoji || '🎄';
