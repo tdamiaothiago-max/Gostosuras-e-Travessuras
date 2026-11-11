@@ -163,10 +163,29 @@
           </div>
         </div>
 
-        <div class="relative flex justify-center">
-          <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-white border-8 border-white shadow-2xl overflow-hidden relative">
-            <img id="hero-carousel-img" src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover rounded-full">
+        <div class="relative flex flex-col justify-center items-center" id="hero-carousel-container">
+          <div class="absolute -inset-4 bg-gradient-to-tr from-pink-200/40 to-teal-200/30 rounded-full blur-2xl -z-10 animate-pulse"></div>
+          <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-white border-8 border-white shadow-2xl overflow-hidden relative group">
+            <img id="hero-carousel-img" src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover rounded-full transition-all duration-500 ease-in-out">
+            <!-- Navigation arrows -->
+            <button onclick="window.prevCarouselSlide(event)" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-lg active:scale-90 z-20">
+              <i class="fa-solid fa-chevron-left text-sm"></i>
+            </button>
+            <button onclick="window.nextCarouselSlide(event)" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-lg active:scale-90 z-20">
+              <i class="fa-solid fa-chevron-right text-sm"></i>
+            </button>
+            <!-- Badge overlay -->
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent p-4 pb-6 flex flex-col items-center justify-end text-center z-10">
+              <span id="hero-carousel-badge" class="text-white text-xs sm:text-sm font-bold bg-sweet-darkPink/90 px-3.5 py-1.5 rounded-full shadow-md max-w-[85%] truncate">
+                Brigadeiro Gourmet Belga
+              </span>
+              <span id="hero-carousel-sub" class="text-[10px] text-pink-100 font-semibold mt-1">
+                Doce de Festa • 100% Artesanal
+              </span>
+            </div>
           </div>
+          <!-- Pagination dots -->
+          <div id="hero-carousel-dots" class="flex items-center gap-1.5 mt-4"></div>
         </div>
       </div>
     </div>
@@ -510,8 +529,8 @@
       },
       {
         id: "d9",
-        nome: "Trufa Dourada Festiva (Edição Especial)",
-        categoria: "Especial Sazonal",
+        nome: "Trufa Dourada Festiva",
+        categoria: "Doce de Festa",
         preco: "165,00",
         descricao: "Trufa fina recheada com ganache de espumante e finalizada com pó cintilante dourado comestível.",
         imagens: "https://images.unsplash.com/photo-1548848221-0c2e497ed557?auto=format&fit=crop&w=600&q=80"
@@ -804,6 +823,7 @@
       }).join('');
 
       window.updateCalculatorUI();
+      if (typeof updateCarouselUI === 'function') updateCarouselUI();
     };
 
     window.updateCalcQty = function(id, delta) {
@@ -980,7 +1000,85 @@
       document.getElementById('item-form-modal').classList.add('hidden');
     };
 
-    document.addEventListener('DOMContentLoaded', () => initData());
+    // HERO CAROUSEL CONTROLLER
+    let carouselIndex = 0;
+    let carouselTimer = null;
+    let carouselPaused = false;
+
+    function initHeroCarousel() {
+      const container = document.getElementById('hero-carousel-container');
+      if (container) {
+        container.addEventListener('mouseenter', () => { carouselPaused = true; });
+        container.addEventListener('mouseleave', () => { carouselPaused = false; });
+      }
+
+      if (carouselTimer) clearInterval(carouselTimer);
+      carouselTimer = setInterval(() => {
+        if (!carouselPaused) {
+          window.nextCarouselSlide();
+        }
+      }, 3500);
+
+      updateCarouselUI();
+    }
+
+    function getCarouselItems() {
+      const items = [];
+      (appData.sweets || []).forEach(s => {
+        if (s.imagens) items.push({ img: s.imagens, name: s.nome, cat: s.categoria });
+      });
+      return items.length > 0 ? items : [{ img: appData.logoUrl || 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80', name: appData.storeName || 'Gostosuras e Travessuras', cat: 'Doces Finos' }];
+    }
+
+    function updateCarouselUI() {
+      const items = getCarouselItems();
+      if (items.length === 0) return;
+      carouselIndex = (carouselIndex + items.length) % items.length;
+      const current = items[carouselIndex];
+
+      const imgEl = document.getElementById('hero-carousel-img');
+      const badgeEl = document.getElementById('hero-carousel-badge');
+      const subEl = document.getElementById('hero-carousel-sub');
+      const dotsEl = document.getElementById('hero-carousel-dots');
+
+      if (imgEl) {
+        imgEl.style.opacity = '0.35';
+        setTimeout(() => {
+          imgEl.src = current.img;
+          imgEl.style.opacity = '1';
+        }, 200);
+      }
+      if (badgeEl) badgeEl.innerText = current.name;
+      if (subEl) subEl.innerText = `${current.cat} • 100% Artesanal`;
+
+      if (dotsEl) {
+        dotsEl.innerHTML = items.slice(0, 10).map((_, idx) => `
+          <button onclick="window.setCarouselIndex(${idx})" class="h-2 rounded-full transition-all cursor-pointer ${idx === (carouselIndex % 10) ? 'w-6 bg-sweet-darkPink' : 'w-2 bg-pink-200 hover:bg-pink-300'}" title="Ver foto ${idx + 1}"></button>
+        `).join('');
+      }
+    }
+
+    window.nextCarouselSlide = function(e) {
+      if (e) e.stopPropagation();
+      carouselIndex++;
+      updateCarouselUI();
+    };
+
+    window.prevCarouselSlide = function(e) {
+      if (e) e.stopPropagation();
+      carouselIndex--;
+      updateCarouselUI();
+    };
+
+    window.setCarouselIndex = function(idx) {
+      carouselIndex = idx;
+      updateCarouselUI();
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initData();
+      initHeroCarousel();
+    });
   </script>
 </body>
 </html>
