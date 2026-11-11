@@ -433,7 +433,6 @@
 
     let appData = {
       adminPin: "Ana123",
-      // LOGOTIPO OFICIAL SALVO DIRETAMENTE NO CÓDIGO
       logoUrl: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80",
       whatsapp: "5511985063638",
       igLink: "https://www.instagram.com/gostosuras.e.travessuras/",
@@ -456,7 +455,15 @@
       if (error) {
         console.error("Erro ao carregar do Supabase:", error.message);
       } else {
-        appData.sweets = data || [];
+        // Mapeando os nomes em português da tabela para o padrão do site
+        appData.sweets = (data || []).map(item => ({
+          id: item.id,
+          name: item.nome,
+          category: item.categoria,
+          price: item.preço || item.preco,
+          desc: item.descrição || item.descricao,
+          imgs: item.imagens
+        }));
         window.renderPage();
         window.renderAdminSweetsTable();
       }
@@ -490,16 +497,17 @@
 
     window.saveItemSupabase = async function() {
       const id = document.getElementById('form-item-id').value;
-      const name = document.getElementById('form-item-name').value;
-      const category = document.getElementById('form-item-category').value;
-      let price = document.getElementById('form-item-price').value;
-      const desc = document.getElementById('form-item-desc').value;
-      const imgs = document.getElementById('form-item-img').value || "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80";
+      const nome = document.getElementById('form-item-name').value;
+      const categoria = document.getElementById('form-item-category').value;
+      let preco = document.getElementById('form-item-price').value;
+      const descrição = document.getElementById('form-item-desc').value;
+      const imagens = document.getElementById('form-item-img').value || "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80";
 
-      if (!name) { alert("Preencha o nome do item!"); return; }
-      if (category === "Bolo") price = "Sob Consulta";
+      if (!nome) { alert("Preencha o nome do item!"); return; }
+      if (categoria === "Bolo") preco = "Sob Consulta";
 
-      const payload = { name, category, price, desc, imgs };
+      // Enviando utilizando os nomes exatos das colunas da sua tabela em português
+      const payload = { nome, categoria, preço: preco, descrição, imagens };
 
       let result;
       if (id) {
@@ -513,7 +521,7 @@
       } else {
         alert("Item salvo com sucesso na nuvem!");
         window.closeItemFormModal();
-        loadSweetsFromSupabase();
+        await loadSweetsFromSupabase();
       }
     };
 
