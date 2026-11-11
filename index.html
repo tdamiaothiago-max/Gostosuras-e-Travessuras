@@ -79,7 +79,7 @@
       <div class="flex justify-between h-20 items-center">
         <a href="#" class="flex items-center gap-3 group">
           <div class="w-14 h-14 rounded-full border-2 border-sweet-darkPink p-0.5 bg-white shadow-sm flex items-center justify-center overflow-hidden group-hover:scale-105 transition">
-            <img id="main-logo-img" src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80" alt="Logo" class="w-full h-full object-contain rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';">
+            <img id="main-logo-img" src="" alt="Logo" class="w-full h-full object-contain rounded-full">
           </div>
           <div>
             <span class="text-xl font-bold font-title text-sweet-darkMoka tracking-tight block leading-tight">Gostosuras e Travessuras</span>
@@ -161,8 +161,8 @@
         </div>
 
         <div class="relative flex justify-center">
-          <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden relative">
-            <img id="hero-carousel-img" src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover rounded-full">
+          <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-white border-4 border-white shadow-2xl overflow-hidden relative flex items-center justify-center p-4">
+            <img id="hero-carousel-img" src="" class="w-full h-full object-contain rounded-full">
           </div>
         </div>
       </div>
@@ -306,7 +306,7 @@
         <button onclick="window.toggleAdminModal()" class="text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
-      <!-- TELA DE LOGIN ADMIN (SEM EXIBIR A SENHA) -->
+      <!-- TELA DE LOGIN ADMIN -->
       <div id="admin-login-view" class="p-8 text-center max-w-sm mx-auto my-auto">
         <i class="fa-solid fa-lock text-4xl text-sweet-darkPink mb-4"></i>
         <h4 class="font-bold text-sweet-darkMoka text-lg mb-2">Acesso Restrito</h4>
@@ -325,8 +325,15 @@
         <!-- ABA GERAL -->
         <div id="admin-sec-general" class="space-y-6">
           <div>
-            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Logotipo da Loja (URL)</label>
-            <input type="text" id="edit-logo-url" placeholder="https://..." class="w-full border rounded-lg p-2.5 text-sm outline-none">
+            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">LOGOTIPO DA LOJA (ARQUIVO OU URL)</label>
+            <input type="file" id="edit-logo-file" accept="image/*" onchange="window.handleLogoFileUpload(event)" class="w-full text-xs border rounded-lg p-2 mb-2 bg-pink-50">
+            <input type="text" id="edit-logo-url" placeholder="Ou cole a URL da logo (https://...)" class="w-full border rounded-lg p-2.5 text-sm outline-none">
+            <div id="logo-preview-container" class="mt-2 hidden">
+              <div class="text-[11px] font-bold text-gray-500">Pré-visualização da Logo:</div>
+              <div class="w-16 h-16 rounded-full border overflow-hidden mt-1 bg-white flex items-center justify-center p-0.5">
+                <img id="logo-preview-img" src="" class="w-full h-full object-contain rounded-full">
+              </div>
+            </div>
           </div>
           <div class="grid md:grid-cols-2 gap-4">
             <div>
@@ -426,7 +433,8 @@
 
     let appData = {
       adminPin: "Ana123",
-      logoUrl: "",
+      // LOGOTIPO OFICIAL SALVO DIRETAMENTE NO CÓDIGO
+      logoUrl: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80",
       whatsapp: "5511985063638",
       igLink: "https://www.instagram.com/gostosuras.e.travessuras/",
       fbLink: "https://www.facebook.com/doces.gostosuras.e.travessuras",
@@ -454,6 +462,19 @@
       }
     }
 
+    window.handleLogoFileUpload = function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const base64Src = e.target.result;
+        document.getElementById('edit-logo-url').value = base64Src;
+        document.getElementById('logo-preview-img').src = base64Src;
+        document.getElementById('logo-preview-container').classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    };
+
     window.handleFormFileUpload = function(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -469,16 +490,16 @@
 
     window.saveItemSupabase = async function() {
       const id = document.getElementById('form-item-id').value;
-      const nome = document.getElementById('form-item-name').value;
-      const categoria = document.getElementById('form-item-category').value;
-      let preco = document.getElementById('form-item-price').value;
-      const descricao = document.getElementById('form-item-desc').value;
-      const imagens = document.getElementById('form-item-img').value || "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80";
+      const name = document.getElementById('form-item-name').value;
+      const category = document.getElementById('form-item-category').value;
+      let price = document.getElementById('form-item-price').value;
+      const desc = document.getElementById('form-item-desc').value;
+      const imgs = document.getElementById('form-item-img').value || "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80";
 
-      if (!nome) { alert("Preencha o nome do item!"); return; }
-      if (categoria === "Bolo") preco = "Sob Consulta";
+      if (!name) { alert("Preencha o nome do item!"); return; }
+      if (category === "Bolo") price = "Sob Consulta";
 
-      const payload = { nome, categoria, preco, descricao, imagens };
+      const payload = { name, category, price, desc, imgs };
 
       let result;
       if (id) {
@@ -537,14 +558,18 @@
     };
 
     window.renderPage = function() {
-      document.getElementById('main-logo-img').src = appData.logoUrl || 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';
+      const logoFinal = appData.logoUrl || 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';
+      document.getElementById('main-logo-img').src = logoFinal;
+      const heroImg = document.getElementById('hero-carousel-img');
+      if(heroImg) heroImg.src = logoFinal;
+
       const waUrl = `https://wa.me/${appData.whatsapp}?text=Olá!%20Gostaria%20de%20fazer%20uma%20encomenda!`;
       ['nav-btn-whatsapp', 'hero-btn-pedir'].forEach(id => { const el = document.getElementById(id); if(el) el.href = waUrl; });
       ['nav-btn-ig'].forEach(id => { const el = document.getElementById(id); if(el) el.href = appData.igLink; });
       ['nav-btn-fb'].forEach(id => { const el = document.getElementById(id); if(el) el.href = appData.fbLink; });
 
       // Folder Sazonal Condicional
-      const seasonalItems = appData.sweets.filter(s => s.categoria === "Especial Sazonal");
+      const seasonalItems = appData.sweets.filter(s => s.category === "Especial Sazonal");
       const folderContainer = document.getElementById('seasonal-folder-container');
       if (seasonalItems.length > 0) {
         folderContainer.classList.remove('hidden');
@@ -566,28 +591,28 @@
         </button>
       `).join('');
 
-      const filtered = activeCategory === "Todas" ? appData.sweets : appData.sweets.filter(s => s.categoria === activeCategory);
+      const filtered = activeCategory === "Todas" ? appData.sweets : appData.sweets.filter(s => s.category === activeCategory);
       
       document.getElementById('sweets-grid').innerHTML = filtered.map(sweet => {
-        let img = sweet.imagens || "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80";
+        let img = sweet.imgs || "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80";
         let currentQty = calcCart[sweet.id] || 0;
-        let isFesta = sweet.categoria === "Doce de Festa" || sweet.categoria === "Especial Sazonal";
-        let priceBadge = isFesta ? `R$ ${sweet.preco} / cento` : (sweet.categoria === "Pipoca Gourmet" ? `R$ ${sweet.preco} / un` : `Sob Consulta`);
+        let isFesta = sweet.category === "Doce de Festa" || sweet.category === "Especial Sazonal";
+        let priceBadge = isFesta ? `R$ ${sweet.price} / cento` : (sweet.category === "Pipoca Gourmet" ? `R$ ${sweet.price} / un` : `Sob Consulta`);
         let stepQty = isFesta ? 25 : 1;
 
         return `
           <div class="bg-white rounded-2xl shadow-sm hover:shadow transition overflow-hidden border border-pink-100 flex flex-col group">
             <div class="relative h-48 w-full bg-gray-100 overflow-hidden">
               <img src="${img}" class="h-full w-full object-cover">
-              <span class="absolute top-2 left-2 text-[10px] bg-white/90 font-bold px-2.5 py-1 rounded-full">${sweet.categoria}</span>
+              <span class="absolute top-2 left-2 text-[10px] bg-white/90 font-bold px-2.5 py-1 rounded-full">${sweet.category}</span>
             </div>
             <div class="p-5 flex-1 flex flex-col justify-between">
               <div>
                 <div class="flex justify-between items-start mb-2">
-                  <h3 class="font-title font-bold text-lg text-sweet-darkMoka">${sweet.nome}</h3>
+                  <h3 class="font-title font-bold text-lg text-sweet-darkMoka">${sweet.name}</h3>
                   <span class="text-xs bg-sweet-softPink text-sweet-darkPink font-bold px-2 py-1 rounded">${priceBadge}</span>
                 </div>
-                <p class="text-xs text-gray-500 mb-4">${sweet.descricao || ''}</p>
+                <p class="text-xs text-gray-500 mb-4">${sweet.desc || ''}</p>
               </div>
               <div class="bg-sweet-softPink p-3 rounded-xl border border-pink-200 space-y-2">
                 <div class="flex justify-between items-center text-xs font-semibold">
@@ -628,8 +653,8 @@
     };
 
     window.getUnitPrice = function(sweet) {
-      const priceNum = parsePrice(sweet.preco);
-      return (sweet.categoria === "Doce de Festa" || sweet.categoria === "Especial Sazonal") ? priceNum / 100 : priceNum;
+      const priceNum = parsePrice(sweet.price);
+      return (sweet.category === "Doce de Festa" || sweet.category === "Especial Sazonal") ? priceNum / 100 : priceNum;
     };
 
     window.updateCalculatorUI = function() {
@@ -647,13 +672,13 @@
           let qty = calcCart[id];
           let subtotal = qty * getUnitPrice(sweet);
           totalUnits += qty;
-          if (sweet.categoria === "Bolo") hasConsulta = true;
+          if (sweet.category === "Bolo") hasConsulta = true;
           else totalPrice += subtotal;
 
           return `
             <div class="flex justify-between items-center bg-pink-50 p-3 rounded-xl border text-xs">
-              <span class="font-bold">${sweet.nome} (${qty} un)</span>
-              <span class="font-bold text-sweet-darkPink">${sweet.categoria === 'Bolo' ? 'Sob Consulta' : 'R$ ' + subtotal.toFixed(2).replace('.', ',')}</span>
+              <span class="font-bold">${sweet.name} (${qty} un)</span>
+              <span class="font-bold text-sweet-darkPink">${sweet.category === 'Bolo' ? 'Sob Consulta' : 'R$ ' + subtotal.toFixed(2).replace('.', ',')}</span>
             </div>
           `;
         }).join('');
@@ -671,7 +696,7 @@
       keys.forEach(id => {
         let sweet = appData.sweets.find(s => String(s.id) === String(id));
         let q = calcCart[id];
-        text += `• ${sweet.nome}: ${q} un\n`;
+        text += `• ${sweet.name}: ${q} un\n`;
       });
       text += `\n💳 Pagamento: ${selectedPaymentMethod}`;
       window.open(`https://wa.me/${appData.whatsapp}?text=` + encodeURIComponent(text), '_blank');
@@ -706,6 +731,10 @@
       document.getElementById('edit-folder-badge').value = cfg.badge || "";
       document.getElementById('edit-folder-title').value = cfg.title || "";
       document.getElementById('edit-folder-desc').value = cfg.desc || "";
+      if (appData.logoUrl) {
+        document.getElementById('logo-preview-img').src = appData.logoUrl;
+        document.getElementById('logo-preview-container').classList.remove('hidden');
+      }
       window.renderAdminSweetsTable();
     };
 
@@ -714,10 +743,10 @@
       if (!tbody) return;
       tbody.innerHTML = appData.sweets.map(item => `
         <tr>
-          <td class="p-3"><img src="${item.imagens || ''}" class="w-10 h-10 object-cover rounded" onerror="this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';"></td>
-          <td class="p-3 font-medium">${item.nome}</td>
-          <td class="p-3"><span class="text-xs bg-pink-50 text-sweet-darkPink font-bold px-2 py-1 rounded">${item.categoria}</span></td>
-          <td class="p-3 font-semibold">R$ ${item.preco}</td>
+          <td class="p-3"><img src="${item.imgs || ''}" class="w-10 h-10 object-cover rounded" onerror="this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';"></td>
+          <td class="p-3 font-medium">${item.name}</td>
+          <td class="p-3"><span class="text-xs bg-pink-50 text-sweet-darkPink font-bold px-2 py-1 rounded">${item.category}</span></td>
+          <td class="p-3 font-semibold">R$ ${item.price}</td>
           <td class="p-3 text-right space-x-2">
             <button onclick="window.openEditSweetModal('${item.id}')" class="text-blue-600 text-xs font-bold"><i class="fa-solid fa-pen"></i> Editar</button>
             <button onclick="window.deleteSweet('${item.id}')" class="text-red-500 text-xs font-bold"><i class="fa-solid fa-trash"></i> Excluir</button>
@@ -741,14 +770,14 @@
       let sweet = appData.sweets.find(s => String(s.id) === String(id));
       if (!sweet) return;
       document.getElementById('form-item-id').value = sweet.id;
-      document.getElementById('form-item-name').value = sweet.nome;
-      document.getElementById('form-item-category').value = sweet.categoria;
-      document.getElementById('form-item-price').value = sweet.preco;
-      document.getElementById('form-item-desc').value = sweet.descricao || "";
-      document.getElementById('form-item-img').value = sweet.imagens || "";
+      document.getElementById('form-item-name').value = sweet.name;
+      document.getElementById('form-item-category').value = sweet.category;
+      document.getElementById('form-item-price').value = sweet.price;
+      document.getElementById('form-item-desc').value = sweet.desc || "";
+      document.getElementById('form-item-img').value = sweet.imgs || "";
       document.getElementById('form-item-file').value = "";
-      if (sweet.imagens) {
-        document.getElementById('item-form-preview-img').src = sweet.imagens;
+      if (sweet.imgs) {
+        document.getElementById('item-form-preview-img').src = sweet.imgs;
         document.getElementById('item-form-preview-container').classList.remove('hidden');
       } else {
         document.getElementById('item-form-preview-container').classList.add('hidden');
