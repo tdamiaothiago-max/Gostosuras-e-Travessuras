@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "name": "Brigadeiro Tradicional",
+    "category": "Doce de Festa",
+    "price": "145,00",
+    "img": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "2",
+    "name": "Pipoca Gourmet Ninho",
+    "category": "Pipoca Gourmet",
+    "price": "12,00",
+    "img": "https://images.unsplash.com/photo-1578849278619-e73505e9610f?auto=format&fit=crop&w=400&q=80"
+  }
+]
