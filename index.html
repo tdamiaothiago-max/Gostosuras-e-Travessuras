@@ -82,7 +82,7 @@
       <div class="flex justify-between h-20 items-center">
         <a href="#" class="flex items-center gap-3 group">
           <div class="w-14 h-14 rounded-full border-2 border-sweet-darkPink p-0.5 bg-white shadow-sm flex items-center justify-center overflow-hidden group-hover:scale-105 transition">
-            <img id="main-logo-img" src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80" alt="Logo" class="w-full h-full object-cover rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';">
+            <img id="main-logo-img" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" alt="Logo" class="w-full h-full object-cover rounded-full" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80';">
           </div>
           <div>
             <span id="nav-store-name" class="text-xl sm:text-2xl font-bold font-title text-sweet-darkMoka tracking-tight block leading-tight">Gostosuras e Travessuras</span>
@@ -149,7 +149,7 @@
             </div>
             <div class="flex items-center gap-1.5 text-xs font-bold text-sweet-moka bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200">
               <i class="fa-solid fa-credit-card text-sweet-darkPink"></i>
-              <span>Cartão de Crédito via Link em até 11x</span>
+              <span>Cartão de Crédito via Link em até 11x <span class="font-normal text-[11px] opacity-90">(incluída uma pequena taxa)</span></span>
             </div>
           </div>
 
@@ -166,7 +166,7 @@
         <div class="relative flex flex-col justify-center items-center" id="hero-carousel-container">
           <div class="absolute -inset-4 bg-gradient-to-tr from-pink-200/40 to-teal-200/30 rounded-full blur-2xl -z-10 animate-pulse"></div>
           <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-white border-8 border-white shadow-2xl overflow-hidden relative group">
-            <img id="hero-carousel-img" src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover rounded-full transition-all duration-500 ease-in-out">
+            <img id="hero-carousel-img" src="https://images.unsplash.com/photo-1559553156-2e97137af16f?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover rounded-full transition-all duration-500 ease-in-out">
             <!-- Navigation arrows -->
             <button onclick="window.prevCarouselSlide(event)" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-lg active:scale-90 z-20">
               <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -226,7 +226,9 @@
               </label>
               <label class="flex-1 cursor-pointer">
                 <input type="radio" name="payment-method" value="Crédito via Link" onchange="window.updatePaymentMethod('Crédito via Link')" class="peer hidden">
-                <span class="block px-4 py-2 rounded-xl text-center peer-checked:bg-sweet-darkPink peer-checked:text-white bg-white text-gray-700 transition border border-gray-200 peer-checked:border-sweet-darkPink shadow-xs">Crédito</span>
+                <span class="block px-3.5 py-2 rounded-xl text-center peer-checked:bg-sweet-darkPink peer-checked:text-white bg-white text-gray-700 transition border border-gray-200 peer-checked:border-sweet-darkPink shadow-xs">
+                  <i class="fa-solid fa-credit-card mr-1 text-xs"></i> Crédito via Link em até 11x <span class="text-[11px] opacity-90 font-normal">(incluída uma pequena taxa)</span>
+                </span>
               </label>
             </div>
             <div id="payment-note" class="text-[10px] text-gray-500 mt-1.5 text-center font-medium">⚡ Pagamento instantâneo via chave PIX</div>
@@ -249,22 +251,113 @@
     </div>
   </section>
 
-  <!-- Sobre Nós -->
+  <!-- Sobre Nós & Como Fazer o Pedido -->
   <section id="sobre" class="bg-white py-16 sm:py-20 border-y border-pink-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <span class="text-sweet-darkPink font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 mb-2"><i class="fa-solid fa-sparkles"></i> Tradição & Carinho</span>
-          <h2 class="text-3xl sm:text-4xl font-title font-bold text-sweet-darkMoka mb-4">Adoçando Vidas Desde 2014</h2>
-          <p class="text-gray-700 leading-relaxed text-sm sm:text-base mb-4">
-            Sob o comando de <strong>Ana Gusmão</strong>, a <strong>Gostosuras e Travessuras</strong> é especializada em doces artesanais, pipocas gourmet crocantes e bolos decorados sob encomenda.
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <!-- Coluna da Esquerda: História & Tradição -->
+        <div class="lg:col-span-5 space-y-6">
+          <div>
+            <span class="text-sweet-darkPink font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 mb-2"><i class="fa-solid fa-sparkles"></i> Tradição & Confeitaria Artesanal</span>
+            <h2 class="text-3xl sm:text-4xl font-title font-bold text-sweet-darkMoka leading-tight">Adoçando Vidas Desde 2014 By Ana Gusmão</h2>
+          </div>
+          <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
+            Sob o comando e dedicação de <strong>Ana Gusmão</strong>, a <strong>Gostosuras e Travessuras</strong> é especializada em doces artesanais, pipocas gourmet crocantes e bolos decorados sob encomenda.
           </p>
-          <p class="text-gray-700 leading-relaxed text-sm sm:text-base mb-6">
+          <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
             Ingredientes nobres (Callebaut, Leite Ninho, coco fresco), produção higiênica e entrega pontual para fazer da sua festa uma celebração inesquecível.
           </p>
+
+          <div class="grid grid-cols-3 gap-3 pt-2">
+            <div class="bg-sweet-softPink p-3 rounded-2xl border border-pink-100 text-center">
+              <div class="w-8 h-8 rounded-xl bg-pink-100 text-sweet-darkPink flex items-center justify-center mx-auto mb-1.5"><i class="fa-solid fa-award"></i></div>
+              <h4 class="text-xs font-bold text-sweet-darkMoka">Chocolates</h4>
+              <p class="text-[10px] text-gray-500">Callebaut nobre</p>
+            </div>
+            <div class="bg-sweet-softPink p-3 rounded-2xl border border-pink-100 text-center">
+              <div class="w-8 h-8 rounded-xl bg-pink-100 text-sweet-darkPink flex items-center justify-center mx-auto mb-1.5"><i class="fa-solid fa-clock"></i></div>
+              <h4 class="text-xs font-bold text-sweet-darkMoka">100% Frescos</h4>
+              <p class="text-[10px] text-gray-500">Enrolados no dia</p>
+            </div>
+            <div class="bg-sweet-softPink p-3 rounded-2xl border border-pink-100 text-center">
+              <div class="w-8 h-8 rounded-xl bg-pink-100 text-sweet-darkPink flex items-center justify-center mx-auto mb-1.5"><i class="fa-solid fa-heart"></i></div>
+              <h4 class="text-xs font-bold text-sweet-darkMoka">10+ Anos</h4>
+              <p class="text-[10px] text-gray-500">Amor por adoçar</p>
+            </div>
+          </div>
         </div>
-        <div class="rounded-3xl overflow-hidden shadow-xl border-4 border-white">
-          <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=700&q=80" alt="Doces artesanais" class="w-full h-80 object-cover">
+
+        <!-- Coluna da Direita: COMO FAZER O PEDIDO (Substitui foto do gato) -->
+        <div class="lg:col-span-7">
+          <div class="bg-gradient-to-br from-sweet-softPink to-white rounded-3xl p-6 sm:p-8 border-2 border-pink-200/80 shadow-xl relative overflow-hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-pink-200">
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-sweet-darkPink bg-white px-3 py-1 rounded-full border border-pink-200 inline-block mb-1 shadow-xs">
+                  Passo a Passo
+                </span>
+                <h3 class="text-2xl sm:text-3xl font-title font-bold text-sweet-darkMoka">
+                  Como Fazer o Seu Pedido
+                </h3>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs font-bold text-teal-800 bg-teal-50 px-3 py-1.5 rounded-xl border border-teal-200 self-start sm:self-auto">
+                <i class="fa-solid fa-calendar-check text-teal-600"></i>
+                <span>Produção Sob Encomenda</span>
+              </div>
+            </div>
+
+            <!-- 4 Passos -->
+            <div class="grid sm:grid-cols-2 gap-4 mb-6">
+              <div class="bg-white p-4 rounded-2xl border border-pink-100 shadow-xs flex items-start gap-3.5 hover:border-pink-300 transition">
+                <div class="w-9 h-9 rounded-xl bg-sweet-darkPink text-white font-title font-bold flex items-center justify-center shrink-0 shadow-sm text-sm">1</div>
+                <div>
+                  <h4 class="font-bold text-sm text-sweet-darkMoka mb-1">Escolha os Sabores</h4>
+                  <p class="text-xs text-gray-600 leading-relaxed">Navegue pelo cardápio com brigadeiros gourmet, pipocas e bolos.</p>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-pink-100 shadow-xs flex items-start gap-3.5 hover:border-pink-300 transition">
+                <div class="w-9 h-9 rounded-xl bg-sweet-teal text-white font-title font-bold flex items-center justify-center shrink-0 shadow-sm text-sm">2</div>
+                <div>
+                  <h4 class="font-bold text-sm text-sweet-darkMoka mb-1">Monte seu Orçamento</h4>
+                  <p class="text-xs text-gray-600 leading-relaxed">Defina as quantidades na calculadora (mínimo de 25 un por sabor em doces de festa).</p>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-pink-100 shadow-xs flex items-start gap-3.5 hover:border-pink-300 transition">
+                <div class="w-9 h-9 rounded-xl bg-[#25D366] text-white font-title font-bold flex items-center justify-center shrink-0 shadow-sm text-sm">3</div>
+                <div>
+                  <h4 class="font-bold text-sm text-sweet-darkMoka mb-1">Envie no WhatsApp</h4>
+                  <p class="text-xs text-gray-600 leading-relaxed">Com um clique, sua lista completa de doces e data é enviada para a Ana Gusmão.</p>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-pink-100 shadow-xs flex items-start gap-3.5 hover:border-pink-300 transition">
+                <div class="w-9 h-9 rounded-xl bg-sweet-moka text-white font-title font-bold flex items-center justify-center shrink-0 shadow-sm text-sm">4</div>
+                <div>
+                  <h4 class="font-bold text-sm text-sweet-darkMoka mb-1">Confirmação & Pagamento</h4>
+                  <p class="text-xs text-gray-600 leading-relaxed">Pague no PIX ou parcele em até 11x no Cartão via link (incluída uma pequena taxa).</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Banner Informativo de Prazo -->
+            <div class="bg-sweet-cream border border-amber-200/80 rounded-2xl p-4 mb-6 text-xs text-gray-700 flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0"><i class="fa-solid fa-clock"></i></div>
+              <div class="leading-snug">
+                <strong class="text-sweet-darkMoka">Antecedência Recomendada:</strong> Pedidos com <span class="font-bold text-sweet-darkPink">3 a 5 dias de antecedência</span> para garantir vaga na agenda de produção artesanal.
+              </div>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="flex flex-col sm:flex-row items-center gap-3">
+              <a href="#" id="sobre-btn-pedir" onclick="location.href=document.getElementById('nav-btn-whatsapp').href; return false;" class="w-full sm:w-auto flex-1 bg-sweet-darkPink hover:bg-pink-600 active:scale-95 text-white font-bold py-3.5 px-6 rounded-2xl shadow-md transition flex items-center justify-center gap-2 text-xs sm:text-sm cursor-pointer">
+                <i class="fa-brands fa-whatsapp text-base"></i> Fazer Pedido com a Confeiteira
+              </a>
+              <a href="#cardapio" class="w-full sm:w-auto bg-white hover:bg-pink-50 text-sweet-darkMoka font-bold py-3.5 px-6 rounded-2xl border border-pink-200 transition text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-xs">
+                <span>Ver Cardápio Completo</span> <i class="fa-solid fa-chevron-right text-xs text-sweet-darkPink"></i>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -519,7 +612,7 @@
         categoria: "Doce de Festa",
         preco: "145,00",
         descricao: "Feito com autêntico chocolate nobre belga e envolto em splits crocantes de puro chocolate.",
-        imagens: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80"
+        imagens: "https://images.unsplash.com/photo-1559553156-2e97137af16f?auto=format&fit=crop&w=600&q=80"
       },
       {
         id: "d2",
@@ -589,7 +682,7 @@
 
     let appData = {
       adminPin: "Ana123",
-      logoUrl: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80",
+      logoUrl: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80",
       whatsapp: "5511985063638",
       igLink: "https://www.instagram.com/gostosuras.e.travessuras/",
       fbLink: "https://www.facebook.com/doces.gostosuras.e.travessuras",
@@ -641,7 +734,7 @@
                 categoria: item.categoria || 'Doce de Festa',
                 preco: item.preco || '145,00',
                 descricao: item.descricao || '',
-                imagens: item.imagens || 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80'
+                imagens: item.imagens || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80'
               });
             }
           });
@@ -754,7 +847,7 @@
       const categoria = document.getElementById('form-item-category').value;
       let preco = document.getElementById('form-item-price').value.trim();
       const descricao = document.getElementById('form-item-desc').value.trim();
-      const imagens = document.getElementById('form-item-img').value.trim() || 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';
+      const imagens = document.getElementById('form-item-img').value.trim() || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80';
       const imagem2 = (document.getElementById('form-item-img2')?.value || '').trim();
       const imagem3 = (document.getElementById('form-item-img3')?.value || '').trim();
 
@@ -844,7 +937,7 @@
     };
 
     window.renderPage = function() {
-      document.getElementById('main-logo-img').src = appData.logoUrl || 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80';
+      document.getElementById('main-logo-img').src = appData.logoUrl || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80';
       const cleanWa = (appData.whatsapp || '').replace(/\D/g, '') || '5511985063638';
       const waUrl = `https://wa.me/${cleanWa}?text=Olá!%20Gostaria%20de%20fazer%20uma%20encomenda!`;
 
@@ -883,7 +976,7 @@
       document.getElementById('sweets-grid').innerHTML = filtered.map(sweet => {
         const rawImgs = [sweet.imagens, sweet.imagem2, sweet.imagem3, ...(Array.isArray(sweet.fotos) ? sweet.fotos : [])];
         const imgs = rawImgs.filter((u, idx, arr) => Boolean(u) && arr.indexOf(u) === idx);
-        if (imgs.length === 0) imgs.push('https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80');
+        if (imgs.length === 0) imgs.push('https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80');
 
         const activeImgIdx = (window.cardPhotoIndexes[sweet.id] || 0) % imgs.length;
         const currentImg = imgs[activeImgIdx];
@@ -1057,7 +1150,7 @@
 
     window.updatePaymentMethod = function(m) {
       selectedPaymentMethod = m;
-      document.getElementById('payment-note').innerText = m === 'PIX' ? '⚡ Pagamento instantâneo via chave PIX' : '💳 Parcele com facilidade pelo link em até 11x';
+      document.getElementById('payment-note').innerText = m === 'PIX' ? '⚡ Pagamento instantâneo via chave PIX' : '💳 Parcele com facilidade pelo link em até 11x (incluída uma pequena taxa)';
     };
 
     window.sendCalcOrderToWhatsApp = function() {
@@ -1073,7 +1166,8 @@
           text += `• ${sweet.nome}: ${calcCart[id]} un\n`;
         }
       });
-      text += `\n💳 *Pagamento:* ${selectedPaymentMethod}\n\nGostaria de confirmar a disponibilidade para minha encomenda! Obrigado(a)!`;
+      const paymentDisplay = selectedPaymentMethod === 'Crédito via Link' ? 'Cartão de Crédito via Link (incluída uma pequena taxa)' : selectedPaymentMethod;
+      text += `\n💳 *Pagamento:* ${paymentDisplay}\n\nGostaria de confirmar a disponibilidade para minha encomenda! Obrigado(a)!`;
 
       const cleanWa = (appData.whatsapp || '').replace(/\D/g, '') || '5511985063638';
       window.open(`https://wa.me/${cleanWa}?text=` + encodeURIComponent(text), '_blank');
@@ -1234,7 +1328,7 @@
           });
         });
       });
-      return items.length > 0 ? items : [{ img: appData.logoUrl || 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80', name: appData.storeName || 'Gostosuras e Travessuras', cat: 'Doces Finos' }];
+      return items.length > 0 ? items : [{ img: appData.logoUrl || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80', name: appData.storeName || 'Gostosuras e Travessuras', cat: 'Doces Finos' }];
     }
 
     function updateCarouselUI() {
