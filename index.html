@@ -237,6 +237,27 @@
 
         <div id="calc-items-list" class="space-y-3 mb-6 min-h-[90px]"></div>
 
+        <div class="grid sm:grid-cols-2 gap-4 mb-6 pt-4 border-t border-pink-100">
+          <div>
+            <label for="calc-customer-name" class="block text-[11px] font-bold uppercase text-gray-600 mb-1">
+              Nome do Solicitante:
+            </label>
+            <input type="text" id="calc-customer-name" placeholder="Digite seu nome" class="w-full bg-sweet-softPink border border-pink-200 rounded-xl px-3.5 py-2.5 text-xs text-sweet-dark outline-none focus:ring-1 focus:ring-sweet-darkPink">
+          </div>
+          <div>
+            <label for="calc-delivery-date" class="block text-[11px] font-bold uppercase text-gray-600 mb-1">
+              Data de Entrega: <span class="normal-case font-semibold text-sweet-darkPink">(Observação: Sujeito a análise)</span>
+            </label>
+            <input type="text" id="calc-delivery-date" placeholder="Ex: 25/12/2026" class="w-full bg-sweet-softPink border border-pink-200 rounded-xl px-3.5 py-2.5 text-xs text-sweet-dark outline-none focus:ring-1 focus:ring-sweet-darkPink">
+          </div>
+          <div class="sm:col-span-2">
+            <label for="calc-order-notes" class="block text-[11px] font-bold uppercase text-gray-600 mb-1">
+              Observações:
+            </label>
+            <textarea id="calc-order-notes" rows="2" placeholder="Informe detalhes adicionais, cores das forminhas, horário desejado ou dúvidas..." class="w-full bg-sweet-softPink border border-pink-200 rounded-xl px-3.5 py-2.5 text-xs text-sweet-dark outline-none focus:ring-1 focus:ring-sweet-darkPink resize-none"></textarea>
+          </div>
+        </div>
+
         <div class="bg-sweet-softPink p-5 sm:p-6 rounded-2xl border border-pink-200 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div>
             <div class="text-xs text-gray-600 font-semibold">Total Estimado</div>
@@ -272,7 +293,7 @@
             <div class="bg-sweet-softPink p-3 rounded-2xl border border-pink-100 text-center">
               <div class="w-8 h-8 rounded-xl bg-pink-100 text-sweet-darkPink flex items-center justify-center mx-auto mb-1.5"><i class="fa-solid fa-award"></i></div>
               <h4 class="text-xs font-bold text-sweet-darkMoka">Chocolates</h4>
-              <p class="text-[10px] text-gray-500"></p>
+              <p class="text-[10px] text-gray-500">Callebaut nobre</p>
             </div>
             <div class="bg-sweet-softPink p-3 rounded-2xl border border-pink-100 text-center">
               <div class="w-8 h-8 rounded-xl bg-pink-100 text-sweet-darkPink flex items-center justify-center mx-auto mb-1.5"><i class="fa-solid fa-clock"></i></div>
@@ -344,7 +365,7 @@
             <div class="bg-sweet-cream border border-amber-200/80 rounded-2xl p-4 mb-6 text-xs text-gray-700 flex items-center gap-3">
               <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0"><i class="fa-solid fa-clock"></i></div>
               <div class="leading-snug">
-                <strong class="text-sweet-darkMoka">Antecedência Recomendada:</strong> Pedidos com <span class="font-bold text-sweet-darkPink">3 a 15 dias de antecedência</span> para garantir vaga na agenda de produção artesanal.
+                <strong class="text-sweet-darkMoka">Antecedência Recomendada:</strong> Pedidos com <span class="font-bold text-sweet-darkPink">3 a 5 dias de antecedência</span> para garantir vaga na agenda de produção artesanal.
               </div>
             </div>
 
@@ -483,7 +504,7 @@
           <i class="fa-solid fa-lock text-3xl"></i>
         </div>
         <h4 class="font-bold font-title text-sweet-darkMoka text-xl mb-1">Acesso Restrito</h4>
-        <p class="text-xs text-gray-500 mb-6">Digite a senha de administrador ():</p>
+        <p class="text-xs text-gray-500 mb-6">Digite a senha de administrador (padrão: Ana123):</p>
         <input type="password" id="admin-pin" placeholder="Senha" class="w-full text-center text-xl font-bold tracking-widest bg-sweet-softPink border border-pink-200 rounded-2xl p-3 mb-4 outline-none focus:border-sweet-darkPink">
         <button onclick="window.checkAdminPin()" class="w-full bg-sweet-darkPink hover:bg-pink-600 text-white font-bold py-3.5 rounded-2xl transition shadow-md">Entrar no Painel</button>
       </div>
@@ -1426,7 +1447,16 @@
 
       try { confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } }); } catch (e) {}
 
-      let text = `Olá, Ana Gusmão! 👋\nMontei meu orçamento pelo site da Gostosuras e Travessuras:\n\n📦 *ITENS ESCOLHIDOS:*\n`;
+      const customerName = (document.getElementById('calc-customer-name')?.value || '').trim();
+      const deliveryDate = (document.getElementById('calc-delivery-date')?.value || '').trim();
+      const orderNotes = (document.getElementById('calc-order-notes')?.value || '').trim();
+
+      let text = `Olá, Ana Gusmão! 👋\nMontei meu orçamento pelo site da Gostosuras e Travessuras:\n\n`;
+      if (customerName) text += `👤 *Nome do Solicitante:* ${customerName}\n`;
+      if (deliveryDate) text += `📅 *Data de Entrega (Sujeito a análise):* ${deliveryDate}\n`;
+      if (customerName || deliveryDate) text += `\n`;
+
+      text += `📦 *ITENS ESCOLHIDOS:*\n`;
       keys.forEach(id => {
         const sweet = appData.sweets.find(s => String(s.id) === String(id));
         if (sweet) {
@@ -1434,7 +1464,9 @@
         }
       });
       const paymentDisplay = selectedPaymentMethod === 'Crédito via Link' ? 'Cartão de Crédito via Link (incluída uma pequena taxa)' : selectedPaymentMethod;
-      text += `\n💳 *Pagamento:* ${paymentDisplay}\n\nGostaria de confirmar a disponibilidade para minha encomenda! Obrigado(a)!`;
+      text += `\n💳 *Pagamento:* ${paymentDisplay}\n`;
+      if (orderNotes) text += `\n💬 *Observações:* ${orderNotes}\n`;
+      text += `\nGostaria de confirmar a disponibilidade para minha encomenda! Obrigado(a)!`;
 
       const cleanWa = (appData.whatsapp || '').replace(/\D/g, '') || '5511985063638';
       window.open(`https://wa.me/${cleanWa}?text=` + encodeURIComponent(text), '_blank');
