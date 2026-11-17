@@ -293,12 +293,12 @@
             <div class="bg-sweet-softPink p-3 rounded-2xl border border-pink-100 text-center">
               <div class="w-8 h-8 rounded-xl bg-pink-100 text-sweet-darkPink flex items-center justify-center mx-auto mb-1.5"><i class="fa-solid fa-award"></i></div>
               <h4 class="text-xs font-bold text-sweet-darkMoka">Chocolates</h4>
-              <p class="text-[10px] text-gray-500"></p>
+              <p class="text-[10px] text-gray-500">Callebaut nobre</p>
             </div>
             <div class="bg-sweet-softPink p-3 rounded-2xl border border-pink-100 text-center">
               <div class="w-8 h-8 rounded-xl bg-pink-100 text-sweet-darkPink flex items-center justify-center mx-auto mb-1.5"><i class="fa-solid fa-clock"></i></div>
               <h4 class="text-xs font-bold text-sweet-darkMoka">100% Frescos</h4>
-              <p class="text-[10px] text-gray-500"></p>
+              <p class="text-[10px] text-gray-500">Enrolados no dia</p>
             </div>
             <div class="bg-sweet-softPink p-3 rounded-2xl border border-pink-100 text-center">
               <div class="w-8 h-8 rounded-xl bg-pink-100 text-sweet-darkPink flex items-center justify-center mx-auto mb-1.5"><i class="fa-solid fa-heart"></i></div>
@@ -365,7 +365,7 @@
             <div class="bg-sweet-cream border border-amber-200/80 rounded-2xl p-4 mb-6 text-xs text-gray-700 flex items-center gap-3">
               <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0"><i class="fa-solid fa-clock"></i></div>
               <div class="leading-snug">
-                <strong class="text-sweet-darkMoka">Antecedência Recomendada:</strong> Pedidos com <span class="font-bold text-sweet-darkPink">3 a 15 dias de antecedência</span> para garantir vaga na agenda de produção artesanal.
+                <strong class="text-sweet-darkMoka">Antecedência Recomendada:</strong> Pedidos com <span class="font-bold text-sweet-darkPink">3 a 5 dias de antecedência</span> para garantir vaga na agenda de produção artesanal.
               </div>
             </div>
 
@@ -504,7 +504,7 @@
           <i class="fa-solid fa-lock text-3xl"></i>
         </div>
         <h4 class="font-bold font-title text-sweet-darkMoka text-xl mb-1">Acesso Restrito</h4>
-        <p class="text-xs text-gray-500 mb-6">Digite a senha de administrador ():</p>
+        <p class="text-xs text-gray-500 mb-6">Digite a senha de administrador (padrão: Ana123):</p>
         <input type="password" id="admin-pin" placeholder="Senha" class="w-full text-center text-xl font-bold tracking-widest bg-sweet-softPink border border-pink-200 rounded-2xl p-3 mb-4 outline-none focus:border-sweet-darkPink">
         <button onclick="window.checkAdminPin()" class="w-full bg-sweet-darkPink hover:bg-pink-600 text-white font-bold py-3.5 rounded-2xl transition shadow-md">Entrar no Painel</button>
       </div>
@@ -529,20 +529,26 @@
               <p class="text-xs text-gray-500 mt-0.5">Adicione ou edite doces. As alterações ficam salvas de forma permanente.</p>
             </div>
             <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-              <button onclick="window.exportMenuBackup()" class="bg-white hover:bg-pink-50 text-sweet-darkMoka text-xs font-bold px-3 py-2 rounded-xl border border-pink-200 flex items-center gap-1.5 shadow-2xs transition" title="Baixar arquivo JSON de backup com todos os doces e fotos">
-                <i class="fa-solid fa-download text-sweet-darkPink"></i> Backup JSON
+              <button onclick="window.downloadCardapioJson()" class="bg-white hover:bg-pink-50 text-sweet-darkMoka text-xs font-bold px-3 py-2 rounded-xl border border-pink-200 flex items-center gap-1.5 shadow-2xs transition" title="Baixar arquivo cardapio.json para subir no GitHub e atualizar todos os clientes">
+                <i class="fa-solid fa-file-code text-sweet-darkPink"></i> Baixar cardapio.json
               </button>
               <label class="bg-white hover:bg-pink-50 text-sweet-darkMoka text-xs font-bold px-3 py-2 rounded-xl border border-pink-200 flex items-center gap-1.5 shadow-2xs cursor-pointer transition" title="Restaurar backup JSON">
                 <i class="fa-solid fa-upload text-sweet-teal"></i> Restaurar
                 <input type="file" accept=".json" onchange="window.importMenuBackup(event)" class="hidden">
               </label>
-              <button onclick="window.downloadUpdatedIndexHtml()" class="bg-white hover:bg-pink-50 text-sweet-darkMoka text-xs font-bold px-3 py-2 rounded-xl border border-pink-200 flex items-center gap-1.5 shadow-2xs transition" title="Baixar index.html atualizado para subir no GitHub">
-                <i class="fa-brands fa-github text-gray-800"></i> Baixar p/ GitHub
+              <button onclick="window.downloadUpdatedIndexHtml()" class="bg-white hover:bg-pink-50 text-sweet-darkMoka text-xs font-bold px-3 py-2 rounded-xl border border-pink-200 flex items-center gap-1.5 shadow-2xs transition" title="Baixar index.html completo atualizado para subir no GitHub">
+                <i class="fa-brands fa-github text-gray-800"></i> Baixar index.html
               </button>
               <button onclick="window.openAddSweetModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-sm active:scale-95 transition ml-auto sm:ml-0">
                 <i class="fa-solid fa-plus"></i> Adicionar Item
               </button>
             </div>
+          </div>
+          <div class="bg-amber-50 border border-amber-200 text-amber-900 rounded-2xl px-4 py-2.5 text-xs flex items-start gap-2.5">
+            <i class="fa-solid fa-circle-info text-amber-600 mt-0.5 shrink-0"></i>
+            <span>
+              <strong>Como publicar para todos os clientes no GitHub:</strong> Suas alterações aqui ficam salvas imediatamente neste navegador. Para que <strong>todas as pessoas</strong> vejam as novidades em <em>github.io</em>, clique em <strong>Baixar cardapio.json</strong> (ou <strong>Baixar index.html</strong>) e envie o arquivo no seu repositório do GitHub.
+            </span>
           </div>
           <div class="overflow-x-auto border border-pink-100 rounded-2xl bg-white shadow-xs">
             <table class="w-full text-left text-xs sm:text-sm">
@@ -643,6 +649,7 @@
     const { createClient } = supabase;
     const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    // __DEFAULT_SWEETS_START__
     const DEFAULT_SWEETS = [
       {
         id: "d1",
@@ -717,8 +724,12 @@
         imagens: "https://images.unsplash.com/photo-1548848221-0c2e497ed557?auto=format&fit=crop&w=600&q=80"
       }
     ];
+    // __DEFAULT_SWEETS_END__
 
-    let appData = {
+    const CATALOG_VERSION = "2026-11-17T15:00:00Z";
+
+    // __DEFAULT_SETTINGS_START__
+    const DEFAULT_SETTINGS = {
       adminPin: "Ana123",
       logoUrl: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80",
       whatsapp: "5511985063638",
@@ -730,7 +741,12 @@
         badge: "Edição Limitada / Período Festivo",
         title: "Cardápio Especial de Fim de Ano & Festas",
         desc: "Docinhos temáticos exclusivos criados especialmente para celebrar suas festas com muito sabor!"
-      },
+      }
+    };
+    // __DEFAULT_SETTINGS_END__
+
+    let appData = {
+      ...DEFAULT_SETTINGS,
       sweets: []
     };
 
@@ -795,10 +811,12 @@
       }
     }
 
-    // Load data from Server -> IndexedDB -> LocalStorage -> DEFAULT_SWEETS
+    // Load data from Server -> Remote GitHub cardapio.json / Newer CATALOG_VERSION -> IndexedDB -> LocalStorage -> DEFAULT_SWEETS
     async function initData() {
       let loadedSweets = null;
       let loadedSettings = null;
+      const localEditedAt = localStorage.getItem('gostosuras_admin_edited_at') || '';
+      const cachedVersion = localStorage.getItem('gostosuras_catalog_version') || '';
 
       // 1. Try server endpoint first (when hosted with Node/Vite backend)
       try {
@@ -816,7 +834,51 @@
         // Server not running or static GitHub Pages - graceful fallback
       }
 
-      // 2. If no server data, read from IndexedDB (huge capacity, no quota limit)
+      // 2. Try fetching ./cardapio.json directly from GitHub Pages (cache-busted so visitors always get updates)
+      let remoteJsonSweets = null;
+      let remoteJsonSettings = null;
+      let remoteJsonVersion = '';
+      if (!loadedSweets) {
+        try {
+          const resJson = await fetch('./cardapio.json?v=' + Date.now(), { cache: 'no-store' });
+          if (resJson.ok) {
+            const parsedJson = await resJson.json();
+            if (Array.isArray(parsedJson)) {
+              if (parsedJson.length > 0) remoteJsonSweets = parsedJson;
+            } else if (parsedJson && typeof parsedJson === 'object') {
+              if (Array.isArray(parsedJson.sweets) && parsedJson.sweets.length > 0) {
+                remoteJsonSweets = parsedJson.sweets;
+              }
+              if (parsedJson.settings && typeof parsedJson.settings === 'object') {
+                remoteJsonSettings = parsedJson.settings;
+              }
+              remoteJsonVersion = parsedJson.exportDate || parsedJson.version || '';
+            }
+          }
+        } catch (e) {
+          // cardapio.json absent or offline - ignore
+        }
+      }
+
+      // Determine published version vs local admin edits
+      const newestPublishedVersion = remoteJsonVersion > CATALOG_VERSION ? remoteJsonVersion : CATALOG_VERSION;
+      const hasNewerPublishedCatalog = Boolean(newestPublishedVersion) && newestPublishedVersion > cachedVersion && newestPublishedVersion > localEditedAt;
+
+      if (!loadedSweets && hasNewerPublishedCatalog) {
+        // Visitor has old cached data or first visit after a GitHub update -> always refresh to published version!
+        if (remoteJsonSweets && (!CATALOG_VERSION || remoteJsonVersion >= CATALOG_VERSION)) {
+          loadedSweets = remoteJsonSweets;
+          if (remoteJsonSettings) loadedSettings = remoteJsonSettings;
+        } else {
+          loadedSweets = [...DEFAULT_SWEETS];
+          loadedSettings = { ...DEFAULT_SETTINGS };
+        }
+        try {
+          localStorage.setItem('gostosuras_catalog_version', newestPublishedVersion);
+        } catch (e) {}
+      }
+
+      // 3. Otherwise read from IndexedDB (preserves local Admin edits)
       if (!loadedSweets) {
         try {
           const idbSweets = await idbGet('gostosuras_sweets');
@@ -835,7 +897,7 @@
         } catch (e) {}
       }
 
-      // 3. Fallback to LocalStorage
+      // 4. Fallback to LocalStorage
       if (!loadedSweets) {
         try {
           const lsSweets = localStorage.getItem('gostosuras_sweets');
@@ -857,17 +919,29 @@
         } catch (e) {}
       }
 
-      // 4. Apply loaded values or defaults
+      // 5. Fallback to remote cardapio.json or DEFAULT_SWEETS if nothing in browser storage yet
+      if (!loadedSweets) {
+        if (remoteJsonSweets) {
+          loadedSweets = remoteJsonSweets;
+          if (!loadedSettings && remoteJsonSettings) loadedSettings = remoteJsonSettings;
+        } else {
+          loadedSweets = [...DEFAULT_SWEETS];
+        }
+      }
+
+      // 6. Apply loaded values or defaults
       if (loadedSettings) {
         appData = { ...appData, ...loadedSettings };
       }
-      if (loadedSweets && loadedSweets.length > 0) {
-        appData.sweets = loadedSweets;
-      } else {
-        appData.sweets = [...DEFAULT_SWEETS];
-      }
+      appData.sweets = loadedSweets;
 
-      // 5. Ensure saved into both IndexedDB and LocalStorage for future loads
+      try {
+        if (!localStorage.getItem('gostosuras_catalog_version')) {
+          localStorage.setItem('gostosuras_catalog_version', newestPublishedVersion);
+        }
+      } catch (e) {}
+
+      // 7. Ensure saved into both IndexedDB and LocalStorage for future loads
       await window.saveDataLocally();
 
       window.renderPage();
@@ -1057,6 +1131,7 @@
       }
 
       // 1. Permanent local save (IndexedDB + LocalStorage)
+      try { localStorage.setItem('gostosuras_admin_edited_at', new Date().toISOString()); } catch (e) {}
       await window.saveDataLocally();
       window.renderPage();
       window.renderAdminSweetsTable();
@@ -1118,6 +1193,7 @@
         desc: document.getElementById('edit-folder-desc').value.trim()
       };
 
+      try { localStorage.setItem('gostosuras_admin_edited_at', new Date().toISOString()); } catch (e) {}
       await window.saveDataLocally();
       window.renderPage();
 
@@ -1139,6 +1215,7 @@
       if (confirm(`Tem certeza que deseja excluir "${nomeItem}"?`)) {
         appData.sweets = appData.sweets.filter(s => String(s.id) !== String(id));
         delete calcCart[id];
+        try { localStorage.setItem('gostosuras_admin_edited_at', new Date().toISOString()); } catch (e) {}
         await window.saveDataLocally();
         window.renderPage();
         window.renderAdminSweetsTable();
@@ -1180,6 +1257,32 @@
       URL.revokeObjectURL(url);
     };
 
+    window.downloadCardapioJson = function() {
+      const exportDate = new Date().toISOString();
+      const payload = {
+        settings: {
+          adminPin: appData.adminPin,
+          logoUrl: appData.logoUrl,
+          whatsapp: appData.whatsapp,
+          igLink: appData.igLink,
+          fbLink: appData.fbLink,
+          seasonalConfig: appData.seasonalConfig
+        },
+        sweets: appData.sweets,
+        exportDate
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'cardapio.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      alert('✅ Arquivo cardapio.json gerado!\n\nAgora suba este arquivo no seu repositório do GitHub (substituindo o cardapio.json atual) para que TODAS as pessoas que acessarem o site vejam seus novos doces, fotos e logotipo!');
+    };
+
     window.importMenuBackup = function(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -1187,12 +1290,17 @@
       reader.onload = async (e) => {
         try {
           const json = JSON.parse(e.target.result);
-          if (Array.isArray(json.sweets)) {
-            appData.sweets = json.sweets;
+          if (Array.isArray(json)) {
+            appData.sweets = json;
+          } else {
+            if (Array.isArray(json.sweets)) {
+              appData.sweets = json.sweets;
+            }
+            if (json.settings) {
+              appData = { ...appData, ...json.settings };
+            }
           }
-          if (json.settings) {
-            appData = { ...appData, ...json.settings };
-          }
+          try { localStorage.setItem('gostosuras_admin_edited_at', new Date().toISOString()); } catch (err) {}
           await window.saveDataLocally();
           window.renderPage();
           window.renderAdminSweetsTable();
@@ -1206,12 +1314,46 @@
     };
 
     window.downloadUpdatedIndexHtml = function() {
-      let html = document.documentElement.outerHTML;
+      // Clone document cleanly so open modals or transient DOM state are not exported
+      const clone = document.documentElement.cloneNode(true);
+      const adminModal = clone.querySelector('#admin-modal');
+      if (adminModal) adminModal.classList.add('hidden');
+      const itemFormModal = clone.querySelector('#item-form-modal');
+      if (itemFormModal) itemFormModal.classList.add('hidden');
+      const loginView = clone.querySelector('#admin-login-view');
+      if (loginView) loginView.classList.remove('hidden');
+      const contentView = clone.querySelector('#admin-content-view');
+      if (contentView) contentView.classList.add('hidden');
+      const pinInput = clone.querySelector('#admin-pin');
+      if (pinInput) pinInput.setAttribute('value', '');
+      ['sweets-grid', 'category-tabs', 'calc-items-list', 'admin-sweets-table-body'].forEach(id => {
+        const el = clone.querySelector('#' + id);
+        if (el) el.innerHTML = '';
+      });
+
+      let html = clone.outerHTML;
+      const newVersion = new Date().toISOString();
       const sweetsCode = JSON.stringify(appData.sweets, null, 2);
-      const regex = /const DEFAULT_SWEETS = \[[\s\S]*?\];/;
-      if (regex.test(html)) {
-        html = html.replace(regex, `const DEFAULT_SWEETS = ${sweetsCode};`);
-      }
+      const settingsObj = {
+        adminPin: appData.adminPin,
+        logoUrl: appData.logoUrl,
+        whatsapp: appData.whatsapp,
+        igLink: appData.igLink,
+        fbLink: appData.fbLink,
+        seasonalConfig: appData.seasonalConfig
+      };
+      const settingsCode = JSON.stringify(settingsObj, null, 2);
+
+      html = html.replace(/const CATALOG_VERSION = ".*?";/, `const CATALOG_VERSION = "${newVersion}";`);
+      html = html.replace(
+        /\/\/ __DEFAULT_SWEETS_START__[\s\S]*?\/\/ __DEFAULT_SWEETS_END__/,
+        `// __DEFAULT_SWEETS_START__\n    const DEFAULT_SWEETS = ${sweetsCode};\n    // __DEFAULT_SWEETS_END__`
+      );
+      html = html.replace(
+        /\/\/ __DEFAULT_SETTINGS_START__[\s\S]*?\/\/ __DEFAULT_SETTINGS_END__/,
+        `// __DEFAULT_SETTINGS_START__\n    const DEFAULT_SETTINGS = ${settingsCode};\n    // __DEFAULT_SETTINGS_END__`
+      );
+
       const blob = new Blob(["<!DOCTYPE html>\n" + html], { type: 'text/html;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -1221,7 +1363,7 @@
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      alert('✅ Arquivo index.html gerado com todos os seus novos doces e fotos pré-instalados! Substitua-o no seu repositório do GitHub (pasta raiz) para que todos os seus visitantes vejam as novidades.');
+      alert('✅ Arquivo index.html completo gerado com suas novas fotos, doces e logotipo!\n\nEnvie-o para o GitHub substituindo o index.html atual para que todos os visitantes vejam a versão nova.');
     };
 
     window.renderPage = function() {
